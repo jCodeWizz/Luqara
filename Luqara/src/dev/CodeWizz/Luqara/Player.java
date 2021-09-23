@@ -140,8 +140,6 @@ public class Player {
 	}
 
 	public void render(GameContainer gc, Renderer r) {
-		r.fillRect((int) x, (int) y, (int) w, (int) h, 0xffffffff, Light.NONE);
-		
 		if(velX != 0) {
 			r.drawImage(walkAnim.getFrame(), (int)x-8, (int)y-8);
 		} else
