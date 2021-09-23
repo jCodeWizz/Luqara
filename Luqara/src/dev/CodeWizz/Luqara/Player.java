@@ -39,17 +39,17 @@ public class Player {
 	private float _accj = 0.1f;
 	private float _dccj = 0.1f;
 	private final float maxMovementSpeed = 1.5f;
-	
+
 	private int slot = 0;
 
-	
+	private boolean hitting = false;
+
 	static GameObject obj = null;
 
-
 	private PlayerInventory inv;
-	
+
 	private Animation walkAnim;
-	
+
 	private float x, y, w, h, velX, velY;
 	private boolean jumping, falling;
 	private final int maxVelY = 15;
@@ -69,8 +69,9 @@ public class Player {
 
 		light = new Light(150, 0xffe6bc05);
 
-		walkAnim = new Animation(5, Textures.get("playerRun1"), Textures.get("playerRun2"), Textures.get("playerRun3"), Textures.get("playerRun4"), Textures.get("playerRun5"), Textures.get("playerRun6"));
-		
+		walkAnim = new Animation(7, Textures.get("playerRun1"), Textures.get("playerRun2"), Textures.get("playerRun3"),
+				Textures.get("playerRun4"), Textures.get("playerRun5"), Textures.get("playerRun6"));
+
 		inv = new PlayerInventory(gc, 16);
 
 		inv.addItem(new WoodLog(1));
@@ -94,7 +95,7 @@ public class Player {
 				velY = maxVelY;
 			}
 		}
-		
+
 		walkAnim.tick();
 
 		// MOVEMENT
@@ -112,14 +113,23 @@ public class Player {
 			jump();
 		}
 
-		if (gc.getInput().isButton(1)) {
-			for (GameObject object : gc.handler.object) {
-				if (object.getId() == ID.Balrups && object.getBounds()
-						.intersects(new Rectangle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 1, 1))) {
-					object.damage(gc, 2);
+		// ITEM HITTING ANIMATION
+		if (hitting) {
+			((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().tick();
+		}
+
+		if (((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().hasCycled()) {
+			hitting = false;
+		}
+
+			if (gc.getInput().isButton(1)) {
+				for (GameObject object : gc.handler.object) {
+					if (object.getId() == ID.Balrups && object.getBounds()
+							.intersects(new Rectangle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 1, 1))) {
+						object.damage(gc, 2);
+					}
 				}
 			}
-		}
 
 		velX = WMath.clamb(velX, 2.5f, -2.5f);
 		velY = WMath.clamb(velY, 10f, -10f);
@@ -135,22 +145,32 @@ public class Player {
 		}
 	}
 
+	public void hit() {
+
+		hitting = true;
+		((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().reset();
+	}
+
 	public void renderUI(GameContainer gc, Renderer r) {
 		inv.render(gc, r);
 	}
 
 	public void render(GameContainer gc, Renderer r) {
-		if(velX != 0) {
-			r.drawImage(walkAnim.getFrame(), (int)x-8, (int)y-8);
+		if (velX != 0) {
+			r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
 		} else
-			r.drawImage(Textures.get("playerIdle"), (int)x-8, (int)y-8);
-		
-		if(getCurrentItem() instanceof Tool) {
-			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(),(int)x-24, (int)y - 8);
+			r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
+
+		if (getCurrentItem() instanceof Tool) {
+			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
 		} else {
-			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(),(int)x-8, (int)y - 8);
+			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
 		}
-		
+
+		if (hitting) {
+			((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().getFrame();
+		}
+
 		if (GameContainer._debug) {
 			r.drawRect(getBounds(), 0xffff0000);
 		}
@@ -177,7 +197,7 @@ public class Player {
 				}
 			}
 		}
-		
+
 		((IAction) obj).startAction(gc);
 
 		if (obj != null) {
@@ -193,11 +213,11 @@ public class Player {
 			}, 2000);
 		}
 	}
-	
+
 	public ItemStack getCurrentItem() {
 		if (slot == 0) {
 			return inv.getCurrentSlot().getItem();
-		} else if (slot == 2) {			
+		} else if (slot == 2) {
 			return inv.getToolSlot().getItem();
 		} else {
 			return inv.getWeaponSlot().getItem();

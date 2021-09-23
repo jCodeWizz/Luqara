@@ -5,6 +5,7 @@ public class Animation {
 	private int counter;
 	private int speed, index;
 	private Image[] frames;
+	private boolean justRestarted;
 	
 	public Animation(int speed, Image... frames) {
 		this.speed = speed;
@@ -18,9 +19,10 @@ public class Animation {
 		if(counter < speed) 
 			counter++;
 		else {
-			if(index == frames.length-1)
+			if(index == frames.length-1) {
 				index = 0;
-			else
+				justRestarted = true;
+			} else
 				index++;
 			counter = 0;
 		}
@@ -30,8 +32,13 @@ public class Animation {
 	
 	}
 	
+	public boolean hasCycled() {
+		return justRestarted;
+	}
+	
 	public void reset() {
 		index = 0;
+		justRestarted = false;
 		counter = 0;
 	}
 	
