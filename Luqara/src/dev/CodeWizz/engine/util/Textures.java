@@ -39,9 +39,9 @@ public class Textures {
 		list.put("balrups3", new Image("/assets/textures/objects/balrups/fly3.png"));
 		list.put("balrups4", new Image("/assets/textures/objects/balrups/fly4.png"));
 		list.put("balrupsHurt1", new Image("/assets/textures/objects/balrups/flyhurt1.png"));
-		list.put("balrupsHurt1", new Image("/assets/textures/objects/balrups/flyhurt2.png"));
-		list.put("balrupsHurt1", new Image("/assets/textures/objects/balrups/flyhurt3.png"));
-		list.put("balrupsHurt1", new Image("/assets/textures/objects/balrups/flyhurt4.png"));
+		list.put("balrupsHurt2", new Image("/assets/textures/objects/balrups/flyhurt2.png"));
+		list.put("balrupsHurt3", new Image("/assets/textures/objects/balrups/flyhurt3.png"));
+		list.put("balrupsHurt4", new Image("/assets/textures/objects/balrups/flyhurt4.png"));
 		
 		list.put("air", new Image("/assets/textures/items/air.png"));
 		list.put("cutwood", new Image("/assets/textures/items/cutwood.png"));

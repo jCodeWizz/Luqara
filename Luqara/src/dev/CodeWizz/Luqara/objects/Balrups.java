@@ -100,6 +100,7 @@ public class Balrups extends GameObject {
 			if (inRange)
 				attack();
 		}
+		
 	}
 	
 	private void attack() {

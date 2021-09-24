@@ -32,6 +32,14 @@ public class Animation {
 	
 	}
 	
+	public int getIndex() {
+		return index;
+	}
+	
+	public int getLength() {
+		return frames.length;
+	}
+	
 	public boolean hasCycled() {
 		return justRestarted;
 	}
