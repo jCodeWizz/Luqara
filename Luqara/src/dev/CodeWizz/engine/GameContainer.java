@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import dev.CodeWizz.Luqara.Player;
 import dev.CodeWizz.engine.gfx.Camera;
 import dev.CodeWizz.engine.gfx.light.Light;
+import dev.CodeWizz.engine.hud.HudManager;
 import dev.CodeWizz.engine.input.Input;
 import dev.CodeWizz.engine.object.Handler;
 import dev.CodeWizz.engine.util.NormalMaps;
@@ -24,6 +25,7 @@ public class GameContainer implements Runnable {
 	private Window window;
 	private Renderer renderer;
 	private AbstractGame game;
+	private HudManager hMan;
 
 	public Camera camera;
 	public Handler handler;
@@ -61,6 +63,7 @@ public class GameContainer implements Runnable {
 		input = new Input(this);
 		loaderTime = 30;
 		handler = new Handler();
+		hMan = new HudManager();
 		loaderTime = 40;
 		camera = new Camera();
 		loaderTime = 50;
@@ -124,6 +127,7 @@ public class GameContainer implements Runnable {
 				update();
 				game.update(this, (float) UPDATE_CAP);
 				handler.tick(this);
+				hMan.update(this);
 				camera.update(this);
 
 				input.update();
@@ -140,9 +144,10 @@ public class GameContainer implements Runnable {
 				renderer.clear();
 				game.render(this, renderer);
 				handler.render(this, renderer);
-
+				
 				renderer.process();
 				
+				hMan.render(this, renderer);
 				game.renderUI(this, renderer);
 
 				if(loaderTime < 100) {
