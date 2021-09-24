@@ -27,8 +27,17 @@ public class KeyInput {
 		}
 		
 		if(gc.getInput().isKeyDown(KeyEvent.VK_T)) {
-			if(!p.getInv().isOpen()) 
+			if(!p.getInv().isOpen() && !HUD.chat.isOpen()) {
 				HUD.chat.setOpen(true);
+				HUD.chat.currentText = "";
+			}
+		}
+		
+		if(gc.getInput().isKeyDown(KeyEvent.VK_SLASH)) {
+			if(!p.getInv().isOpen()) {
+				HUD.chat.setOpen(true);
+				HUD.chat.currentText = "/";
+			}
 		}
 		
 		if(gc.getInput().isKey(KeyEvent.VK_SHIFT) && gc.getInput().isKey(KeyEvent.VK_ESCAPE)) {

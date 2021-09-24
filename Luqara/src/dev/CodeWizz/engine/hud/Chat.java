@@ -14,7 +14,7 @@ public class Chat implements IHudComponent, ITextInput {
 	public List<Line> lines = new CopyOnWriteArrayList<>();
 	private int x, y;
 	private boolean open;
-	private String currentText = "";
+	public String currentText = "";
 
 	public Chat(GameContainer gc, int x, int y) {
 		this.x = x;
@@ -39,7 +39,7 @@ public class Chat implements IHudComponent, ITextInput {
 		for (Line line : lines) {
 			if (line.render || open) {
 				r.fillRectUI(x, line.y + y - 41, gc.getWidth() / 3, 15, 0x64000000, Light.FULL);
-				r.drawText(line.text, x + 10, line.y + y - 40, 2, 0xffffffff);
+				r.drawText(line.text, x + 10f, line.y + y - 40, 2);
 			}
 		}
 

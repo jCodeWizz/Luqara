@@ -1,5 +1,6 @@
 package dev.CodeWizz.Luqara.input;
 
+import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.hud.IChatListener;
 
@@ -19,8 +20,12 @@ public class CommandInput implements IChatListener {
 
 			if(arg.equalsIgnoreCase("debug")) {
 				GameContainer._debug = true;
+				HUD.chat.sendMessage("Entered debug mode!");
+				return true;
 			}
-		
+			
+			HUD.chat.sendMessage("Wrong command usage!");
+			return true;
 		}
 		
 		

@@ -82,6 +82,74 @@ public class Renderer {
 
 	}
 
+	public void drawText(String text, float offX, int offY, int size) {
+		text = text.toUpperCase();
+		int offset = 0;
+		int color = 0xffffffff;
+
+		for (int i = 0; i < text.length(); i++) {
+			int unicode = text.codePointAt(i) - 32;
+
+			if (unicode == 6 && i < text.length() - 1) {
+				if (text.charAt(i + 1) == 'R') {
+					color = 0xffff0000;
+					i++;
+				} else if (text.charAt(i + 1) == 'F') {
+					color = 0xffffffff;
+					i++;
+				}
+			} else {
+				for (int y = 0; y < font.getFontImage().getH(); y++) {
+					for (int x = 0; x < font.getWidths()[unicode]; x++) {
+						if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
+								+ y * font.getFontImage().getW()] == 0xffffffff) {
+							for (int j = 0; j < size; j++) {
+								for (int k = 0; k < size; k++) {
+									setPixel(x * size + j + (int)offX + offset, y * size + k + offY, color);
+								}
+							}
+						}
+					}
+				}
+
+				offset += font.getWidths()[unicode] * size;
+			}
+
+		}
+	}
+
+	public void drawText(String text, int offX, int offY) {
+		text = text.toUpperCase();
+		int offset = 0;
+		int color = 0xffffffff;
+
+		for (int i = 0; i < text.length(); i++) {
+			int unicode = text.codePointAt(i) - 32;
+
+			if (unicode == 6 && i < text.length() - 1) {
+				if (text.charAt(i + 1) == 'R') {
+					color = 0xffff0000;
+					i++;
+				} else if (text.charAt(i + 1) == 'F') {
+					color = 0xffffffff;
+					i++;
+				}
+			} else {
+				for (int y = 0; y < font.getFontImage().getH(); y++) {
+					for (int x = 0; x < font.getWidths()[unicode]; x++) {
+						if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
+								+ y * font.getFontImage().getW()] == 0xffffffff) {
+							setPixel(x + offX + offset, y + offY, color);
+						}
+					}
+				}
+
+				offset += font.getWidths()[unicode];
+			}
+
+		}
+	}
+
 	public void drawText(String text, int offX, int offY, int size, int color) {
 		text = text.toUpperCase();
 		int offset = 0;
@@ -103,6 +171,7 @@ public class Renderer {
 			}
 
 			offset += font.getWidths()[unicode] * size;
+
 		}
 	}
 
@@ -123,6 +192,7 @@ public class Renderer {
 			}
 
 			offset += font.getWidths()[unicode];
+
 		}
 	}
 

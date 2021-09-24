@@ -37,9 +37,9 @@ public class Slot {
 		if(item.getType() != Type.Air) {
 			r.drawImageUI(item.getIcon(), x, y, 3);
 			if(item.size > 1)
-				r.drawText("" + item.size, x + 38, y + 35, 2, 0xffffffff);
+				r.drawText("" + item.size, x + 38, y + 35, 2);
 			else if(item.size == 0)
-				r.drawText("" + item.size, x + 38, y + 35, 2, 0xffff0000);
+				r.drawText("&R" + item.size, x + 38, y + 35, 2);
 
 		}
 	}
