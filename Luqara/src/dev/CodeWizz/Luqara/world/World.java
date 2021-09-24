@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
 import dev.CodeWizz.engine.GameContainer;
@@ -52,14 +53,12 @@ public class World {
 		Item.updateAll(gc);
 		
 		
-		if(timer < 300)
+		if(timer < 600)
 			timer++;
 		else {
-			System.out.println("------------------------------------------------");
-			System.out.println("[System]: Tile List Size: " + gc.handler.tile.size());
-			System.out.println("[System]: Object List Size: " + gc.handler.object.size());
-			System.out.println("[System]: Chunks List Size: " + chunks.size());
-			System.out.println("------------------------------------------------");
+			HUD.chat.sendMessage("(System): Tile List Size: " + gc.handler.tile.size());
+			HUD.chat.sendMessage("(System): Object List Size: " + gc.handler.object.size());
+			HUD.chat.sendMessage("(System): Chunks List Size: " + chunks.size());
 			timer = 0;
 		}
 	}

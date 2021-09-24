@@ -2,6 +2,7 @@ package dev.CodeWizz.Luqara;
 
 import java.awt.event.MouseEvent;
 
+import dev.CodeWizz.Luqara.input.CommandInput;
 import dev.CodeWizz.Luqara.input.KeyInput;
 import dev.CodeWizz.Luqara.input.MouseInput;
 import dev.CodeWizz.Luqara.world.World;
@@ -30,8 +31,11 @@ public class Luqara extends AbstractGame {
 		minput = new MouseInput();
 		kinput = new KeyInput();
 		player = new Player(gc);
-		hud = new HUD(gc);
 		gc.setPlayer(player);
+		hud = new HUD(gc);
+		
+		HUD.chat.listeners.add(new CommandInput());
+		
 		world = new World(gc, WorldType.Normal);
 	}
 	

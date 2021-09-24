@@ -148,6 +148,18 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 				b.charTyped(e.getKeyChar());
 			}
 		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			for(ITextInput b : inputs) {
+				b.enter();
+			}
+		}
+		
+		if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			for(ITextInput b : inputs) {
+				b.removeChar();
+			}
+		}
 	}
 
 	@Override

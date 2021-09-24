@@ -190,14 +190,15 @@ public class Player {
 			}
 		}
 
-		((IAction) obj).startAction(gc);
+		
 
 		if (obj != null) {
+			((IAction) obj).startAction(gc);
+			
 			Timer t = new Timer();
 			t.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					System.out.println("STARTED!");
 					((IAction) obj).endAction(gc);
 					// close the thread
 					t.cancel();

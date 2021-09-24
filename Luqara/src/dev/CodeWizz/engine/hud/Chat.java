@@ -10,6 +10,7 @@ import dev.CodeWizz.engine.input.ITextInput;
 
 public class Chat implements IHudComponent, ITextInput {
 
+	public List<IChatListener> listeners = new CopyOnWriteArrayList<>();
 	public List<Line> lines = new CopyOnWriteArrayList<>();
 	private int x, y;
 	private boolean open;
@@ -28,7 +29,7 @@ public class Chat implements IHudComponent, ITextInput {
 			if (line.timer > 0) {
 				line.timer--;
 			} else {
-				lines.remove(line);
+				line.render = false;
 			}
 		}
 	}
@@ -36,7 +37,7 @@ public class Chat implements IHudComponent, ITextInput {
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		for (Line line : lines) {
-			if (line.render) {
+			if (line.render || open) {
 				r.fillRectUI(x, line.y + y - 41, gc.getWidth() / 3, 15, 0x64000000, Light.FULL);
 				r.drawText(line.text, x + 10, line.y + y - 40, 2, 0xffffffff);
 			}
@@ -49,13 +50,25 @@ public class Chat implements IHudComponent, ITextInput {
 		}
 	}
 
-	public void sendMessage() {
+	private void sendMessage() {
 		addLine(currentText);
 		currentText = "";
 		open = false;
 	}
+	
+	public void sendMessage(String text) {
+		addLine(text);
+	}
 
 	private void addLine(String text) {
+		
+		for(IChatListener a : listeners) {
+			if(a.onChatMessage(text)) {
+				return;
+			}
+		}
+		
+		
 		for (Line line : lines) {
 			line.y -= 16;
 		}
@@ -75,6 +88,18 @@ public class Chat implements IHudComponent, ITextInput {
 	public void charTyped(char a) {
 		if(open) {
 			currentText += a;
+		}
+	}
+
+	@Override
+	public void enter() {
+		sendMessage();
+	}
+
+	@Override
+	public void removeChar() {
+		if(currentText.length() != 0) {
+			currentText = currentText.substring(0, currentText.length()-1);
 		}
 	}
 }

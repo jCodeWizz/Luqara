@@ -27,18 +27,19 @@ public class KeyInput {
 		}
 		
 		if(gc.getInput().isKeyDown(KeyEvent.VK_T)) {
-			if(!p.getInv().isOpen()) {
-				if(HUD.chat.isOpen()) {
-					HUD.chat.setOpen(false);
-				} else {
-					HUD.chat.setOpen(true);
-				}
-			}
+			if(!p.getInv().isOpen()) 
+				HUD.chat.setOpen(true);
 		}
 		
-		if(gc.getInput().isKeyDown(KeyEvent.VK_ENTER)) {
+		if(gc.getInput().isKey(KeyEvent.VK_SHIFT) && gc.getInput().isKey(KeyEvent.VK_ESCAPE)) {
+			System.exit(0);
+		}
+		
+		if(gc.getInput().isKey(KeyEvent.VK_ESCAPE)) {
 			if(!p.getInv().isOpen()) {
-				HUD.chat.sendMessage();;
+				HUD.chat.setOpen(false);
+			} else {
+				p.getInv().close();
 			}
 		}
 	}
