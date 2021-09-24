@@ -28,7 +28,17 @@ public class KeyInput {
 		
 		if(gc.getInput().isKeyDown(KeyEvent.VK_T)) {
 			if(!p.getInv().isOpen()) {
-				HUD.chat.setOpen(true);
+				if(HUD.chat.isOpen()) {
+					HUD.chat.setOpen(false);
+				} else {
+					HUD.chat.setOpen(true);
+				}
+			}
+		}
+		
+		if(gc.getInput().isKeyDown(KeyEvent.VK_ENTER)) {
+			if(!p.getInv().isOpen()) {
+				HUD.chat.sendMessage();;
 			}
 		}
 	}

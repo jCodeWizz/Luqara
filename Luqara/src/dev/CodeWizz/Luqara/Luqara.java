@@ -19,7 +19,7 @@ public class Luqara extends AbstractGame {
 	private World world;
 	private MouseInput minput;
 	private KeyInput kinput;
-	private HUD hud;
+	public HUD hud;
 	
 	public Luqara() {
 		light = new Light(150, 0xffe6bc05);
