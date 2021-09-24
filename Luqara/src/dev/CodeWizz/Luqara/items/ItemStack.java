@@ -3,6 +3,7 @@ package dev.CodeWizz.Luqara.items;
 import java.lang.reflect.InvocationTargetException;
 
 import dev.CodeWizz.Luqara.world.tiles.Tile;
+import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Image;
 
 public abstract class ItemStack {
@@ -24,6 +25,14 @@ public abstract class ItemStack {
 	
 	public ItemStack(int size) {
 		this.size = size;
+	}
+	
+	public void click(GameContainer gc, int x, int y, boolean wasLeftClick, ItemStack item) {
+		
+	}
+	
+	public void declick(GameContainer gc, int x, int y, boolean wasLeftClick, ItemStack item) {
+		
 	}
 	
 	public void rightClick(float f, float g, Tile tile) {}

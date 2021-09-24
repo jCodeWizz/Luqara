@@ -37,6 +37,9 @@ public class MouseInput {
 			if (gc.getPlayer().getInv().isOpen()) {
 				invClick(x - gc.camera.getX(), y - gc.camera.getY());
 			} else {
+				
+				gc.getPlayer().getCurrentItem().click(gc, x, y, true, gc.getPlayer().getCurrentItem());
+				
 				for (Tile tile : gc.handler.tile) {
 					if (tile.getBounds()
 							.intersects(new Rectangle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 1, 1))

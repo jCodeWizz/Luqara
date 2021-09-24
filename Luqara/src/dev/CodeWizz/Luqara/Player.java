@@ -27,7 +27,6 @@ import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.object.GameObject;
-import dev.CodeWizz.engine.object.ID;
 import dev.CodeWizz.engine.util.Textures;
 import dev.CodeWizz.engine.util.WMath;
 
@@ -115,21 +114,14 @@ public class Player {
 
 		// ITEM HITTING ANIMATION
 		if (hitting) {
-			((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().tick();
+			((Tool) getCurrentItem()).getAttackAnim().tick();
 		}
 
-		if (((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().hasCycled()) {
-			hitting = false;
-		}
-
-			if (gc.getInput().isButton(1)) {
-				for (GameObject object : gc.handler.object) {
-					if (object.getId() == ID.Balrups && object.getBounds()
-							.intersects(new Rectangle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 1, 1))) {
-						object.damage(gc, 2);
-					}
-				}
+		if(getCurrentItem() instanceof Tool) {
+			if (((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().hasCycled()) {
+				hitting = false;
 			}
+		}
 
 		velX = WMath.clamb(velX, 2.5f, -2.5f);
 		velY = WMath.clamb(velY, 10f, -10f);
@@ -148,7 +140,7 @@ public class Player {
 	public void hit() {
 
 		hitting = true;
-		((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().reset();
+		((Tool) getCurrentItem()).getAttackAnim().reset();
 	}
 
 	public void renderUI(GameContainer gc, Renderer r) {
@@ -161,14 +153,14 @@ public class Player {
 		} else
 			r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
 
-		if (getCurrentItem() instanceof Tool) {
+		if (getCurrentItem() instanceof Tool && !hitting) {
 			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
-		} else {
+		} else if(!hitting) {
 			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
 		}
 
-		if (hitting) {
-			((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().getFrame();
+		if(getCurrentItem() instanceof Tool && hitting) {
+			r.drawImage(((Tool)getCurrentItem()).getAttackAnim().getFrame(), (int)x - 24, (int)y - 8);
 		}
 
 		if (GameContainer._debug) {
@@ -504,6 +496,14 @@ public class Player {
 
 	public Inventory getInv() {
 		return inv;
+	}
+
+	public boolean isHitting() {
+		return hitting;
+	}
+
+	public void setHitting(boolean hitting) {
+		this.hitting = hitting;
 	}
 
 }

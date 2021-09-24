@@ -2,13 +2,12 @@ package dev.CodeWizz.Luqara.items.items;
 
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
+import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.util.Textures;
 
 public class SharpenedStick extends Tool {
 
-	private int counter = 0;
-	
 	public SharpenedStick(int size) {
 		super(size);
 
@@ -31,27 +30,8 @@ public class SharpenedStick extends Tool {
 	}
 	
 	@Override
-	public void tick() {
-		if(attacking) {
-			if(counter < 4*6)
-				counter++;
-			else {
-				counter = 0;
-				attacking = false;
-			}
-		}
-		super.tick();
-	}
-	
-	
-	@Override
-	public void click(int x, int y, boolean wasLeftClick, ItemStack item) {
-		if(wasLeftClick) {
-			if(counter == 0) {
-				if(wasLeftClick) {
-					attack(x, y);
-				}
-			}
-		} 
+	public void click(GameContainer gc, int x, int y, boolean wasLeftClick, ItemStack item) {
+		if(wasLeftClick && !gc.getPlayer().isHitting())
+			attack(gc, x, y);
 	}
 }

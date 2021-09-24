@@ -1,6 +1,5 @@
 package dev.CodeWizz.Luqara.items.items;
 
-import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.util.Textures;
@@ -44,14 +43,4 @@ public class BasicAxe extends Tool {
 		super.tick();
 	}
 	
-	
-	@Override
-	public void click(int x, int y, boolean wasLeftClick, ItemStack item) {
-		if(wasLeftClick) {
-			if(counter == 0) {
-				attacking = true;
-				attackAnim.reset();
-			}
-		} 
-	}
 }

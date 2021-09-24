@@ -1,14 +1,11 @@
 package dev.CodeWizz.Luqara.items.items;
 
-import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.util.Textures;
 
 public class BasicPickaxe extends Tool {
 
-	private int counter = 0;
-	
 	public BasicPickaxe(int size) {
 		super(size);
 
@@ -30,30 +27,5 @@ public class BasicPickaxe extends Tool {
 		
 		this.actionAnimCooldown = 20;
 		
-		
-	}
-	
-	@Override
-	public void tick() {
-		if(attacking) {
-			if(counter < 4*9)
-				counter++;
-			else {
-				counter = 0;
-				attacking = false;
-			}
-		}
-		super.tick();
-	}
-	
-	
-	@Override
-	public void click(int x, int y, boolean wasLeftClick, ItemStack item) {
-		if(wasLeftClick) {
-			if(counter == 0) {
-				attacking = true;
-				attackAnim.reset();
-			}
-		} 
-	}
+	}	
 }

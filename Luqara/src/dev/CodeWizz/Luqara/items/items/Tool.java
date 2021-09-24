@@ -1,7 +1,12 @@
 package dev.CodeWizz.Luqara.items.items;
 
+import java.awt.Rectangle;
+
 import dev.CodeWizz.Luqara.items.ItemStack;
+import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Animation;
+import dev.CodeWizz.engine.object.GameObject;
+import dev.CodeWizz.engine.object.ID;
 
 public abstract class Tool extends ItemStack{
 
@@ -19,20 +24,15 @@ public abstract class Tool extends ItemStack{
 	
 	}
 	
-	public void click(int x, int y, boolean wasLeftClick, ItemStack item) {
-		
-	}
-	
-	public void declick(int x, int y, boolean wasLeftClick, ItemStack item) {
-		
+	public void attack(GameContainer gc, int x, int y) {
+		gc.getPlayer().hit();
+		for(GameObject object : gc.handler.object) {
+			if(object.getId() == ID.Balrups && new Rectangle(x, y, 1, 1).intersects(object.getBounds())) {
+				object.damage(gc, damage);
+			}
+		}
 	}
 
-	public void attack(int x, int y) {
-		attacking = true;
-		attackAnim.reset();
-		
-	}
-	
 	public Animation getAttackAnim() {
 		return attackAnim;
 	}
