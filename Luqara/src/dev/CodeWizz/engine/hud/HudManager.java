@@ -22,4 +22,12 @@ public class HudManager {
 			a.render(gc, r);
 		}
 	}
+	
+	public void addComponent(IHudComponent a) {
+		comps.add(a);
+	}
+	
+	public void removeComponent(IHudComponent a) {
+		comps.remove(a);
+	}
 }

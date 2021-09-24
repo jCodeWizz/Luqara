@@ -24,7 +24,7 @@ public class GameContainer implements Runnable {
 	private Input input;
 	private Window window;
 	private Renderer renderer;
-	private AbstractGame game;
+	public AbstractGame game;
 	private HudManager hMan;
 
 	public Camera camera;
@@ -232,5 +232,13 @@ public class GameContainer implements Runnable {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public HudManager gethMan() {
+		return hMan;
+	}
+
+	public void sethMan(HudManager hMan) {
+		this.hMan = hMan;
 	}
 }

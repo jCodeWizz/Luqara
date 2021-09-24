@@ -5,14 +5,21 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
+import dev.CodeWizz.engine.gfx.light.Light;
+import dev.CodeWizz.engine.input.ITextInput;
 
-public class Chat implements IHudComponent {
+public class Chat implements IHudComponent, ITextInput {
 
 	public List<Line> lines = new CopyOnWriteArrayList<>();
 	private int x, y;
-
-	public Chat() {
-
+	private boolean open;
+	private String currentText = "This is a testing text!";
+	
+	public Chat(GameContainer gc, int x, int y) {
+		this.x = x;
+		this.y = y;
+		addLine(gc, "Test");
+		gc.getInput().addInputListener(this);
 	}
 
 	@Override
@@ -20,7 +27,7 @@ public class Chat implements IHudComponent {
 
 		for(Line line : lines) {
 			if(line.timer > 0) {
-				line.timer--;
+				//line.timer--;
 			} else {
 				lines.remove(line);
 			}
@@ -29,10 +36,17 @@ public class Chat implements IHudComponent {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-		for(Line line : lines) {
-			if(line.render) {
-				r.drawText(line.text, line.x + x, line.y + y, 0xffffffff);
+		if(open) {
+			for(Line line : lines) {
+				if(line.render) {
+					r.fillRectUI(x, line.y + y - 41, gc.getWidth()/3, 15, 0x64000000, Light.FULL);
+					r.drawText(line.text, x + 10, line.y + y - 40, 2, 0xffffffff);
+				}
 			}
+			
+			r.fillRectUI(x, y - 21, gc.getWidth()/3, 15, 0x64000000, Light.FULL);
+			r.drawRectUI(x, y - 21, gc.getWidth()/3, 15, 0xffffffff, Light.FULL);
+			r.drawText(currentText, x + 10, y - 20, 2, 0xffffffff);
 		}
 	}
 	
@@ -41,20 +55,34 @@ public class Chat implements IHudComponent {
 			line.y-=10;
 		}
 		
-		lines.add(new Line(10, gc.getHeight()-20, text));
+		lines.add(new Line(text));
+	}
+	
+	public boolean isOpen() {
+		return open;
+	}
+	
+	public void setOpen(boolean a) {
+		this.open = a;
 	}
 
+	@Override
+	public void charTyped(char a) {
+		System.out.println("AAAA");
+		currentText+=a;
+	}
 }
 
 class Line {
 
-	public int x, y, timer;
+	public int y, timer;
 	public String text;
 	public boolean render;
 
-	public Line(int x, int y, String text) {
-		this.x = x;
+	public Line(String text) {
+		this.y = 0;
 		this.text = text;
 		this.render = true;
+		this.timer = 60*5;
 	}
 }

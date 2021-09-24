@@ -19,6 +19,7 @@ public class Luqara extends AbstractGame {
 	private World world;
 	private MouseInput minput;
 	private KeyInput kinput;
+	private HUD hud;
 	
 	public Luqara() {
 		light = new Light(150, 0xffe6bc05);
@@ -29,6 +30,7 @@ public class Luqara extends AbstractGame {
 		minput = new MouseInput();
 		kinput = new KeyInput();
 		player = new Player(gc);
+		hud = new HUD(gc);
 		gc.setPlayer(player);
 		world = new World(gc, WorldType.Normal);
 	}
@@ -45,6 +47,8 @@ public class Luqara extends AbstractGame {
 	public void renderUI(GameContainer gc, Renderer r) {
 		player.renderUI(gc, r);
 	}
+	
+	
 	
 
 	@Override

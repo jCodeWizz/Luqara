@@ -10,11 +10,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.engine.GameContainer;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
+	private List<ITextInput> inputs = new CopyOnWriteArrayList<>();
+	
 	private GameContainer gc;
 	
 	private final int NUM_KEYS = 256;
@@ -138,6 +142,15 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
+		
+		System.out.println("A: " + ((int)e.getKeyChar() - 32));
+		
+		
+		if((int)Character.toUpperCase(e.getKeyChar()) - 32 < 58) {
+			for(ITextInput b : inputs) {
+				b.charTyped(e.getKeyChar());
+			}
+		}
 	}
 
 	@Override
@@ -163,5 +176,13 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 
 	public int getScroll() {
 		return scroll;
+	}
+	
+	public void addInputListener(ITextInput a) {
+		inputs.add(a);
+	}
+	
+	public void removeInputListener(ITextInput a) {
+		inputs.remove(a);
 	}
 }
