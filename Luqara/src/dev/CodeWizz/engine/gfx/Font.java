@@ -2,17 +2,22 @@ package dev.CodeWizz.engine.gfx;
 
 public class Font {
 
-	public static final Font STANDARD = new Font("/assets/fonts/standard.png");
+	public static final Font DETAILED = new Font("/assets/fonts/detailed.png", 95);
+	public static final Font STANDARD = new Font("/assets/fonts/standard.png", 59);
+	
 	
 	private Image fontImage;
 	private int[] offsets;
 	private int[] widths;
+	private int size;
 	
-	public Font(String path) {
+	public Font(String path, int size) {
 		fontImage = new Image(path);
 		
-		offsets = new int[59];
-		widths = new int[59];
+		this.size = size;
+		
+		offsets = new int[size];
+		widths = new int[size];
 		
 		int unicode = 0;
 		
@@ -51,5 +56,13 @@ public class Font {
 
 	public void setWidths(int[] widths) {
 		this.widths = widths;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 }

@@ -48,7 +48,7 @@ public class Renderer {
 		lm = new int[p.length];
 		lb = new int[p.length];
 
-		font = Font.STANDARD;
+		font = Font.DETAILED;
 	}
 
 	public void setPixel(int x, int y, int value) {
@@ -83,7 +83,7 @@ public class Renderer {
 	}
 
 	public void drawText(String text, float offX, int offY, int size) {
-		text = text.toUpperCase();
+		
 		int offset = 0;
 		int color = 0xffffffff;
 
@@ -91,13 +91,34 @@ public class Renderer {
 			int unicode = text.codePointAt(i) - 32;
 
 			if (unicode == 6 && i < text.length() - 1) {
-				if (text.charAt(i + 1) == 'R') {
-					color = 0xffff0000;
+				if (text.charAt(i + 1) == 'e') {
+					color = 0xff9e0c02;
 					i++;
-				} else if (text.charAt(i + 1) == 'F') {
+				} else if (text.charAt(i + 1) == 'f') {
 					color = 0xffffffff;
 					i++;
-				}
+				} else if (text.charAt(i + 1) == 'c') {
+					color = 0xffa63e37;
+					i++;
+				} else if (text.charAt(i + 1) == 'a') {
+					color = 0xff55de4e;
+					i++;
+				} else if (text.charAt(i + 1) == 'y') {
+					color = 0xffe6d32e;
+					i++;
+				} else if (text.charAt(i + 1) == 'b') {
+					color = 0xff1820b8;
+					i++;
+				} else if (text.charAt(i + 1) == 'v') {
+					color = 0xff00ccc9;
+					i++;
+				} else if (text.charAt(i + 1) == 'l') {
+					color = 0xff16b0f7;
+					i++;
+				} else if (text.charAt(i + 1) == 'g') {
+					color = 0xfff0a400;
+					i++;
+				} 
 			} else {
 				for (int y = 0; y < font.getFontImage().getH(); y++) {
 					for (int x = 0; x < font.getWidths()[unicode]; x++) {
@@ -119,7 +140,7 @@ public class Renderer {
 	}
 
 	public void drawText(String text, int offX, int offY) {
-		text = text.toUpperCase();
+
 		int offset = 0;
 		int color = 0xffffffff;
 
@@ -127,13 +148,34 @@ public class Renderer {
 			int unicode = text.codePointAt(i) - 32;
 
 			if (unicode == 6 && i < text.length() - 1) {
-				if (text.charAt(i + 1) == 'R') {
-					color = 0xffff0000;
+				if (text.charAt(i + 1) == 'e') {
+					color = 0xff9e0c02;
 					i++;
-				} else if (text.charAt(i + 1) == 'F') {
+				} else if (text.charAt(i + 1) == 'f') {
 					color = 0xffffffff;
 					i++;
-				}
+				} else if (text.charAt(i + 1) == 'c') {
+					color = 0xffa63e37;
+					i++;
+				} else if (text.charAt(i + 1) == 'a') {
+					color = 0xff55de4e;
+					i++;
+				} else if (text.charAt(i + 1) == 'y') {
+					color = 0xffe6d32e;
+					i++;
+				} else if (text.charAt(i + 1) == 'b') {
+					color = 0xff1820b8;
+					i++;
+				} else if (text.charAt(i + 1) == 'v') {
+					color = 0xff00ccc9;
+					i++;
+				} else if (text.charAt(i + 1) == 'l') {
+					color = 0xff16b0f7;
+					i++;
+				} else if (text.charAt(i + 1) == 'g') {
+					color = 0xfff0a400;
+					i++;
+				} 
 			} else {
 				for (int y = 0; y < font.getFontImage().getH(); y++) {
 					for (int x = 0; x < font.getWidths()[unicode]; x++) {
@@ -151,7 +193,7 @@ public class Renderer {
 	}
 
 	public void drawText(String text, int offX, int offY, int size, int color) {
-		text = text.toUpperCase();
+	
 		int offset = 0;
 
 		for (int i = 0; i < text.length(); i++) {
@@ -176,7 +218,7 @@ public class Renderer {
 	}
 
 	public void drawText(String text, int offX, int offY, int color) {
-		text = text.toUpperCase();
+
 		int offset = 0;
 
 		for (int i = 0; i < text.length(); i++) {

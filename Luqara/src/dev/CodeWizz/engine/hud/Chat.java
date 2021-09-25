@@ -38,22 +38,24 @@ public class Chat implements IHudComponent, ITextInput {
 	public void render(GameContainer gc, Renderer r) {
 		for (Line line : lines) {
 			if (line.render || open) {
-				r.fillRectUI(x, line.y + y - 41, gc.getWidth() / 3, 15, 0x64000000, Light.FULL);
-				r.drawText(line.text, x + 10f, line.y + y - 40, 2);
+				r.fillRectUI(x, line.y + y - 61, gc.getWidth() / 3, 19, 0x64000000, Light.FULL);
+				r.drawText(line.text, x + 10, line.y + y - 60);
 			}
 		}
 
 		if(open) {
-			r.fillRectUI(x, y - 21, gc.getWidth() / 3, 15, 0x64000000, Light.FULL);
-			r.drawRectUI(x, y - 21, gc.getWidth() / 3, 15, 0xffffffff, Light.FULL);
-			r.drawText(currentText, x + 10, y - 20, 2, 0xffffffff);
+			r.fillRectUI(x, y - 26, gc.getWidth() / 3, 19, 0x64000000, Light.FULL);
+			//r.drawRectUI(x, y - 21, gc.getWidth() / 3, 15, 0xffffffff, Light.FULL);
+			r.drawText(currentText, x + 10, y - 25, 0xffffffff);
 		}
 	}
 
 	private void sendMessage() {
-		addLine(currentText);
-		currentText = "";
-		open = false;
+		if(!currentText.equals("")) {
+			addLine(currentText);
+			currentText = "";
+			open = false;
+		}
 	}
 	
 	public void sendMessage(String text) {
@@ -70,7 +72,11 @@ public class Chat implements IHudComponent, ITextInput {
 		
 		
 		for (Line line : lines) {
-			line.y -= 16;
+			line.y -= 20;
+		}
+		
+		if(lines.size() >= 20) {
+			lines.remove(0);
 		}
 
 		lines.add(new Line(text));

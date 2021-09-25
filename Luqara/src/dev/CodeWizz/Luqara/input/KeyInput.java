@@ -34,7 +34,7 @@ public class KeyInput {
 		}
 		
 		if(gc.getInput().isKeyDown(KeyEvent.VK_SLASH)) {
-			if(!p.getInv().isOpen()) {
+			if(!p.getInv().isOpen() && !HUD.chat.isOpen()) {
 				HUD.chat.setOpen(true);
 				HUD.chat.currentText = "/";
 			}

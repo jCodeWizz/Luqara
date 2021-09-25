@@ -24,7 +24,7 @@ public class CommandInput implements IChatListener {
 				return true;
 			}
 			
-			HUD.chat.sendMessage("Wrong command usage!");
+			HUD.chat.sendMessage("&rWrong command usage!");
 			return true;
 		}
 		

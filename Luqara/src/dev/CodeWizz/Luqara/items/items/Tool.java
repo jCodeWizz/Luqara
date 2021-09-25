@@ -29,6 +29,7 @@ public abstract class Tool extends ItemStack{
 		for(GameObject object : gc.handler.object) {
 			if(object.getId() == ID.Balrups && new Rectangle(x, y, 1, 1).intersects(object.getBounds())) {
 				object.damage(gc, damage);
+				continue;
 			}
 		}
 	}
@@ -40,8 +41,6 @@ public abstract class Tool extends ItemStack{
 	public void setAttackAnim(Animation attackAnim) {
 		this.attackAnim = attackAnim;
 	}
-
-	
 
 	public boolean isAttacking() {
 		return attacking;

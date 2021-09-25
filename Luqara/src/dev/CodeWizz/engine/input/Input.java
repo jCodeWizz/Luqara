@@ -143,7 +143,11 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 	public void keyPressed(KeyEvent e) {
 		keys[e.getKeyCode()] = true;
 		
-		if((int)Character.toUpperCase(e.getKeyChar()) - 32 < 58 && (int)Character.toUpperCase(e.getKeyChar()) -32 >= 0) {
+		if((int)(e.getKeyChar()) - 32 < 58 && (int)(e.getKeyChar()) -32 >= 0) {
+			for(ITextInput b : inputs) {
+				b.charTyped(e.getKeyChar());
+			}
+		} else if((int)(e.getKeyChar()) - 32 < 94 && (int)(e.getKeyChar()) -32 >= 0) {
 			for(ITextInput b : inputs) {
 				b.charTyped(e.getKeyChar());
 			}
