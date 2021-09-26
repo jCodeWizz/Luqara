@@ -1,11 +1,18 @@
 package dev.CodeWizz.Luqara.input;
 
 import dev.CodeWizz.Luqara.HUD;
+import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.hud.IChatListener;
 
 public class CommandInput implements IChatListener {
 
+	private GameContainer gc;
+	
+	public CommandInput(GameContainer gc) {
+		this.gc = gc;
+	}
+	
 	@Override
 	public boolean onChatMessage(String text) {
 		
@@ -17,14 +24,17 @@ public class CommandInput implements IChatListener {
 			} else {
 				arg = text.substring(1, text.length());
 			}
-
+			
 			if(arg.equalsIgnoreCase("debug")) {
 				GameContainer._debug = true;
 				HUD.chat.sendMessage("Entered debug mode!");
 				return true;
+			} else if(arg.equalsIgnoreCase("checksizes")) {
+				Luqara.inst.getWorld().sendInfoInChat(gc);
+				return true;
 			}
 			
-			HUD.chat.sendMessage("&rWrong command usage!");
+			HUD.chat.sendMessage("&cWrong command usage!");
 			return true;
 		}
 		

@@ -16,6 +16,8 @@ public class Luqara extends AbstractGame {
 
 	private Light light;
 	
+	public static Luqara inst;
+	
 	private Player player;
 	private World world;
 	private MouseInput minput;
@@ -23,6 +25,7 @@ public class Luqara extends AbstractGame {
 	public HUD hud;
 	
 	public Luqara() {
+		inst = this;
 		light = new Light(150, 0xffe6bc05);
 	}
 	
@@ -34,7 +37,7 @@ public class Luqara extends AbstractGame {
 		gc.setPlayer(player);
 		hud = new HUD(gc);
 		
-		HUD.chat.listeners.add(new CommandInput());
+		HUD.chat.listeners.add(new CommandInput(gc));
 		
 		world = new World(gc, WorldType.Normal);
 	}

@@ -44,9 +44,9 @@ public class Chat implements IHudComponent, ITextInput {
 		}
 
 		if(open) {
-			r.fillRectUI(x, y - 26, gc.getWidth() / 3, 19, 0x64000000, Light.FULL);
-			//r.drawRectUI(x, y - 21, gc.getWidth() / 3, 15, 0xffffffff, Light.FULL);
-			r.drawText(currentText, x + 10, y - 25, 0xffffffff);
+			r.fillRectUI(x+1, y - 26, gc.getWidth() / 3, 19, 0x64000000, Light.FULL);
+			r.drawRectUI(x, y - 27, gc.getWidth() / 3+1, 20, 0xffffffff, Light.FULL);
+			r.drawText(currentText, x + 11, y - 25, 0xffffffff);
 		}
 	}
 

@@ -18,7 +18,6 @@ public class World {
 	
 	
 	public double seed = 0;
-	private int timer = 0;
 	private WNoise noise;
 	private WorldType type;
 
@@ -53,14 +52,12 @@ public class World {
 		Item.updateAll(gc);
 		
 		
-		if(timer < 600)
-			timer++;
-		else {
-			HUD.chat.sendMessage("(System): Tile List Size: " + gc.handler.tile.size());
-			HUD.chat.sendMessage("(System): Object List Size: " + gc.handler.object.size());
-			HUD.chat.sendMessage("(System): Chunks List Size: " + chunks.size());
-			timer = 0;
-		}
+	}
+	
+	public void sendInfoInChat(GameContainer gc) {
+		HUD.chat.sendMessage("Tile List Size: " + gc.handler.tile.size());
+		HUD.chat.sendMessage("Object List Size: " + gc.handler.object.size());
+		HUD.chat.sendMessage("Chunks List Size: " + chunks.size());
 	}
 	
 	public void render(GameContainer gc, Renderer r) {
