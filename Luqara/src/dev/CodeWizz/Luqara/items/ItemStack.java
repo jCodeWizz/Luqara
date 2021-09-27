@@ -2,6 +2,7 @@ package dev.CodeWizz.Luqara.items;
 
 import java.lang.reflect.InvocationTargetException;
 
+import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Image;
@@ -108,7 +109,12 @@ public abstract class ItemStack {
 	}
 
 	public void setSize(int size) {
-		this.size = size;
+		if(size > 0) {
+			this.size = size;
+		} else {
+			HUD.chat.sendMessage("&cItemStack.size went to 0");
+			this.size = size;
+		}
 	}
 
 	public int getMaxSize() {

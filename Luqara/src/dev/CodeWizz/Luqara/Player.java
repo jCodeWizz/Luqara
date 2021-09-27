@@ -38,7 +38,9 @@ public class Player {
 	private float _accj = 0.1f;
 	private float _dccj = 0.1f;
 	private final float maxMovementSpeed = 1.5f;
-
+	private boolean doingAction;
+	
+	
 	private int slot = 0;
 
 	private boolean hitting = false;
@@ -57,6 +59,8 @@ public class Player {
 	private Light light;
 
 	private GameContainer gc;
+	
+	private float health;
 
 	public Player(GameContainer gc) {
 		this.gc = gc;
@@ -82,6 +86,8 @@ public class Player {
 		inv.addItem(new SharpRock(1));
 		inv.addItem(new SmallRock(1));
 		inv.addItem(new TwigBasket(1));
+		
+		this.health = 10;
 
 	}
 
@@ -146,6 +152,20 @@ public class Player {
 	public void renderUI(GameContainer gc, Renderer r) {
 		inv.render(gc, r);
 	}
+	
+	public void damage(float damage) {
+		if(health - damage > 0) {
+			health-=damage;
+		} else {
+			die();
+		}
+	}
+	
+	public void die() {
+		inv.clear();
+		this.x = 0;
+		this.y = 0;
+	}
 
 	public void render(GameContainer gc, Renderer r) {
 		if (velX != 0) {
@@ -178,32 +198,36 @@ public class Player {
 	}
 
 	public void startAction() {
-		float distance = Float.MAX_VALUE;
+		if(obj == null) {
+			float distance = Float.MAX_VALUE;
 
-		for (GameObject object : gc.handler.object) {
-			if (object instanceof IAction) {
-				float d = WMath.distance((int) x, (int) y, (int) object.getX() + 16, (int) object.getY());
-				if (d < distance && d < 48) {
-					distance = d;
-					obj = object;
+			for (GameObject object : gc.handler.object) {
+				if (object instanceof IAction) {
+					float d = WMath.distance((int) x, (int) y, (int) object.getX() + 16, (int) object.getY());
+					if (d < distance && d < 48) {
+						distance = d;
+						obj = object;
+					}
 				}
 			}
-		}
 
-		
-
-		if (obj != null) {
-			((IAction) obj).startAction(gc);
 			
-			Timer t = new Timer();
-			t.schedule(new TimerTask() {
-				@Override
-				public void run() {
-					((IAction) obj).endAction(gc);
-					// close the thread
-					t.cancel();
-				}
-			}, 2000);
+
+			if (obj != null) {
+				doingAction = true;
+				((IAction) obj).startAction(gc);
+				
+				Timer t = new Timer();
+				t.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						((IAction) obj).endAction(gc);
+						doingAction = false;
+						obj = null;
+						t.cancel();
+					}
+				}, 2000);
+			}
 		}
 	}
 
@@ -233,60 +257,69 @@ public class Player {
 			velX = 0;
 		}
 
-		if (jumping) {
-			if (gc.getInput().isKey(KeyEvent.VK_D)) {
-				if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {
-					velX += _accj;
-				} else {
+		
+		
+		if(!HUD.chat.isOpen() && !inv.isOpen()) {
+			if (jumping) {
+				if (gc.getInput().isKey(KeyEvent.VK_D)) {
+					if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {
+						velX += _accj;
+					} else {
+						if (velX > 0)
+							velX -= _dccj;
+						else if (velX < 0)
+							velX += _dccj;
+					}
+				} else if (gc.getInput().isKey(KeyEvent.VK_A)) {
+					if (!gc.getInput().isKey(KeyEvent.VK_D) && velX > -maxMovementSpeed) {
+						velX -= _accj;
+					} else {
+						if (velX > 0)
+							velX -= _dccj;
+						else if (velX < 0)
+							velX += _dccj;
+					}
+				} else if (!gc.getInput().isKey(KeyEvent.VK_D) && !gc.getInput().isKey(KeyEvent.VK_A)) {
+
 					if (velX > 0)
 						velX -= _dccj;
 					else if (velX < 0)
 						velX += _dccj;
+
 				}
-			} else if (gc.getInput().isKey(KeyEvent.VK_A)) {
-				if (!gc.getInput().isKey(KeyEvent.VK_D) && velX > -maxMovementSpeed) {
-					velX -= _accj;
-				} else {
+			} else {
+				if (gc.getInput().isKey(KeyEvent.VK_D)) {
+					if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {
+						velX += _acc;
+					} else {
+						if (velX > 0)
+							velX -= _dcc;
+						else if (velX < 0)
+							velX += _dcc;
+					}
+				} else if (gc.getInput().isKey(KeyEvent.VK_A)) {
+					if (!gc.getInput().isKey(KeyEvent.VK_D) && velX > -maxMovementSpeed) {
+						velX -= _acc;
+					} else {
+						if (velX > 0)
+							velX -= _dcc;
+						else if (velX < 0)
+							velX += _dcc;
+					}
+				} else if (!gc.getInput().isKey(KeyEvent.VK_D) && !gc.getInput().isKey(KeyEvent.VK_A)) {
+
 					if (velX > 0)
-						velX -= _dccj;
+						velX -= _dcc;
 					else if (velX < 0)
-						velX += _dccj;
+						velX += _dcc;
+
 				}
-			} else if (!gc.getInput().isKey(KeyEvent.VK_D) && !gc.getInput().isKey(KeyEvent.VK_A)) {
-
-				if (velX > 0)
-					velX -= _dccj;
-				else if (velX < 0)
-					velX += _dccj;
-
 			}
 		} else {
-			if (gc.getInput().isKey(KeyEvent.VK_D)) {
-				if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {
-					velX += _acc;
-				} else {
-					if (velX > 0)
-						velX -= _dcc;
-					else if (velX < 0)
-						velX += _dcc;
-				}
-			} else if (gc.getInput().isKey(KeyEvent.VK_A)) {
-				if (!gc.getInput().isKey(KeyEvent.VK_D) && velX > -maxMovementSpeed) {
-					velX -= _acc;
-				} else {
-					if (velX > 0)
-						velX -= _dcc;
-					else if (velX < 0)
-						velX += _dcc;
-				}
-			} else if (!gc.getInput().isKey(KeyEvent.VK_D) && !gc.getInput().isKey(KeyEvent.VK_A)) {
-
-				if (velX > 0)
-					velX -= _dcc;
-				else if (velX < 0)
-					velX += _dcc;
-
-			}
+			if (velX > 0)
+				velX -= _dcc;
+			else if (velX < 0)
+				velX += _dcc;
 		}
 
 		if (velX > 0 && velX > maxMovementSpeed)
@@ -505,6 +538,18 @@ public class Player {
 
 	public void setHitting(boolean hitting) {
 		this.hitting = hitting;
+	}
+
+	public boolean isDoingAction() {
+		return doingAction;
+	}
+
+	public void setDoingAction(boolean doingAction) {
+		this.doingAction = doingAction;
+	}
+
+	public void setInv(PlayerInventory inv) {
+		this.inv = inv;
 	}
 
 }

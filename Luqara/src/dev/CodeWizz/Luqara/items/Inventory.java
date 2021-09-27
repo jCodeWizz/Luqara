@@ -29,6 +29,12 @@ public abstract class Inventory {
 		
 	}
 	
+	public void clear() {
+		for(Slot slot : slots) {
+			slot.clear();
+		}
+	}
+	
 	public void loadFromSlots(Slot[] slots) {
 		for(int i = 0; i < slots.length; i++) {
 			this.slots[i].setItem(slots[i].getItem());

@@ -26,21 +26,15 @@ public class Slot {
 			limited = true;
 			types = args;
 		}
-		
-		
-		
-		
-		
 	}
 	
 	public void render(GameContainer gc, Renderer r) {
 		if(item.getType() != Type.Air) {
 			r.drawImageUI(item.getIcon(), x, y, 3);
 			if(item.size > 1)
-				r.drawText("" + item.size, x + 38, y + 35, 2);
-			else if(item.size == 0)
-				r.drawText("&R" + item.size, x + 38, y + 35, 2);
-
+				r.drawText("" + item.size, x + 36, y + 32);
+			else if(item.size < 1)
+				r.drawText("&e" + item.size, x + 38, y + 35);
 		}
 	}
 	

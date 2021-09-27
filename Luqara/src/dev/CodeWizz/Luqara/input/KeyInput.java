@@ -12,7 +12,7 @@ public class KeyInput {
 	public void update(GameContainer gc) {
 		Player p = gc.getPlayer();
 		
-		if(gc.getInput().isKeyDown(KeyEvent.VK_E)) {
+		if(gc.getInput().isKeyDown(KeyEvent.VK_E) && !HUD.chat.isOpen() && !gc.getPlayer().isDoingAction()) {
 			if(p.getInv().isOpen()) {
 				p.getInv().close();
 			} else {

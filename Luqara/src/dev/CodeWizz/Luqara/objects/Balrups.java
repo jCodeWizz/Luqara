@@ -15,7 +15,9 @@ public class Balrups extends GameObject {
 
 	private Animation flyAnim;
 	private Animation flyHurtAnim;
-
+	
+	
+	private final float damage = 2.5f;
 	private final float speed = 1.5f;
 	
 	private boolean inRange;
@@ -99,6 +101,10 @@ public class Balrups extends GameObject {
 			counter = 0;
 			if (inRange)
 				attack();
+		}
+		
+		if(this.getBounds().intersects(gc.getPlayer().getBounds())) {
+			gc.getPlayer().damage(damage);
 		}
 		
 	}

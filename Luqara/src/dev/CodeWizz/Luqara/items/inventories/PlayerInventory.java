@@ -132,6 +132,16 @@ public class PlayerInventory extends Inventory {
 		super.close();
 	}
 	
+	@Override
+	public void clear() {
+		currentSlot.clear();
+		weaponSlot.clear();
+		toolSlot.clear();
+		helmetSlot.clear();
+		armourSlot.clear();
+		super.clear();
+	}
+	
 	
 	
 	@Override
