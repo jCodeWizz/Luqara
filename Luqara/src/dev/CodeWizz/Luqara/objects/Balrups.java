@@ -108,7 +108,7 @@ public class Balrups extends GameObject {
 	}
 
 	@Override
-	public void collided(Tile tile) {
+	public void collided(GameContainer gc, Tile tile) {
 		attacking = false;
 	}
 	

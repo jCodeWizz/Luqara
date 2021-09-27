@@ -9,7 +9,7 @@ public class air extends Tile {
 		super(x, y, chunk);
 
 		this.id = TileID.Air;
-		
+		this.name = "air";
 	}
 
 	@Override

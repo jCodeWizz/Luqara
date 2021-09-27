@@ -11,7 +11,7 @@ public class grassBlock extends Tile {
 		
 		this.id = TileID.Solid;
 		this.plantSpawnable = true;
-		
+		this.name = "grassBlock";
 	}
 
 	@Override

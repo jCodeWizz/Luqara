@@ -5,6 +5,7 @@ public enum ID {
 	Balrups(),
 	Tree(),
 	Box(),
+	FallingTile(),
 	Rock(),
 	Cow();
 }

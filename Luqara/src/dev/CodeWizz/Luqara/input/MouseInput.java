@@ -11,6 +11,7 @@ import dev.CodeWizz.Luqara.objects.Tree;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.Luqara.world.tiles.air;
+import dev.CodeWizz.Luqara.world.tiles.dirt;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
@@ -31,9 +32,10 @@ public class MouseInput {
 		mouseSlot.setX(x - gc.camera.getX() - 24);
 		mouseSlot.setY(y - gc.camera.getY() - 24);
 		
-		if (gc.getInput().isButtonDown(1)) {
 			
-			gc.handler.addObject(new FallingTile(x, y, "dirt"));
+		
+		if (gc.getInput().isButtonDown(1)) {
+			gc.handler.addObject(new FallingTile(x, y, new dirt(0, 0, null)));
 
 			if (gc.getPlayer().getInv().isOpen()) {
 				invClick(x - gc.camera.getX(), y - gc.camera.getY());
