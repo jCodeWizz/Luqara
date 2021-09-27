@@ -248,6 +248,18 @@ public class Chunk {
 		texture = new Image(im);
 		texture.setAlpha(true);
 	}
+	
+	public void placeTile(int x, int y, Tile tile) {
+		for(int i = 0; i < tiles.length; i++) {
+			for(int j = 0; j < tiles[i].length; j++) {
+				if(tiles[i][j].getX() == tile.getX() && tiles[i][j].getY() == tile.getY()) {
+					tiles[i][j] = tile;
+				}
+			}
+		}
+		
+		setUpdate(true);
+	}
 
 	public Rectangle getBounds() {
 		return new Rectangle(x, y, tileW * 16, tileH * 16);

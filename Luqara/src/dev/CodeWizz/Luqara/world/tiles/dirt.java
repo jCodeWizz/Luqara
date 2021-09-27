@@ -10,6 +10,7 @@ public class dirt extends Tile {
 		super(x, y, chunk);
 		
 		id = TileID.Solid;
+		this.name = "dirt";
 	}
 
 	@Override

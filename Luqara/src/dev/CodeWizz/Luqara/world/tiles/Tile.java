@@ -12,6 +12,7 @@ public abstract class Tile {
 	protected int x, y;
 	protected TileID id;
 	protected Chunk chunk;
+	protected String name;
 	
 	
 	public Tile(int x, int y, Chunk chunk) {
@@ -64,5 +65,13 @@ public abstract class Tile {
 
 	public void setChunk(Chunk chunk) {
 		this.chunk = chunk;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

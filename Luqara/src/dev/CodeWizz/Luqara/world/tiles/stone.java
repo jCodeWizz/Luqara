@@ -10,6 +10,7 @@ public class stone extends Tile {
 		super(x, y, chunk);
 		
 		this.id = TileID.Solid;
+		this.name = "stone";
 		
 	}
 

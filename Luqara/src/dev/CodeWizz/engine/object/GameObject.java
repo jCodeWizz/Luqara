@@ -57,11 +57,11 @@ public abstract class GameObject {
 		Particle.add(new Particle(x, y, 0xffa64141, 3, 60, 1));
 	}
 	
-	public void collided(GameObject object) {
+	public void collided(GameContainer gc, GameObject object) {
 		
 	}
 	
-	public void collided(Tile tile) {
+	public void collided(GameContainer gc, Tile tile) {
 		
 	}
 
@@ -84,7 +84,7 @@ public abstract class GameObject {
 						falling = false;
 						jumping = false;
 						y = object.getY() - h;
-						collided(object);
+						collided(gc, object);
 					} else {
 						falling = true;
 					}
@@ -94,20 +94,20 @@ public abstract class GameObject {
 						falling = false;
 						jumping = false;
 						y = object.getY() + (int) object.getBounds().getHeight();
-						collided(object);
+						collided(gc, object);
 
 					}
 					
 					if(getBoundsLeft().intersects(object.getBounds())) {
 						velX = 0;
 						x = object.getX() + (int) object.getBounds().getWidth();
-						collided(object);
+						collided(gc, object);
 					}
 					
 					if(getBoundsRight().intersects(object.getBounds())) {
 						velX = 0;
 						x = object.getX() + w;
-						collided(object);
+						collided(gc, object);
 					}
 				}
 			}
@@ -121,7 +121,7 @@ public abstract class GameObject {
 						falling = false;
 						jumping = false;
 						y = tile.getY() - h;
-						collided(tile);
+						collided(gc, tile);
 						continue;
 					} else {
 						falling = true;
@@ -132,19 +132,19 @@ public abstract class GameObject {
 						falling = false;
 						jumping = false;
 						y = tile.getY() + (int) tile.getBounds().getHeight();
-						collided(tile);
+						collided(gc, tile);
 					}
 					
 					if(getBoundsLeft().intersects(tile.getBounds())) {
 						velX = 0;
 						x = tile.getX() + (int) tile.getBounds().getWidth();
-						collided(tile);
+						collided(gc, tile);
 					}
 					
 					if(getBoundsRight().intersects(tile.getBounds())) {
 						velX = 0;
 						x = tile.getX() + w;
-						collided(tile);
+						collided(gc, tile);
 					}
 				}
 			}

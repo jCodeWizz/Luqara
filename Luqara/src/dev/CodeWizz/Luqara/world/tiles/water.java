@@ -10,6 +10,7 @@ public class water extends Tile {
 		super(x, y, chunk);
 		
 		this.id = TileID.Water;
+		this.name = "water";
 		
 	}
 
