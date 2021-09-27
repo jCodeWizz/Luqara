@@ -6,6 +6,7 @@ import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
+import dev.CodeWizz.Luqara.objects.FallingTile;
 import dev.CodeWizz.Luqara.objects.Tree;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
@@ -32,7 +33,7 @@ public class MouseInput {
 		
 		if (gc.getInput().isButtonDown(1)) {
 			
-
+			gc.handler.addObject(new FallingTile(x, y, "dirt"));
 
 			if (gc.getPlayer().getInv().isOpen()) {
 				invClick(x - gc.camera.getX(), y - gc.camera.getY());
