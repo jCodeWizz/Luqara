@@ -120,9 +120,9 @@ public class Chunk {
 		int[] dataList = new int[tiles.length];
 		generated = true;
 		if (x > 0) {
-			world.chunks.add(new Chunk(gc, world, noise, type, x + tileW * 16, y));
+			world.addChunk(gc, x + tileW * 16, y);
 		} else if (x < 0) {
-			world.chunks.add(new Chunk(gc, world, noise, type, x - tileW * 16, y));
+			world.addChunk(gc, x - tileW * 16, y);
 		}
 
 		for (int i = 0; i < tiles.length; i++) {
@@ -177,9 +177,9 @@ public class Chunk {
 		int[] dataList = new int[tiles.length];
 		generated = true;
 		if (x > 0) {
-			world.chunks.add(new Chunk(gc, world, noise, type, x + tileW * 16, y));
+			world.addChunk(gc, x + tileW * 16, y);
 		} else if (x < 0) {
-			world.chunks.add(new Chunk(gc, world, noise, type, x - tileW * 16, y));
+			world.addChunk(gc, x - tileW * 16, y);
 		}
 
 		for (int i = 0; i < tiles.length; i++) {
