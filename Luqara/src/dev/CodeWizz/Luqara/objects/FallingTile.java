@@ -1,5 +1,7 @@
 package dev.CodeWizz.Luqara.objects;
 
+import java.awt.Rectangle;
+
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.Luqara.world.tiles.dirt;
@@ -25,6 +27,16 @@ public class FallingTile extends GameObject {
 		
 		this.tileCollisionID.add(TileID.Solid);
 		
+	}
+	
+	@Override
+	public Rectangle getBoundsLeft() {
+		return new Rectangle((int)x+4, (int)y+2, (int) (w/2)-4, (int) h - 4);
+	}
+
+	@Override
+	public Rectangle getBoundsRight() {
+		return new Rectangle((int)x + (int) (w/2), (int)y+2, (int) (w/2)-4, (int) h - 4);
 	}
 
 	@Override
