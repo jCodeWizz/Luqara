@@ -11,7 +11,7 @@ import dev.CodeWizz.Luqara.objects.Tree;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.Luqara.world.tiles.air;
-import dev.CodeWizz.Luqara.world.tiles.dirt;
+import dev.CodeWizz.Luqara.world.tiles.grassBlock;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
@@ -35,7 +35,7 @@ public class MouseInput {
 			
 		
 		if (gc.getInput().isButtonDown(1)) {
-			gc.handler.addObject(new FallingTile(x, y, new dirt(0, 0, null)));
+			gc.handler.addObject(new FallingTile(x-8, y-8, new grassBlock(0, 0, 0, 0, null)));
 
 			if (gc.getPlayer().getInv().isOpen()) {
 				invClick(x - gc.camera.getX(), y - gc.camera.getY());
@@ -43,21 +43,6 @@ public class MouseInput {
 				
 				gc.getPlayer().getCurrentItem().click(gc, x, y, true, gc.getPlayer().getCurrentItem());
 				
-				for (Tile tile : gc.handler.tile) {
-					if (tile.getBounds()
-							.intersects(new Rectangle(gc.getInput().getMouseX(), gc.getInput().getMouseY(), 1, 1))
-							&& tile.getId() == TileID.Solid) {
-						for (int i = 0; i < tile.getChunk().tiles.length; i++) {
-							for (int j = 0; j < tile.getChunk().tiles[i].length; j++) {
-								if (tile.getChunk().tiles[i][j].getX() == tile.getX()
-										&& tile.getChunk().tiles[i][j].getY() == tile.getY()) {
-									tile.getChunk().tiles[i][j] = new air(tile.getX(), tile.getY(), tile.getChunk());
-									tile.getChunk().setUpdate(true);
-								}
-							}
-						}
-					}
-				}
 				for(GameObject object : gc.handler.object) {
 					if(object.getId() == ID.Tree) {
 						if(object.getBounds().intersects(new Rectangle(x, y, 1, 1))) {

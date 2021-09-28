@@ -1,6 +1,5 @@
 package dev.CodeWizz.Luqara.objects;
 
-import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.items.SmallRock;
 import dev.CodeWizz.Luqara.util.IAction;
@@ -37,7 +36,7 @@ public class Rock extends GameObject implements IAction {
 	@Override
 	public void endAction(GameContainer gc) {
 		uses--;
-		Item.add(new Item((int)x, (int)y, new SmallRock(1)));
+		Item.add(new Item((int)x+16, (int)y-16, new SmallRock(1)));
 	}
 
 	@Override
@@ -51,5 +50,20 @@ public class Rock extends GameObject implements IAction {
 			r.drawImage(Textures.get("rockBroken"), (int)x, (int)y-16);
 		else
 			r.drawImage(Textures.get("rock"), (int)x, (int)y-16);
+	}
+
+	@Override
+	public int getActionTime() {
+		return 3;
+	}
+
+	@Override
+	public int offsetX() {
+		return 16;
+	}
+
+	@Override
+	public int offsetY() {
+		return -16;
 	}
 }

@@ -6,8 +6,8 @@ import dev.CodeWizz.engine.util.Textures;
 
 public class stone extends Tile {
 
-	public stone(int x, int y, Chunk chunk) {
-		super(x, y, chunk);
+	public stone(int x, int y, int cx, int cy, Chunk chunk) {
+		super(x, y, cx, cy, chunk);
 		
 		this.id = TileID.Solid;
 		this.name = "stone";

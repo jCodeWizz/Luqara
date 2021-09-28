@@ -2,8 +2,6 @@ package dev.CodeWizz.Luqara;
 
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.Item;
@@ -42,6 +40,8 @@ public class Player {
 	
 	
 	private int slot = 0;
+	
+	private int actionCounter = 0;
 
 	private boolean hitting = false;
 
@@ -128,7 +128,16 @@ public class Player {
 				hitting = false;
 			}
 		}
-
+		
+		if(doingAction) {
+			if(actionCounter < ((IAction) obj).getActionTime() * 60) {
+				actionCounter++;
+			} else {
+				actionCounter = 0;
+				doingAction = false;
+				endAction();
+			}
+		}
 		velX = WMath.clamb(velX, 2.5f, -2.5f);
 		velY = WMath.clamb(velY, 10f, -10f);
 	}
@@ -168,6 +177,12 @@ public class Player {
 	}
 
 	public void render(GameContainer gc, Renderer r) {
+		if(doingAction && obj != null) {
+			r.fillRect((int)obj.getX() + ((IAction) obj).offsetX() - 2, (int)obj.getY() + ((IAction) obj).offsetY() - 2, 20, 8, 0x64000000, Light.NONE);
+			r.drawRect((int)obj.getX() + ((IAction) obj).offsetX(), (int)obj.getY() + ((IAction) obj).offsetY(), 16, 4, 0xffff0000, Light.NONE);
+			r.fillRect((int)obj.getX() + ((IAction) obj).offsetX(), (int)obj.getY() + ((IAction) obj).offsetY(), (int)WMath.remap(actionCounter, 0, ((IAction) obj).getActionTime()*60, 0, 16), 4, 0xff00ff00, Light.NONE);
+		}
+
 		if (velX != 0) {
 			r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
 		} else
@@ -182,7 +197,7 @@ public class Player {
 		if(getCurrentItem() instanceof Tool && hitting) {
 			r.drawImage(((Tool)getCurrentItem()).getAttackAnim().getFrame(), (int)x - 24, (int)y - 8);
 		}
-
+		
 		if (GameContainer._debug) {
 			r.drawRect(getBounds(), 0xffff0000);
 		}
@@ -216,19 +231,18 @@ public class Player {
 			if (obj != null) {
 				doingAction = true;
 				((IAction) obj).startAction(gc);
-				
-				Timer t = new Timer();
-				t.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						((IAction) obj).endAction(gc);
-						doingAction = false;
-						obj = null;
-						t.cancel();
-					}
-				}, 2000);
 			}
 		}
+	}
+	
+	public void endAction() {
+		((IAction) obj).endAction(gc);
+		doingAction = false;
+		obj = null;
+	}
+	
+	public void stopAction() {
+		
 	}
 
 	public ItemStack getCurrentItem() {
@@ -259,7 +273,7 @@ public class Player {
 
 		
 		
-		if(!HUD.chat.isOpen() && !inv.isOpen()) {
+		if(!HUD.chat.isOpen() && !inv.isOpen() && !doingAction) {
 			if (jumping) {
 				if (gc.getInput().isKey(KeyEvent.VK_D)) {
 					if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {

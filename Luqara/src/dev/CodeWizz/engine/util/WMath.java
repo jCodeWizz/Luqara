@@ -26,4 +26,8 @@ public class WMath {
 	public static float distance(int x1, int y1, int x2, int y2) {
 		return (float) Math.abs(Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 	}
+	
+	public static float remap(float value, float oldmin, float oldmax, float newmin, float newmax) {
+		return((value - oldmin) / (oldmax - oldmin)) * (newmax - newmin) + newmin;
+	}
 }

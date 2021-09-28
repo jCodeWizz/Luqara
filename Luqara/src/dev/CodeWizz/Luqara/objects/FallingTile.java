@@ -4,7 +4,6 @@ import java.awt.Rectangle;
 
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
-import dev.CodeWizz.Luqara.world.tiles.dirt;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.object.GameObject;
@@ -46,7 +45,12 @@ public class FallingTile extends GameObject {
 	
 	@Override
 	public void collided(GameContainer gc, Tile tile) {
-		tile.getChunk().placeTile(tile.getX(), tile.getY() - 16, new dirt(tile.getX(), tile.getY() - 16, tile.getChunk()));
+		this.tile.setX(tile.getX());
+		this.tile.setY(tile.getY() - 16);
+		this.tile.setChunkX(tile.getChunkX());
+		this.tile.setChunkY(tile.getChunkY()-1);
+		this.tile.setChunk(tile.getChunk());
+		tile.getChunk().placeTile(this.tile);
 		gc.handler.removeObject(this);
 	}
 	
@@ -54,6 +58,10 @@ public class FallingTile extends GameObject {
 	public void tick(GameContainer gc) {
 		x+=velX;
 		y+=velY;
+		
+		this.tile.setX((int)x);
+		this.tile.setY((int)y);
+		
 		super.tick(gc);
 	}
 }

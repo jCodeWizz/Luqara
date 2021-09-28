@@ -5,8 +5,8 @@ import dev.CodeWizz.engine.gfx.Image;
 
 public class air extends Tile {
 
-	public air(int x, int y, Chunk chunk) {
-		super(x, y, chunk);
+	public air(int x, int y, int cx, int cy, Chunk chunk) {
+		super(x, y, cx, cy, chunk);
 
 		this.id = TileID.Air;
 		this.name = "air";
