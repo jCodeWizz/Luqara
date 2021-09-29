@@ -19,6 +19,7 @@ import dev.CodeWizz.engine.util.Textures;
 public class GameContainer implements Runnable {
 
 	public static boolean _debug = false;
+	public static boolean _hitboxes = false;
 
 	private Thread thread;
 	private Input input;

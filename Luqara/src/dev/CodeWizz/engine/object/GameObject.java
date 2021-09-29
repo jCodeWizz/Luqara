@@ -20,7 +20,7 @@ public abstract class GameObject {
 	protected float health;
 	
 	protected boolean hurt;
-	protected int hurtTime;
+	protected int hurtTime,  offsetHitboxes = 2;
 	
 	protected ArrayList<ID> gameObjectCollisionID = new ArrayList<>();
 	protected ArrayList<TileID> tileCollisionID = new ArrayList<>();
@@ -122,7 +122,6 @@ public abstract class GameObject {
 						jumping = false;
 						y = tile.getY() - h;
 						collided(gc, tile);
-						continue;
 					} else {
 						falling = true;
 					}
@@ -137,13 +136,13 @@ public abstract class GameObject {
 					
 					if(getBoundsLeft().intersects(tile.getBounds())) {
 						velX = 0;
-						x = tile.getX() + (int) tile.getBounds().getWidth();
+						x = tile.getX() + 16;
 						collided(gc, tile);
 					}
 					
 					if(getBoundsRight().intersects(tile.getBounds())) {
 						velX = 0;
-						x = tile.getX() + w;
+						x = tile.getX() - w;
 						collided(gc, tile);
 					}
 				}
@@ -166,19 +165,19 @@ public abstract class GameObject {
 	}
 
 	public Rectangle getBoundsLeft() {
-		return new Rectangle((int)x, (int)y+2, (int) (w/2), (int) h - 4);
+		return new Rectangle((int)x, (int)y+offsetHitboxes, (int) (w/2), (int) h - offsetHitboxes*2);
 	}
 
 	public Rectangle getBoundsRight() {
-		return new Rectangle((int)x + (int) (w/2), (int)y+2, (int) (w/2), (int) h - 4);
+		return new Rectangle((int)x + (int) (w/2), (int)y+offsetHitboxes, (int) (w/2), (int) h - offsetHitboxes*2);
 	}
 
 	public Rectangle getBoundsBottom() {
-		return new Rectangle((int)x + 2, (int)y + (int) (h/2), (int) w - 4, (int) (h/2));
+		return new Rectangle((int)x + offsetHitboxes, (int)y + (int) (h/2), (int) w - offsetHitboxes*2, (int) (h/2));
 	}
 
 	public Rectangle getBoundsTop() {
-		return new Rectangle((int)x + 2, (int)y, (int) w - 4, (int) (h/2));
+		return new Rectangle((int)x + offsetHitboxes, (int)y, (int) w - offsetHitboxes*2, (int) (h/2));
 	}
 
 	public abstract void render(GameContainer gc, Renderer r);

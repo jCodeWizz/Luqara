@@ -32,6 +32,16 @@ public class CommandInput implements IChatListener {
 			} else if(arg.equalsIgnoreCase("checksizes")) {
 				Luqara.inst.getWorld().sendInfoInChat(gc);
 				return true;
+			} else if(arg.equalsIgnoreCase("hitboxes")) {
+				if(GameContainer._hitboxes) {
+					HUD.chat.sendMessage("&yDisabled hitboxes!");
+					GameContainer._hitboxes = false;
+				}	
+				else {
+					HUD.chat.sendMessage("&yEnabled hitboxes!");
+					GameContainer._hitboxes = true;
+				}
+				return true;
 			}
 			
 			HUD.chat.sendMessage("&cWrong command usage!");

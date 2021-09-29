@@ -10,6 +10,8 @@ import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
+import dev.CodeWizz.engine.object.GameObject;
+import dev.CodeWizz.engine.object.IRandomTickable;
 import dev.CodeWizz.engine.util.WNoise;
 
 public class World {
@@ -20,6 +22,7 @@ public class World {
 	private WNoise noise;
 	private WorldType type;
 	private World world;
+	private int counter = 0;
 
 	public World(GameContainer gc, WorldType type) {
 		this.type = type;
@@ -48,6 +51,17 @@ public class World {
 
 			if (chunk.isLoaded())
 				chunk.update(gc);
+		}
+		
+		if(counter < 60) {
+			counter++;
+		} else {
+			counter = 0;
+			if(gc.handler.object.size() > 0) {
+				GameObject obj = gc.handler.object.get(new Random().nextInt(gc.handler.object.size()));
+				if(obj instanceof IRandomTickable)
+					((IRandomTickable) obj).trigger(gc);
+			}
 		}
 
 		Item.updateAll(gc);
