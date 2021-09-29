@@ -113,14 +113,8 @@ public class Cow extends GameObject implements IRandomTickable{
 			}
 		}
 		
-		
-		
 		if(GameContainer._hitboxes) {
-			//r.drawRect(getBounds(), 0xffff0000);
-			r.drawRect(getBoundsLeft(), 0xffff0000);
-			r.drawRect(getBoundsRight(), 0xffffff00);
-			r.drawRect(getBoundsTop(), 0xff00ff00);
-			r.drawRect(getBoundsBottom(), 0xffff00ff);
+			r.drawRect(getBounds(), 0xffff0000);
 		}
 	}
 	
