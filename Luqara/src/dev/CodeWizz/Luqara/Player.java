@@ -55,6 +55,8 @@ public class Player {
 	private boolean jumping, falling;
 	private final int maxVelY = 15;
 	private float gravity = 0.2f;
+	
+	private int hitCounter = 30;
 
 	private Light light;
 
@@ -129,6 +131,9 @@ public class Player {
 			}
 		}
 		
+		if(hitCounter > 0)
+			hitCounter--;
+		
 		if(doingAction) {
 			if(actionCounter < ((IAction) obj).getActionTime() * 60) {
 				actionCounter++;
@@ -163,15 +168,19 @@ public class Player {
 	}
 	
 	public void damage(float damage) {
-		if(health - damage > 0) {
-			health-=damage;
-		} else {
-			die();
+		if(hitCounter == 0) {
+			if(health - damage > 0) {
+				health-=damage;
+				hitCounter = 30;
+			} else {
+				die();
+			}
 		}
 	}
 	
 	public void die() {
 		inv.clear();
+		this.health = 10;
 		this.x = 0;
 		this.y = 0;
 	}
@@ -183,26 +192,29 @@ public class Player {
 			r.fillRect((int)obj.getX() + ((IAction) obj).offsetX(), (int)obj.getY() + ((IAction) obj).offsetY(), (int)WMath.remap(actionCounter, 0, ((IAction) obj).getActionTime()*60, 0, 16), 4, 0xff00ff00, Light.NONE);
 		}
 
-		if (velX != 0) {
-			r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
-		} else
-			r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
+		if(hitCounter % 2 == 0 || hitCounter == 0) {
+			if (velX != 0) {
+				r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
+			} else
+				r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
+			
 
-		if (getCurrentItem() instanceof Tool && !hitting) {
-			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
-		} else if(!hitting) {
-			r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
+			if (getCurrentItem() instanceof Tool && !hitting) {
+				r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
+			} else if(!hitting) {
+				r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
+			}
+
+			if(getCurrentItem() instanceof Tool && hitting) {
+				r.drawImage(((Tool)getCurrentItem()).getAttackAnim().getFrame(), (int)x - 24, (int)y - 8);
+			}
 		}
 
-		if(getCurrentItem() instanceof Tool && hitting) {
-			r.drawImage(((Tool)getCurrentItem()).getAttackAnim().getFrame(), (int)x - 24, (int)y - 8);
-		}
 		
 		if (GameContainer._debug) {
 			r.drawRect(getBounds(), 0xffff0000);
 		}
 
-		r.drawLight(light, (int) x, (int) y, true);
 
 	}
 

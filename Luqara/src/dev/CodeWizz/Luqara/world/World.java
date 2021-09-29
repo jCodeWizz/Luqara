@@ -17,12 +17,18 @@ import dev.CodeWizz.engine.util.WNoise;
 public class World {
 
 	public List<Chunk> chunks = new CopyOnWriteArrayList<>();
+	public List<GameObject> passiveMobs = new CopyOnWriteArrayList<>();
+	public List<GameObject> agressiveMobs = new CopyOnWriteArrayList<>();
+
 
 	public double seed = 0;
 	private WNoise noise;
 	private WorldType type;
 	private World world;
 	private int counter = 0;
+	
+	private int passiveMobCap = 20;
+	private int agressiveMobCap = 10;
 
 	public World(GameContainer gc, WorldType type) {
 		this.type = type;
@@ -83,6 +89,34 @@ public class World {
 
 		Item.renderAll(gc, r);
 
+	}
+	
+	public GameObject spawnEntity(GameContainer gc, GameObject e, boolean force) {
+		if(force) {
+			if(e.hasTag("agressive")) {
+				agressiveMobs.add(e);
+				gc.handler.addObject(e);
+			} else if(e.hasTag("passive")) {
+				passiveMobs.add(e);
+				gc.handler.addObject(e);
+			}
+		} else {
+			if(e.hasTag("agressive")) {
+				if(agressiveMobs.size() < agressiveMobCap) {
+					agressiveMobs.add(e);
+					gc.handler.addObject(e);
+				}
+			} else if(e.hasTag("passive")) {
+				if(e.hasTag("passive")) {
+					if(passiveMobs.size() < passiveMobCap) {
+						passiveMobs.add(e);
+						gc.handler.addObject(e);
+					}
+				}
+			}
+				
+		}
+		return e;
 	}
 
 	public void addChunk(GameContainer gc, int x, int y) {

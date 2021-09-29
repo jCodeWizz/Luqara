@@ -24,6 +24,7 @@ public abstract class GameObject {
 	
 	protected ArrayList<ID> gameObjectCollisionID = new ArrayList<>();
 	protected ArrayList<TileID> tileCollisionID = new ArrayList<>();
+	protected ArrayList<String> tags = new ArrayList<>();
 
 	protected boolean hasGravity, hasCollision, isSlippery, isBouncy;
 
@@ -59,6 +60,25 @@ public abstract class GameObject {
 	
 	public void collided(GameContainer gc, GameObject object) {
 		
+	}
+	
+	public boolean hasTag(String tag) {
+		if(tags.contains(tag))
+			return true;
+		
+		return false;
+	}
+	
+	public void addTag(String tag) {
+		this.tags.add(tag);
+	}
+	
+	public boolean removeTag(String tag) {
+		if(tags.remove(tag)) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public void collided(GameContainer gc, Tile tile) {

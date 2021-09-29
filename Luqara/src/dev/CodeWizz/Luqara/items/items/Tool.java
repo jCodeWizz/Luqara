@@ -30,7 +30,7 @@ public abstract class Tool extends ItemStack {
 			if (object.getId() == ID.Cow || object.getId() == ID.Balrups) {
 				if (new Rectangle(x, y, 1, 1).intersects(object.getBounds())) {
 					object.damage(gc, damage);
-					continue;
+					return;
 				}
 			}
 		}

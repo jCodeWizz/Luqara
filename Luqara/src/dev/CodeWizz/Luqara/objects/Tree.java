@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.items.WoodLog;
 import dev.CodeWizz.engine.GameContainer;
@@ -91,7 +92,7 @@ public class Tree extends GameObject {
 
 		if (nest) {
 			for (int i = -1; i < 2; i++) {
-				gc.handler.addObject(new Balrups((int) x - 24 + 16 * i, (int) y - height * 16 - length * 4));
+				Luqara.inst.getWorld().spawnEntity(gc, new Balrups((int) x - 24 + 16 * i, (int) y - height * 16 - length * 4), true);
 			}
 		}
 
