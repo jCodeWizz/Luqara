@@ -8,28 +8,30 @@ import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
 
-public abstract class Tool extends ItemStack{
+public abstract class Tool extends ItemStack {
 
 	protected boolean attacking;
 	protected int durability;
 	protected Animation attackAnim;
-	
+
 	public Tool(int size) {
 		super(size);
-		
+
 	}
-	
+
 	public void tick() {
 		attackAnim.tick();
-	
+
 	}
-	
+
 	public void attack(GameContainer gc, int x, int y) {
 		gc.getPlayer().hit();
-		for(GameObject object : gc.handler.object) {
-			if(object.getId() == ID.Balrups && new Rectangle(x, y, 1, 1).intersects(object.getBounds())) {
-				object.damage(gc, damage);
-				continue;
+		for (GameObject object : gc.handler.object) {
+			if (object.getId() == ID.Cow || object.getId() == ID.Balrups) {
+				if (new Rectangle(x, y, 1, 1).intersects(object.getBounds())) {
+					object.damage(gc, damage);
+					continue;
+				}
 			}
 		}
 	}

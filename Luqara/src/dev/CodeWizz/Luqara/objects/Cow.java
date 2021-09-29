@@ -17,6 +17,7 @@ import dev.CodeWizz.engine.util.WMath;
 public class Cow extends GameObject implements IRandomTickable{
 	
 	private Animation walkAnim;
+	private Animation hurtAnim;
 	
 	private Random r;
 	private int destination;
@@ -37,6 +38,7 @@ public class Cow extends GameObject implements IRandomTickable{
 		this.r = new Random();
 		
 		walkAnim = new Animation(5, Textures.get("cow1"), Textures.get("cow2"), Textures.get("cow3"));
+		hurtAnim = new Animation(5, Textures.get("cowHurt1"), Textures.get("cowHurt2"), Textures.get("cowHurt3"));
 		
 		w = 32;
 		h = 32;
@@ -97,10 +99,18 @@ public class Cow extends GameObject implements IRandomTickable{
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		
-		if(velX != 0) {
-			r.drawImage(walkAnim.getFrame(), (int)x, (int)y);
+		if(hurt) {
+			if(velX != 0) {
+				r.drawImage(hurtAnim.getFrame(), (int)x, (int)y);
+			} else {
+				r.drawImage(Textures.get("cowHurtIdle"), (int)x, (int)y);
+			}
 		} else {
-			r.drawImage(Textures.get("cowIdle"), (int)x, (int)y);
+			if(velX != 0) {
+				r.drawImage(walkAnim.getFrame(), (int)x, (int)y);
+			} else {
+				r.drawImage(Textures.get("cowIdle"), (int)x, (int)y);
+			}
 		}
 		
 		
@@ -112,6 +122,12 @@ public class Cow extends GameObject implements IRandomTickable{
 			r.drawRect(getBoundsTop(), 0xff00ff00);
 			r.drawRect(getBoundsBottom(), 0xffff00ff);
 		}
+	}
+	
+	@Override
+	public void damage(GameContainer gc, float damage) {
+		super.damage(gc, damage);
+		bloodParticles((int)x+8, (int)y + 8);
 	}
 
 	@Override
