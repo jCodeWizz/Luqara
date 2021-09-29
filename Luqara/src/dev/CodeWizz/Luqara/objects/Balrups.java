@@ -49,6 +49,8 @@ public class Balrups extends GameObject {
 		
 		flyAnim = new Animation(6, Textures.get("balrups1"), Textures.get("balrups2"), Textures.get("balrups3"), Textures.get("balrups4"));
 		flyHurtAnim = new Animation(6, Textures.get("balrupsHurt1"), Textures.get("balrupsHurt2"), Textures.get("balrupsHurt3"), Textures.get("balrupsHurt4"));
+		
+		this.tags.add("agressive");
 	}
 	
 	@Override

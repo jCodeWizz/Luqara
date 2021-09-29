@@ -45,7 +45,7 @@ public class Cow extends GameObject implements IRandomTickable{
 		
 		this.offsetHitboxes = 2;
 		
-		
+		this.tags.add("passive");
 	}
 	
 	@Override
