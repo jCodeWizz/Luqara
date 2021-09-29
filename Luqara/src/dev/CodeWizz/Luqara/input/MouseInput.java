@@ -2,14 +2,12 @@ package dev.CodeWizz.Luqara.input;
 
 import java.awt.Rectangle;
 
-import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.items.Air;
 import dev.CodeWizz.Luqara.items.items.ITilePlacable;
-import dev.CodeWizz.Luqara.objects.Cow;
 import dev.CodeWizz.Luqara.objects.Tree;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
@@ -45,8 +43,8 @@ public class MouseInput {
 				invClick(x - gc.camera.getX(), y - gc.camera.getY());
 			} else {
 
-				//gc.handler.addObject(new FallingTile(x - 8, y - 8, new dirt(0, 0, 0, 0, null)));
-				Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
+				//
+				// Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
 
 				if (gc.getPlayer().getCurrentItem() instanceof ITilePlacable) {
 					if (mouseTile.getId() != TileID.Solid) {
