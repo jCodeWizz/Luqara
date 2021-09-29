@@ -1,16 +1,21 @@
 package dev.CodeWizz.Luqara.input;
 
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 
+import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.items.Air;
 import dev.CodeWizz.Luqara.items.items.ITilePlacable;
+import dev.CodeWizz.Luqara.objects.Cow;
+import dev.CodeWizz.Luqara.objects.FallingTile;
 import dev.CodeWizz.Luqara.objects.Tree;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
+import dev.CodeWizz.Luqara.world.tiles.grassBlock;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
@@ -37,6 +42,14 @@ public class MouseInput {
 				mouseTile = tile;
 			}
 		}
+		
+		if(gc.getInput().isButtonDown(1)) {
+			if(gc.getInput().isKey(KeyEvent.VK_SHIFT)) {
+				Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
+			} else if(gc.getInput().isKey(KeyEvent.VK_CONTROL)) {
+				gc.handler.addObject(new FallingTile(x - 8, y - 8, new grassBlock(0, 0, 0, 0, null)));
+			}
+		}
 
 		if (gc.getInput().isButtonDown(1)) {
 			if (gc.getPlayer().getInv().isOpen()) {
@@ -46,6 +59,8 @@ public class MouseInput {
 				//
 				// Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
 
+				
+				
 				if (gc.getPlayer().getCurrentItem() instanceof ITilePlacable) {
 					if (mouseTile.getId() != TileID.Solid) {
 						((ITilePlacable) gc.getPlayer().getCurrentItem()).place(mouseTile);

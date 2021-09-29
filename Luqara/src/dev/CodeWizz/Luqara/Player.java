@@ -215,7 +215,6 @@ public class Player {
 			r.drawRect(getBounds(), 0xffff0000);
 		}
 
-		r.drawLight(light, (int) x, (int) y, true);
 
 	}
 
