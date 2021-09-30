@@ -244,22 +244,49 @@ public class Renderer {
 		
 		
 		int offset = 0;
-		
+		int halfOffset = 0;
 
-		for (int i = 0; i < text.length(); i++) {
-			int unicode = text.codePointAt(i) - 32;
+		if(!a) {
+			for (int i = 0; i < text.length(); i++) {
+				int unicode = text.codePointAt(i) - 32;
 
-			for (int y = 0; y < font.getFontImage().getH(); y++) {
-				for (int x = 0; x < font.getWidths()[unicode]; x++) {
-					if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
-							+ y * font.getFontImage().getW()] == 0xffffffff) {
-						setPixel(x + offX + offset, y + offY, color);
+				for (int y = 0; y < font.getFontImage().getH(); y++) {
+					for (int x = 0; x < font.getWidths()[unicode]; x++) {
+						if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
+								+ y * font.getFontImage().getW()] == 0xffffffff) {
+							setPixel(x + offX + offset, y + offY, color);
+						}
 					}
 				}
+
+				offset += font.getWidths()[unicode];
+
 			}
+		} else {
+			for(int i = 0; i < text.length(); i++) {
+				int unicode = text.codePointAt(i) - 32;
+				halfOffset += font.getWidths()[unicode];
+			}
+			
+			halfOffset /= 2;
+			
+			for (int i = 0; i < text.length(); i++) {
+				int unicode = text.codePointAt(i) - 32;
 
-			offset += font.getWidths()[unicode];
+				for (int y = 0; y < font.getFontImage().getH(); y++) {
+					for (int x = 0; x < font.getWidths()[unicode]; x++) {
+						if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
+								+ y * font.getFontImage().getW()] == 0xffffffff) {
+							setPixel(x + offX + offset - halfOffset, y + offY, color);
+						}
+					}
+				}
 
+				offset += font.getWidths()[unicode];
+
+			}
+			
+			
 		}
 	}
 

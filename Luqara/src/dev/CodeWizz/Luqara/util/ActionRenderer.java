@@ -3,7 +3,6 @@ package dev.CodeWizz.Luqara.util;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Font;
-import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.hud.IHudComponent;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.util.WMath;
@@ -36,9 +35,8 @@ public class ActionRenderer implements IHudComponent {
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		if(target != null && !gc.getPlayer().isDoingAction()) {
-			r.fillRect((int)target.getX() + ((IAction) target).offsetX(), (int)target.getY() + ((IAction) target).offsetY(), 16, 16, 0xffff0000, Light.NONE);
 			r.setFont(Font.STANDARD);
-			r.drawText("WELCOME ALLEMAAL HALLO", (int)target.getX() + ((IAction) target).offsetX(), (int)target.getY() + ((IAction) target).offsetY(), 0xffffffff, true);
+			r.drawText(((IAction) target).getActionString(), (int)target.getX() + ((IAction) target).offsetX(), (int)target.getY() + ((IAction) target).offsetY(), 0xffffffff, true);
 			r.setFont(Font.DETAILED);
 		}
 	}

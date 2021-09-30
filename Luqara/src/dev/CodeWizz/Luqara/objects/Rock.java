@@ -66,4 +66,9 @@ public class Rock extends GameObject implements IAction {
 	public int offsetY() {
 		return -16;
 	}
+
+	@Override
+	public String getActionString() {
+		return "PRESS F TO GRAB A ROCK";
+	}
 }

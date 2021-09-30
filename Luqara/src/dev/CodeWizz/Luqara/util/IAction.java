@@ -10,4 +10,5 @@ public interface IAction {
 	public void stopAction(GameContainer gc);
 	public int offsetX();
 	public int offsetY();
+	public String getActionString();
 }
