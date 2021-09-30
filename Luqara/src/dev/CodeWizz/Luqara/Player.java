@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.ItemStack;
+import dev.CodeWizz.Luqara.items.Slot;
+import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.inventories.PlayerInventory;
 import dev.CodeWizz.Luqara.items.items.BasicAxe;
 import dev.CodeWizz.Luqara.items.items.BasicPickaxe;
@@ -58,7 +60,6 @@ public class Player {
 	
 	private int hitCounter = 30;
 
-	private Light light;
 
 	private GameContainer gc;
 	
@@ -71,8 +72,6 @@ public class Player {
 
 		w = 16;
 		h = 32;
-
-		light = new Light(150, 0xffe6bc05);
 
 		walkAnim = new Animation(7, Textures.get("playerRun1"), Textures.get("playerRun2"), Textures.get("playerRun3"),
 				Textures.get("playerRun4"), Textures.get("playerRun5"), Textures.get("playerRun6"));
@@ -121,7 +120,7 @@ public class Player {
 		}
 
 		// ITEM HITTING ANIMATION
-		if (hitting) {
+		if (hitting && getCurrentItem() instanceof Tool) {
 			((Tool) getCurrentItem()).getAttackAnim().tick();
 		}
 
@@ -179,6 +178,33 @@ public class Player {
 	}
 	
 	public void die() {
+		
+		for(Slot slot : inv.getSlots()) {
+			if(slot.getItem().getType() != Type.Air) {
+				Item.add(new Item(x, y, slot.getItem()));
+			}
+		}
+		
+		if(inv.getCurrentSlot().getItem().getType() != Type.Air) {
+			Item.add(new Item(x, y, inv.getCurrentSlot().getItem()));
+		}
+		
+		if(inv.getWeaponSlot().getItem().getType() != Type.Air) {
+			Item.add(new Item(x, y, inv.getWeaponSlot().getItem()));
+		}
+		
+		if(inv.getToolSlot().getItem().getType() != Type.Air) {
+			Item.add(new Item(x, y, inv.getToolSlot().getItem()));
+		}
+		
+		if(inv.getHelmetSlot().getItem().getType() != Type.Air) {
+			Item.add(new Item(x, y, inv.getHelmetSlot().getItem()));
+		}
+		
+		if(inv.getArmourSlot().getItem().getType() != Type.Air) {
+			Item.add(new Item(x, y, inv.getArmourSlot().getItem()));
+		}
+		
 		inv.clear();
 		this.health = 10;
 		this.x = 0;

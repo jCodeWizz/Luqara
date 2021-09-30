@@ -35,6 +35,10 @@ public class Item {
 
 		this.x = x;
 		this.y = y;
+		
+		if(this.itemStack.getType() == Type.Air) {
+			Item.remove(this);
+		}
 
 	}
 	

@@ -237,6 +237,31 @@ public class Renderer {
 
 		}
 	}
+	
+	public void drawText(String text, int offX, int offY, int color, boolean a) {
+		offX -= camX;
+		offY -= camY;
+		
+		
+		int offset = 0;
+		
+
+		for (int i = 0; i < text.length(); i++) {
+			int unicode = text.codePointAt(i) - 32;
+
+			for (int y = 0; y < font.getFontImage().getH(); y++) {
+				for (int x = 0; x < font.getWidths()[unicode]; x++) {
+					if (font.getFontImage().getP()[(x + font.getOffsets()[unicode])
+							+ y * font.getFontImage().getW()] == 0xffffffff) {
+						setPixel(x + offX + offset, y + offY, color);
+					}
+				}
+			}
+
+			offset += font.getWidths()[unicode];
+
+		}
+	}
 
 	public void drawLight(Light l, int x, int y, boolean force) {
 		x -= camX;
@@ -768,6 +793,14 @@ public class Renderer {
 
 	public void setCamY(int camY) {
 		this.camY = camY;
+	}
+
+	public Font getFont() {
+		return font;
+	}
+
+	public void setFont(Font font) {
+		this.font = font;
 	}
 
 }

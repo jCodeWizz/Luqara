@@ -1,7 +1,5 @@
 package dev.CodeWizz.Luqara;
 
-import java.awt.event.MouseEvent;
-
 import dev.CodeWizz.Luqara.input.CommandInput;
 import dev.CodeWizz.Luqara.input.KeyInput;
 import dev.CodeWizz.Luqara.input.MouseInput;
@@ -14,7 +12,6 @@ import dev.CodeWizz.engine.gfx.light.Light;
 
 public class Luqara extends AbstractGame {
 
-	private Light light;
 	
 	public static Luqara inst;
 	
@@ -26,7 +23,6 @@ public class Luqara extends AbstractGame {
 	
 	public Luqara() {
 		inst = this;
-		light = new Light(150, 0xffe6bc05);
 	}
 	
 	@Override
