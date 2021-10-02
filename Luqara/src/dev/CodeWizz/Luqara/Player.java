@@ -165,18 +165,18 @@ public class Player {
 		inv.render(gc, r);
 	}
 	
-	public void damage(float damage) {
+	public void damage(float damage, String cause) {
 		if(hitCounter == 0) {
 			if(health - damage > 0) {
 				health-=damage;
 				hitCounter = 30;
 			} else {
-				die();
+				die(cause);
 			}
 		}
 	}
 	
-	public void die() {
+	public void die(String deathMessage) {
 		
 		for(Slot slot : inv.getSlots()) {
 			if(slot.getItem().getType() != Type.Air) {
@@ -208,6 +208,8 @@ public class Player {
 		this.health = 10;
 		this.x = 0;
 		this.y = 0;
+		
+		HUD.chat.sendMessage(deathMessage);
 	}
 
 	public void render(GameContainer gc, Renderer r) {

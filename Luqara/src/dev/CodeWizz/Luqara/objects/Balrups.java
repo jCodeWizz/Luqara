@@ -106,7 +106,7 @@ public class Balrups extends GameObject {
 		}
 		
 		if(this.getBounds().intersects(gc.getPlayer().getBounds())) {
-			gc.getPlayer().damage(damage);
+			gc.getPlayer().damage(damage, "Stung to death by a balrups");
 		}
 		
 	}

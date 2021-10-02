@@ -49,12 +49,11 @@ public class Luqara extends AbstractGame {
 	@Override
 	public void renderUI(GameContainer gc, Renderer r) {
 		if(MouseInput.mouseTile != null) {
-			r.fillRect(MouseInput.mouseTile.getX(), MouseInput.mouseTile.getY(), 16, 16, 0x64000000, Light.NONE);
+			r.fillRect(MouseInput.mouseTile.getX(), MouseInput.mouseTile.getY(), 15, 15, 0x64000000, Light.NONE);
 		}
 		
 		player.renderUI(gc, r);
 	}
-	
 	
 	
 

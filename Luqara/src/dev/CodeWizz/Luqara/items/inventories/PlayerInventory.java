@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 
 import dev.CodeWizz.Luqara.input.MouseInput;
 import dev.CodeWizz.Luqara.items.Inventory;
+import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.engine.GameContainer;
@@ -121,6 +122,11 @@ public class PlayerInventory extends Inventory {
 		if (getRenderInv() != null) {
 			getRenderInv().close();
 			setRenderInv(null);
+		}
+		
+		if (MouseInput.mouseSlot.getItem().getType() != Type.Air) {
+			Item.add(new Item(GameContainer.inst.getPlayer().getX(), GameContainer.inst.getPlayer().getY(), MouseInput.mouseSlot.getItem(), 120));
+			MouseInput.mouseSlot.clear();
 		}
 
 		/**
