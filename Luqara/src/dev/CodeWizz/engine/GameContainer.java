@@ -27,6 +27,8 @@ public class GameContainer implements Runnable {
 	private Renderer renderer;
 	public AbstractGame game;
 	private HudManager hMan;
+	
+	public static GameContainer inst;
 
 	public Camera camera;
 	public Handler handler;
@@ -47,6 +49,7 @@ public class GameContainer implements Runnable {
 
 	public GameContainer(AbstractGame game) {
 		this.game = game;
+		inst = this;
 		
 		width = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / scale);
 		height = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / scale);

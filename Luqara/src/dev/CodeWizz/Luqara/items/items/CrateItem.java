@@ -2,6 +2,7 @@ package dev.CodeWizz.Luqara.items.items;
 
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
+import dev.CodeWizz.Luqara.items.inventories.CrateInventory;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.crate;
 import dev.CodeWizz.engine.util.Textures;
@@ -44,6 +45,7 @@ public class CrateItem extends ItemStack implements ITilePlacable {
 		
 		
 		tile.getChunk().placeTile(this.tile);
+		
 		
 		return true;
 	}

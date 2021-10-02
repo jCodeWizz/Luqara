@@ -77,7 +77,7 @@ public class PlayerInventory extends Inventory {
 	
 
 	@Override
-	public void open() {
+	public void open(GameContainer gc) {
 
 		/**
 		if (showRecipes) {
@@ -95,7 +95,7 @@ public class PlayerInventory extends Inventory {
 
 		allSlots.add(armourSlot);
 
-		super.open();
+		super.open(gc);
 	}
 
 	@Override
@@ -139,6 +139,9 @@ public class PlayerInventory extends Inventory {
 		toolSlot.clear();
 		helmetSlot.clear();
 		armourSlot.clear();
+		
+		
+		
 		super.clear();
 	}
 	
@@ -149,9 +152,11 @@ public class PlayerInventory extends Inventory {
 		if(open) {
 			r.drawImageUI(Textures.get("inventoryUI"), gc.getWidth()/2 - (int) (Textures.get("inventoryUI").getW()*1.5), gc.getHeight()/2 - (int)(Textures.get("inventoryUI").getH()*1.5), 3);
 			
-			for(Slot slot : this.slots) {
-				slot.render(gc, r);
-			}
+			super.render(gc, r);
+			
+			
+			if(renderInv != null)
+				renderInv.render(gc, r);
 			
 			currentSlot.render(gc, r);
 			weaponSlot.render(gc, r);

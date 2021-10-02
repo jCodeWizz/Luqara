@@ -26,7 +26,9 @@ public abstract class Inventory {
 
 	
 	public void render(GameContainer gc, Renderer r) {
-		
+		for(Slot slot : this.slots) {
+			slot.render(gc, r);
+		}
 	}
 	
 	public void clear() {
@@ -41,7 +43,7 @@ public abstract class Inventory {
 		}
 	}
 	
-	public void open() {
+	public void open(GameContainer gc) {
 		for (Slot slot : slots) {
 			allSlots.add(slot);
 		}

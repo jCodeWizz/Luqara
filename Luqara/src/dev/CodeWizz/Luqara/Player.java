@@ -3,7 +3,6 @@ package dev.CodeWizz.Luqara;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
@@ -582,7 +581,7 @@ public class Player {
 		this.gravity = gravity;
 	}
 
-	public Inventory getInv() {
+	public PlayerInventory getInv() {
 		return inv;
 	}
 

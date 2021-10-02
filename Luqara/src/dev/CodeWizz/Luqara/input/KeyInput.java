@@ -16,7 +16,7 @@ public class KeyInput {
 			if(p.getInv().isOpen()) {
 				p.getInv().close();
 			} else {
-				p.getInv().open();
+				p.getInv().open(gc);
 			}
 		}
 		
