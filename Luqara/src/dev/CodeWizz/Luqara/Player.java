@@ -245,9 +245,11 @@ public class Player {
 	}
 
 	private void jump() {
-		velY = -3;
-		if (!GameContainer._debug)
-			jumping = true;
+		if(!doingAction) {
+			velY = -3;
+			if (!GameContainer._debug)
+				jumping = true;
+		}
 	}
 
 	public void startAction() {

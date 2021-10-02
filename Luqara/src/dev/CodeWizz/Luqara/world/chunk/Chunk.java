@@ -273,8 +273,10 @@ public class Chunk {
 	}
 	
 	public void placeTile(Tile tile) {
-		tiles[tile.getChunkX()][tile.getChunkY()] = tile;
-		setUpdate(true);
+		if(tile.getChunkY() >= 0 && tile.getChunkX() < 16 && tile.getChunkX() >= 0) {
+			tiles[tile.getChunkX()][tile.getChunkY()] = tile;
+			setUpdate(true);
+		}
 	}
 
 	public Rectangle getBounds() {
