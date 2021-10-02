@@ -16,6 +16,7 @@ import dev.CodeWizz.engine.gfx.particles.Particle;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
 import dev.CodeWizz.engine.util.NormalMaps;
+import dev.CodeWizz.engine.util.Sounds;
 import dev.CodeWizz.engine.util.Textures;
 
 public class Tree extends GameObject {
@@ -104,6 +105,8 @@ public class Tree extends GameObject {
 			shaking = true;
 
 			damage(gc, 1);
+			
+			Sounds.get("treeHit").play();
 
 			Particle.add(new Particle((int) x - 24, (int) y - height * 16 - length * 4, 0xff3a9c33, 2, 120, 1));
 			Particle.add(new Particle((int) x - 24, (int) y - height * 16 - length * 4, 0xff7aca2d, 2, 120, 1));

@@ -26,6 +26,7 @@ public class MouseInput {
 
 	public static Slot mouseSlot;
 	public static Tile mouseTile;
+	
 
 	public MouseInput() {
 		mouseSlot = new Slot(0, 0);

@@ -26,6 +26,7 @@ import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.object.GameObject;
+import dev.CodeWizz.engine.util.Sounds;
 import dev.CodeWizz.engine.util.Textures;
 import dev.CodeWizz.engine.util.WMath;
 
@@ -150,6 +151,8 @@ public class Player {
 			if (this.getBounds().intersects(item.getBounds()) && !item.onCooldown()) {
 				if (inv.addItem(item.getItems())) {
 					Item.remove(item);
+					Sounds.get("itemPickup").play();
+					return;
 				}
 			}
 		}

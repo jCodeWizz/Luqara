@@ -9,6 +9,7 @@ import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
+import dev.CodeWizz.engine.util.Sounds;
 import dev.CodeWizz.engine.util.Textures;
 
 public class Balrups extends GameObject {
@@ -56,6 +57,7 @@ public class Balrups extends GameObject {
 	@Override
 	public void damage(GameContainer gc, float damage) {
 		super.damage(gc, damage);
+		Sounds.get("balrupsHit").play();
 		bloodParticles((int)x+8, (int)y + 8);
 	}
 	
