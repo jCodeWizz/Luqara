@@ -16,6 +16,7 @@ import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.Luqara.world.tiles.air;
 import dev.CodeWizz.Luqara.world.tiles.dirt;
+import dev.CodeWizz.Luqara.world.tiles.grass;
 import dev.CodeWizz.Luqara.world.tiles.grassBlock;
 import dev.CodeWizz.Luqara.world.tiles.stone;
 import dev.CodeWizz.Luqara.world.tiles.water;
@@ -85,6 +86,15 @@ public class Chunk {
 		
 		gc.handler.object.addAll(objects);
 	}
+	
+	private void generateGrass(GameContainer gc, int[] y) {
+		for (int i = 0; i < y.length; i++) {
+			float data = (float) noise.noise((i + x) * 20);
+
+			if (data > 0.1f && tiles[i][y[i]].isPlantSpawnable())
+				tiles[i][y[i]-1] = new grass(x + i * 16, this.y + y[i]-1 * 16, i, y[i]-1, this);
+		}
+	}
 
 	private void generateTree(GameContainer gc, int[] y) {
 		for(int i = 0; i < y.length; i++) {
@@ -143,6 +153,7 @@ public class Chunk {
 
 		generateTree(gc, dataList);
 		generateRock(gc, dataList);
+		generateGrass(gc, dataList);
 		updateChunk(gc);
 	}
 
@@ -217,6 +228,7 @@ public class Chunk {
 
 		generateTree(gc, dataList);
 		generateRock(gc, dataList);
+		generateGrass(gc, dataList);
 		updateChunk(gc);
 
 	}
