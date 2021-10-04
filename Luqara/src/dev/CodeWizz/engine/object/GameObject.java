@@ -14,7 +14,7 @@ public abstract class GameObject {
 
 	protected float x, y, w = 16, h = 16, velX, velY;
 	protected ID id;
-	protected float gravity = 0.2f;
+	protected float gravity = 0.2f, slide = 0.2f, bounce = 0.2f;
 	protected float maxVelX = 5f, maxVelY = 7.5f;
 	protected boolean falling, jumping;
 	protected float health;
