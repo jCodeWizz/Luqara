@@ -2,7 +2,7 @@ package dev.CodeWizz.Luqara.items;
 
 import java.lang.reflect.InvocationTargetException;
 
-import dev.CodeWizz.Luqara.HUD;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Image;

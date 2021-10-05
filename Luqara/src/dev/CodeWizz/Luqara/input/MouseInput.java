@@ -3,7 +3,6 @@ package dev.CodeWizz.Luqara.input;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
-import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
@@ -14,6 +13,7 @@ import dev.CodeWizz.Luqara.items.items.ITilePlacable;
 import dev.CodeWizz.Luqara.objects.Cow;
 import dev.CodeWizz.Luqara.objects.FallingTile;
 import dev.CodeWizz.Luqara.objects.Tree;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.ITileEntity;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;

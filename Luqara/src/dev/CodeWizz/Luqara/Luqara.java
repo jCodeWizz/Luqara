@@ -3,6 +3,7 @@ package dev.CodeWizz.Luqara;
 import dev.CodeWizz.Luqara.input.CommandInput;
 import dev.CodeWizz.Luqara.input.KeyInput;
 import dev.CodeWizz.Luqara.input.MouseInput;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.World;
 import dev.CodeWizz.Luqara.world.WorldType;
 import dev.CodeWizz.engine.AbstractGame;

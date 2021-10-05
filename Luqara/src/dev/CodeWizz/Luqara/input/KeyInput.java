@@ -2,8 +2,8 @@ package dev.CodeWizz.Luqara.input;
 
 import java.awt.event.KeyEvent;
 
-import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.Player;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.engine.GameContainer;
 
 public class KeyInput {

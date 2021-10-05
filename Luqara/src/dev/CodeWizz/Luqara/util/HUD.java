@@ -1,6 +1,5 @@
-package dev.CodeWizz.Luqara;
+package dev.CodeWizz.Luqara.util;
 
-import dev.CodeWizz.Luqara.util.ActionRenderer;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.hud.Chat;
 

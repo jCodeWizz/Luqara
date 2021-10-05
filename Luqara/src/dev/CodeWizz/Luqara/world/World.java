@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.items.Item;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;

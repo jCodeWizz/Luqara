@@ -1,7 +1,7 @@
 package dev.CodeWizz.Luqara.input;
 
-import dev.CodeWizz.Luqara.HUD;
 import dev.CodeWizz.Luqara.Luqara;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.hud.IChatListener;
 
