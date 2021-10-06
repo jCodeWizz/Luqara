@@ -58,7 +58,8 @@ public class Textures {
 		list.put("twigbasket", new Image("/assets/textures/items/twigbasket.png"));
 		list.put("woodlog", new Image("/assets/textures/items/woodlog.png"));
 		list.put("crate", new Image("/assets/textures/items/crate.png"));
-
+		list.put("craftingstation", new Image("/assets/textures/items/craftingstation.png"));
+	
 		list.put("sharprockIcon", new Image("/assets/textures/items/sharprock/icon.png"));
 		list.put("sharprockIdle", new Image("/assets/textures/items/sharprock/idle.png"));
 		list.put("sharprockRun", new Image("/assets/textures/items/sharprock/run.png"));

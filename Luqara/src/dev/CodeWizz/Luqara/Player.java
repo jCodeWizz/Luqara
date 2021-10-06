@@ -10,6 +10,7 @@ import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.inventories.PlayerInventory;
 import dev.CodeWizz.Luqara.items.items.BasicAxe;
 import dev.CodeWizz.Luqara.items.items.BasicPickaxe;
+import dev.CodeWizz.Luqara.items.items.CraftingStation;
 import dev.CodeWizz.Luqara.items.items.CrateItem;
 import dev.CodeWizz.Luqara.items.items.CutWood;
 import dev.CodeWizz.Luqara.items.items.SharpRock;
@@ -88,6 +89,7 @@ public class Player {
 		inv.addItem(new SharpRock(1));
 		inv.addItem(new SmallRock(1));
 		inv.addItem(new TwigBasket(1));
+		inv.addItem(new CraftingStation(1));
 		
 		this.health = 10;
 
