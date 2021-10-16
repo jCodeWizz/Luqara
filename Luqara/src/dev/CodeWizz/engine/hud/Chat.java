@@ -1,5 +1,6 @@
 package dev.CodeWizz.engine.hud;
 
+import java.awt.Rectangle;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -107,6 +108,18 @@ public class Chat implements IHudComponent, ITextInput {
 		if(currentText.length() != 0) {
 			currentText = currentText.substring(0, currentText.length()-1);
 		}
+	}
+
+	@Override
+	public Rectangle getBounds(GameContainer gc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void click(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
 	}
 }
 

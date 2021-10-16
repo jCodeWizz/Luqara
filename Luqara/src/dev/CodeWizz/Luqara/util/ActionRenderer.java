@@ -1,5 +1,7 @@
 package dev.CodeWizz.Luqara.util;
 
+import java.awt.Rectangle;
+
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Font;
@@ -39,5 +41,15 @@ public class ActionRenderer implements IHudComponent {
 			r.drawText(((IAction) target).getActionString(), (int)target.getX() + ((IAction) target).offsetX(), (int)target.getY() + ((IAction) target).offsetY(), 0xffffffff, true);
 			r.setFont(Font.DETAILED);
 		}
+	}
+
+	@Override
+	public Rectangle getBounds(GameContainer gc) {
+		return new Rectangle(-100, -100, 1, 1);
+	}
+
+	@Override
+	public void click(GameContainer gc) {
+		
 	}
 }

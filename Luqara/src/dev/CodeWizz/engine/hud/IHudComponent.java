@@ -1,5 +1,7 @@
 package dev.CodeWizz.engine.hud;
 
+import java.awt.Rectangle;
+
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 
@@ -7,5 +9,7 @@ public interface IHudComponent {
 
 	public void tick(GameContainer gc);
 	public void render(GameContainer gc, Renderer r);
+	public Rectangle getBounds(GameContainer gc);
+	public void click(GameContainer gc);
 	
 }

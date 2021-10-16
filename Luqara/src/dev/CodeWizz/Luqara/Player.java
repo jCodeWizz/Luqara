@@ -421,7 +421,7 @@ public class Player {
 				}
 
 				if (collided) {
-					if(velY > 1) {
+					if(velY > 5) {
 						damage(velY / 2, "fall damage");
 					}
 					velY = 0;
