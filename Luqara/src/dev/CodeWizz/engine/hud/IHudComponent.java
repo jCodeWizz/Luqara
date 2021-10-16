@@ -9,7 +9,7 @@ public interface IHudComponent {
 
 	public void tick(GameContainer gc);
 	public void render(GameContainer gc, Renderer r);
-	public Rectangle getBounds(GameContainer gc);
+	public Rectangle getBounds();
 	public void click(GameContainer gc);
 	
 }

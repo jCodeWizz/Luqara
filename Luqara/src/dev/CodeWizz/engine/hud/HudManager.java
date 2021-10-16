@@ -8,7 +8,7 @@ import dev.CodeWizz.engine.Renderer;
 
 public class HudManager {
 
-	public List<IHudComponent> comps = new CopyOnWriteArrayList<>();
+	public static List<IHudComponent> comps = new CopyOnWriteArrayList<>();
 	
 	
 	public void update(GameContainer gc) {

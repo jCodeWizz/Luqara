@@ -44,7 +44,7 @@ public class ActionRenderer implements IHudComponent {
 	}
 
 	@Override
-	public Rectangle getBounds(GameContainer gc) {
+	public Rectangle getBounds() {
 		return new Rectangle(-100, -100, 1, 1);
 	}
 

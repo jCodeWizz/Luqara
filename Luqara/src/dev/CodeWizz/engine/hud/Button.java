@@ -8,16 +8,16 @@ import dev.CodeWizz.engine.gfx.light.Light;
 
 public class Button implements IHudComponent {
 
-	private IButtonListener l;
 	private int x, y, w, h;
+	private String text;
 	
-	public Button(int x, int y, int w, int h, String text, IButtonListener l) {
-		this.l = l;
-		
+	public Button(int x, int y, int w, int h, String text) {
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
+		
+		this.text = text;
 	}
 	
 	@Override
@@ -27,16 +27,16 @@ public class Button implements IHudComponent {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-		r.drawRectUI(x, y, h, w, 0xff000000, Light.NONE);
+		r.drawRectUI(x, y, w, h, 0xff000000, Light.NONE);
 	}
 	
 	@Override
-	public Rectangle getBounds(GameContainer gc) {
+	public Rectangle getBounds() {
 		return new Rectangle(x, y, w, h);
 	}
 
 	@Override
 	public void click(GameContainer gc) {
-		l.click();
+
 	}
 }

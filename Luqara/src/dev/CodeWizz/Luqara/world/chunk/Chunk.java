@@ -30,7 +30,7 @@ import dev.CodeWizz.engine.util.WNoise;
 public class Chunk {
 
 	public Tile[][] tiles;
-	private List<GameObject> objects = new CopyOnWriteArrayList<>();
+	public List<GameObject> objects = new CopyOnWriteArrayList<>();
 	
 	private Image texture;
 
@@ -84,6 +84,9 @@ public class Chunk {
 			}
 		}
 		
+		for(GameObject object : gc.handler.object) {
+			object.setCanMove(true);
+		}
 		gc.handler.object.addAll(objects);
 	}
 	

@@ -408,6 +408,7 @@ public class Player {
 
 	private void collisionY() {
 		boolean collided = false;
+		Tile tile = null;
 
 		if (velY > 0) {
 			for (int i = 0; i < velY; i++) {
@@ -415,14 +416,19 @@ public class Player {
 					if (object.getId() == TileID.Solid) {
 						if (new Rectangle((int) x, (int) y + 1, (int) w, (int) h).intersects(object.getBounds())) {
 							collided = true;
+							tile = object;
 							continue;
 						}
 					}
 				}
 
 				if (collided) {
-					if(velY > 5) {
-						damage(velY / 2, "fall damage");
+					if(velY > 5 && tile != null) {
+						if(tile.getChunkY() != 0) {
+							if(tile.getChunk().tiles[tile.getChunkX()][tile.getChunkY()-1].getId() != TileID.Water) {
+								damage(velY / 2, "fall damage");
+							}
+						}
 					}
 					velY = 0;
 					falling = false;

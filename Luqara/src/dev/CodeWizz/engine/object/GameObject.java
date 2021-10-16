@@ -25,6 +25,7 @@ public abstract class GameObject {
 	protected ArrayList<ID> gameObjectCollisionID = new ArrayList<>();
 	protected ArrayList<TileID> tileCollisionID = new ArrayList<>();
 	protected ArrayList<String> tags = new ArrayList<>();
+	protected boolean canMove;
 
 	protected boolean hasGravity, hasCollision, isSlippery, isBouncy;
 
@@ -92,78 +93,80 @@ public abstract class GameObject {
 			hurt = false;
 		}
 		
-		if (hasGravity && (falling || jumping) && velY < maxVelY) {
-			velY += gravity;
-		}
+		if(canMove) {
+			if (hasGravity && (falling || jumping) && velY < maxVelY) {
+				velY += gravity;
+			}
 
-		if (!gameObjectCollisionID.isEmpty() && hasCollision) {
-			for (GameObject object : gc.handler.object) {
-				if (!object.equals(this) && gameObjectCollisionID.contains(object.id)) {
-					if(getBoundsBottom().intersects(object.getBounds())) {
-						velY = 0;
-						falling = false;
-						jumping = false;
-						y = object.getY() - h;
-						collided(gc, object);
-					} else {
-						falling = true;
-					}
-					
-					if(getBoundsTop().intersects(object.getBounds())) {
-						velY = 0;
-						falling = false;
-						jumping = false;
-						y = object.getY() + (int) object.getBounds().getHeight();
-						collided(gc, object);
+			if (!gameObjectCollisionID.isEmpty() && hasCollision) {
+				for (GameObject object : gc.handler.object) {
+					if (!object.equals(this) && gameObjectCollisionID.contains(object.id)) {
+						if(getBoundsBottom().intersects(object.getBounds())) {
+							velY = 0;
+							falling = false;
+							jumping = false;
+							y = object.getY() - h;
+							collided(gc, object);
+						} else {
+							falling = true;
+						}
+						
+						if(getBoundsTop().intersects(object.getBounds())) {
+							velY = 0;
+							falling = false;
+							jumping = false;
+							y = object.getY() + (int) object.getBounds().getHeight();
+							collided(gc, object);
 
-					}
-					
-					if(getBoundsLeft().intersects(object.getBounds())) {
-						velX = 0;
-						x = object.getX() + (int) object.getBounds().getWidth();
-						collided(gc, object);
-					}
-					
-					if(getBoundsRight().intersects(object.getBounds())) {
-						velX = 0;
-						x = object.getX() + w;
-						collided(gc, object);
+						}
+						
+						if(getBoundsLeft().intersects(object.getBounds())) {
+							velX = 0;
+							x = object.getX() + (int) object.getBounds().getWidth();
+							collided(gc, object);
+						}
+						
+						if(getBoundsRight().intersects(object.getBounds())) {
+							velX = 0;
+							x = object.getX() + w;
+							collided(gc, object);
+						}
 					}
 				}
 			}
-		}
-		
-		if(hasCollision && !tileCollisionID.isEmpty()) {
-			for(Tile tile : gc.handler.tile) {
-				if(tileCollisionID.contains(tile.getId())) {
-					if(getBoundsBottom().intersects(tile.getBounds())) {
-						velY = 0;
-						falling = false;
-						jumping = false;
-						y = tile.getY() - h;
-						collided(gc, tile);
-					} else {
-						falling = true;
-					}
-					
-					if(getBoundsTop().intersects(tile.getBounds())) {
-						velY = 0;
-						falling = false;
-						jumping = false;
-						y = tile.getY() + (int) tile.getBounds().getHeight();
-						collided(gc, tile);
-					}
-					
-					if(getBoundsLeft().intersects(tile.getBounds())) {
-						velX = 0;
-						x = tile.getX() + 16;
-						collided(gc, tile);
-					}
-					
-					if(getBoundsRight().intersects(tile.getBounds())) {
-						velX = 0;
-						x = tile.getX() - w;
-						collided(gc, tile);
+			
+			if(hasCollision && !tileCollisionID.isEmpty()) {
+				for(Tile tile : gc.handler.tile) {
+					if(tileCollisionID.contains(tile.getId())) {
+						if(getBoundsBottom().intersects(tile.getBounds())) {
+							velY = 0;
+							falling = false;
+							jumping = false;
+							y = tile.getY() - h;
+							collided(gc, tile);
+						} else {
+							falling = true;
+						}
+						
+						if(getBoundsTop().intersects(tile.getBounds())) {
+							velY = 0;
+							falling = false;
+							jumping = false;
+							y = tile.getY() + (int) tile.getBounds().getHeight();
+							collided(gc, tile);
+						}
+						
+						if(getBoundsLeft().intersects(tile.getBounds())) {
+							velX = 0;
+							x = tile.getX() + 16;
+							collided(gc, tile);
+						}
+						
+						if(getBoundsRight().intersects(tile.getBounds())) {
+							velX = 0;
+							x = tile.getX() - w;
+							collided(gc, tile);
+						}
 					}
 				}
 			}
@@ -364,5 +367,13 @@ public abstract class GameObject {
 
 	public boolean isHasCollision() {
 		return hasCollision;
+	}
+
+	public boolean canMove() {
+		return canMove;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
 	}
 }

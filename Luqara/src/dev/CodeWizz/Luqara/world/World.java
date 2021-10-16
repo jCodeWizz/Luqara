@@ -39,6 +39,8 @@ public class World {
 		chunks.add(new Chunk(gc, this, noise, type, -16 * 16, 0));
 		chunks.add(new Chunk(gc, this, noise, type, 0, 0));
 		chunks.add(new Chunk(gc, this, noise, type, 16 * 16, 0));
+		
+		
 	}
 
 	public void update(GameContainer gc) {
@@ -57,6 +59,10 @@ public class World {
 
 			if (chunk.isLoaded())
 				chunk.update(gc);
+		}
+		
+		for(GameObject object : gc.handler.object) {
+			object.setCanMove(object.getBounds().intersects(new Rectangle(gc.camera.getX(), gc.camera.getY(), gc.getWidth(), gc.getHeight())));
 		}
 		
 		if(counter < 60) {
