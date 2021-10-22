@@ -8,21 +8,31 @@ public class HUD {
 
 	public static Chat chat;
 	public static ActionRenderer ar;
-	public static Button button;
+	private GameContainer gc;
 	
 	
 	public HUD(GameContainer gc) {
 		chat = new Chat(gc, 0, gc.getHeight());
 		ar = new ActionRenderer();
-		button = new Button(0, 0, 100, 50, "LLL") {
+		
+		this.gc = gc;
+		
+		gc.gethMan().addComponent(ar);
+		gc.gethMan().addComponent(chat);
+		
+		addButton(new Button(0, 0, 100, 50, "Bro nice ****") {
 			@Override
 			public void click(GameContainer gc) {
 
 			}
-		};
-		
-		gc.gethMan().addComponent(ar);
-		gc.gethMan().addComponent(chat);
+		});
+	}
+	
+	public void addButton(Button button) {
 		gc.gethMan().addComponent(button);
+	}
+	
+	public void removeButton(Button button) {
+		gc.gethMan().removeComponent(button);
 	}
 }

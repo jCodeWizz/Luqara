@@ -112,8 +112,7 @@ public class Chat implements IHudComponent, ITextInput {
 
 	@Override
 	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+		return new Rectangle(-100, -100, 1, 1);
 	}
 
 	@Override

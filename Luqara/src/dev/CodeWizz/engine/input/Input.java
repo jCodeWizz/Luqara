@@ -3,6 +3,7 @@ package dev.CodeWizz.engine.input;
 import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.PointerInfo;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.engine.GameContainer;
+import dev.CodeWizz.engine.hud.HudManager;
+import dev.CodeWizz.engine.hud.IHudComponent;
 
 public class Input implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener {
 
@@ -49,6 +52,15 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 	public void update() {
 		scroll = 0;
 		
+		if(isButtonDown(1)) {
+			for(IHudComponent x : HudManager.comps) {
+				if(x.getBounds().intersects(new Rectangle(mouseX - gc.camera.getX(), mouseY - gc.camera.getY(), 1, 1))) {
+					x.click(gc);
+					continue;
+				}
+			}
+		}
+		
 		for(int i = 0; i < NUM_KEYS; i++) {
 			keysLast[i] = keys[i];
 		}
@@ -62,6 +74,8 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener, M
 		
 		mouseX = (int) (b.getX() / gc.getScale() + gc.camera.getX());
 		mouseY = (int) (b.getY() / gc.getScale() + gc.camera.getY());
+		
+		
 		
 		
 	}

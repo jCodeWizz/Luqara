@@ -28,6 +28,7 @@ public class Button implements IHudComponent {
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		r.drawRectUI(x, y, w, h, 0xff000000, Light.NONE);
+		r.drawText(text, x + w/2, y + h/2, 0xff000000, true);
 	}
 	
 	@Override
