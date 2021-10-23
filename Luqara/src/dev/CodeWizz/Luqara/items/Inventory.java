@@ -155,11 +155,7 @@ public abstract class Inventory {
 			}
 		}
 
-		if (a < amount) {
-			return false;
-		} else {
-			return true;
-		}
+		return (a >= amount);
 	}
 	
 	public boolean isOpen() {

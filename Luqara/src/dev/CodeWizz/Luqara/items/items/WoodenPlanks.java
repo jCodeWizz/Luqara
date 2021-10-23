@@ -3,32 +3,32 @@ package dev.CodeWizz.Luqara.items.items;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
-import dev.CodeWizz.Luqara.world.tiles.craftingStation;
+import dev.CodeWizz.Luqara.world.tiles.woodenPlanks;
 import dev.CodeWizz.engine.util.Textures;
 
-public class CraftingStation extends ItemStack implements ITilePlacable {
+public class WoodenPlanks extends ItemStack implements ITilePlacable {
 
 	private Tile tile;
 	
-	public CraftingStation(int size) {
+	public WoodenPlanks(int size) {
 		super(size);
 		
-		this.maxSize = 2;
+		this.maxSize = 12;
 		this.size = size;
 		
-		this.type = Type.CraftingStation;
+		this.type = Type.WoodenPlanks;
 		
-		this.icon = Textures.get("craftingstation");
+		this.icon = Textures.get("woodenplanks");
 		this.idleTexture = Textures.get("air");
 		this.runTexture = Textures.get("air");
 		
 		this.fromBlock = true;
 		
-		this.name = "Craftingstation";
-		this.group = "Item";
+		this.name = "Wooden Planks";
+		this.group = "Block";
 		this.lore = "";
 		
-		this.tile = new craftingStation(0, 0, 0, 0, null);
+		this.tile = new woodenPlanks(0, 0, 0, 0, null);
 		
 		this.serialData = "004";
 		

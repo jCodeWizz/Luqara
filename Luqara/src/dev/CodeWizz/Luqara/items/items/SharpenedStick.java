@@ -12,7 +12,7 @@ public class SharpenedStick extends Tool {
 		super(size);
 
 		this.maxSize = 1;
-		this.size = 1;
+		this.size = size;
 		this.durability = 1;
 		
 		this.type = Type.SharpenedStick;

@@ -14,7 +14,7 @@ public class CrateItem extends ItemStack implements ITilePlacable {
 		super(size);
 		
 		this.maxSize = 2;
-		this.size = 1;
+		this.size = size;
 		
 		this.type = Type.Crate;
 		

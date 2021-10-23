@@ -1,7 +1,6 @@
 package dev.CodeWizz.Luqara.items.inventories;
 
 import dev.CodeWizz.Luqara.items.Inventory;
-import dev.CodeWizz.Luqara.items.items.CrateItem;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.util.Textures;
@@ -37,9 +36,5 @@ public class CrateInventory extends Inventory {
 		super.open(gc);
 		gc.getPlayer().getInv().open(gc);
 		gc.getPlayer().getInv().setRenderInv(this);
-		
-		for(int i = 0; i < slots.length; i++) {
-			slots[i].setItem(new CrateItem(1));
-		}
 	}
 }

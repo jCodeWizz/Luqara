@@ -10,7 +10,7 @@ public class CutWood extends ItemStack{
 		super(size);
 		
 		this.maxSize = 10;
-		this.size = 1;
+		this.size = size;
 		
 		this.type = Type.CutWood;
 		

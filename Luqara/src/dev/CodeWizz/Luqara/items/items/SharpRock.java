@@ -8,7 +8,7 @@ public class SharpRock extends Tool {
 	public SharpRock(int size) {
 		super(size);
 		
-		this.size = 1;
+		this.size = size;
 		this.maxSize = 1;
 		this.durability = 10;
 		

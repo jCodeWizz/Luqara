@@ -10,7 +10,7 @@ public class Air extends ItemStack{
 		super(size);
 		
 		this.maxSize = 1;
-		this.size = 1;
+		this.size = size;
 		this.type = Type.Air;
 	
 		this.idleTexture = Textures.get("air");

@@ -12,7 +12,7 @@ public class TwigBasket extends ItemStack {
 	public TwigBasket(int size) {
 		super(size);
 		
-		this.size = 1;
+		this.size = size;
 		this.maxSize = 1;
 		
 		this.type = Type.TwigBasket;

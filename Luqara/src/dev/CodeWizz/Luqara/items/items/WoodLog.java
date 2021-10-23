@@ -10,7 +10,7 @@ public class WoodLog extends ItemStack{
 		super(size);
 		
 		this.maxSize = 5;
-		this.size = 1;
+		this.size = size;
 		
 		this.icon = Textures.get("woodlog");
 		

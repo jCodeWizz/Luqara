@@ -9,7 +9,7 @@ public class SmallRock extends ItemStack {
 	public SmallRock(int size) {
 		super(size);
 		
-		this.size = 1;
+		this.size = size;
 		this.maxSize = 4;
 		
 		this.type = Type.SmallRock;

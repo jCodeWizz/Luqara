@@ -7,8 +7,10 @@ import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.Player;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
+import dev.CodeWizz.Luqara.items.Recipe;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
+import dev.CodeWizz.Luqara.items.inventories.CraftingInventory;
 import dev.CodeWizz.Luqara.items.items.Air;
 import dev.CodeWizz.Luqara.items.items.ITilePlacable;
 import dev.CodeWizz.Luqara.objects.Cow;
@@ -18,6 +20,7 @@ import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.ITileEntity;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
+import dev.CodeWizz.Luqara.world.tiles.craftingStation;
 import dev.CodeWizz.Luqara.world.tiles.grassBlock;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.light.Light;
@@ -40,16 +43,18 @@ public class MouseInput {
 
 		int x = gc.getInput().getMouseX();
 		int y = gc.getInput().getMouseY();
+		
+		Rectangle rec = new Rectangle(x, y, 1, 1);
+		Rectangle uiRec = new Rectangle(x - gc.camera.getX(), y - gc.camera.getY(), 1, 1);
 
 		mouseSlot.setX(x - gc.camera.getX() - 24);
 		mouseSlot.setY(y - gc.camera.getY() - 24);
 
 		// IN GAME LOGIC
 		
-		
 		if(Player._ENABLED) {
 			for (Tile tile : gc.handler.tile) {
-				if (tile.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
+				if (tile.getBounds().intersects(rec)) {
 					mouseTile = tile;
 				}
 			}
@@ -65,6 +70,15 @@ public class MouseInput {
 			if (gc.getInput().isButtonDown(1)) {
 				if (gc.getPlayer().getInv().isOpen()) {
 					invClick(x - gc.camera.getX(), y - gc.camera.getY());
+					
+					if(craftingStation.inv.isOpen()) {
+						for(Recipe recipe : CraftingInventory.craftingRecipes) {
+							if(recipe.getBounds().intersects(uiRec)) {
+								recipe.click(gc);
+								
+							}
+						}
+					}
 				} else {
 
 					if (gc.getPlayer().getCurrentItem() instanceof ITilePlacable) {
@@ -87,7 +101,7 @@ public class MouseInput {
 
 					for (GameObject object : gc.handler.object) {
 						if (object.getId() == ID.Tree) {
-							if (object.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
+							if (object.getBounds().intersects(rec)) {
 								((Tree) object).hit(gc);
 							}
 						}
