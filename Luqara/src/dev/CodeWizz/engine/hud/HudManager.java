@@ -5,6 +5,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
+import dev.CodeWizz.engine.util.UIID;
 
 public class HudManager {
 
@@ -15,6 +16,7 @@ public class HudManager {
 		for(IHudComponent a : comps) {
 			a.tick(gc);
 		}
+		
 	}
 	
 	public void render(GameContainer gc, Renderer r) {
@@ -29,5 +31,17 @@ public class HudManager {
 	
 	public void removeComponent(IHudComponent a) {
 		comps.remove(a);
+	}
+	
+	public void clear() {
+		comps.clear();
+	}
+	
+	public void clear(UIID id) {
+		for(IHudComponent comp : comps) {
+			if(comp.getID() == id) {
+				comps.remove(comp);
+			}
+		}
 	}
 }

@@ -7,6 +7,7 @@ import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Font;
 import dev.CodeWizz.engine.hud.IHudComponent;
 import dev.CodeWizz.engine.object.GameObject;
+import dev.CodeWizz.engine.util.UIID;
 import dev.CodeWizz.engine.util.WMath;
 
 public class ActionRenderer implements IHudComponent {
@@ -51,5 +52,10 @@ public class ActionRenderer implements IHudComponent {
 	@Override
 	public void click(GameContainer gc) {
 		
+	}
+
+	@Override
+	public UIID getID() {
+		return UIID.ToolTip;
 	}
 }

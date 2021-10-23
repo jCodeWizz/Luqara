@@ -10,6 +10,7 @@ import dev.CodeWizz.engine.AbstractGame;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.light.Light;
+import dev.CodeWizz.engine.hud.Button;
 
 public class Luqara extends AbstractGame {
 
@@ -36,7 +37,22 @@ public class Luqara extends AbstractGame {
 		
 		HUD.chat.listeners.add(new CommandInput(gc));
 		
-		world = new World(gc, WorldType.Normal);
+		
+		hud.addButton(new Button(gc.getWidth()/2-75, gc.getHeight()/2-75, 150, 50, "Singleplayer") {
+			@Override
+			public void click(GameContainer gc) {
+				world = new World(gc, WorldType.Normal);
+				Player._ENABLED = true;
+				hud.clear(HUD.BUTTON);
+			}
+		});
+		
+		hud.addButton(new Button(gc.getWidth()/2-75, gc.getHeight()/2-25 + 50, 150, 50, "Quit") {
+			@Override
+			public void click(GameContainer gc) {
+				System.exit(0);
+			}
+		});
 	}
 	
 	@Override
@@ -44,7 +60,10 @@ public class Luqara extends AbstractGame {
 		player.update(gc);
 		minput.update(gc);
 		kinput.update(gc);
-		world.update(gc);
+		
+		if(world != null) {
+			world.update(gc);
+		}
 	}
 	
 	@Override
@@ -60,10 +79,12 @@ public class Luqara extends AbstractGame {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-		
-		world.render(gc, r);
+		 
+		if(world != null) {
+			world.render(gc, r);
+		}
 		player.render(gc, r);
-		
+		r.drawLight(MouseInput.light, gc.getInput().getMouseX(), gc.getInput().getMouseY(), true);
 		
 	}
 	

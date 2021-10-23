@@ -3,9 +3,13 @@ package dev.CodeWizz.Luqara.util;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.hud.Button;
 import dev.CodeWizz.engine.hud.Chat;
+import dev.CodeWizz.engine.util.UIID;
 
 public class HUD {
 
+	public static final int ALL = 0;
+	public static final int BUTTON = 1;
+	
 	public static Chat chat;
 	public static ActionRenderer ar;
 	private GameContainer gc;
@@ -19,13 +23,6 @@ public class HUD {
 		
 		gc.gethMan().addComponent(ar);
 		gc.gethMan().addComponent(chat);
-		
-		addButton(new Button(0, 0, 100, 50, "Bro nice ****") {
-			@Override
-			public void click(GameContainer gc) {
-
-			}
-		});
 	}
 	
 	public void addButton(Button button) {
@@ -34,5 +31,13 @@ public class HUD {
 	
 	public void removeButton(Button button) {
 		gc.gethMan().removeComponent(button);
+	}
+	
+	public void clear(int type) {
+		if(type == HUD.ALL) {
+			gc.gethMan().clear();
+		} else if(type == HUD.BUTTON) {
+			gc.gethMan().clear(UIID.Button);
+		}
 	}
 }

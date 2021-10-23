@@ -4,6 +4,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import dev.CodeWizz.Luqara.Luqara;
+import dev.CodeWizz.Luqara.Player;
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
@@ -19,6 +20,7 @@ import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.Luqara.world.tiles.grassBlock;
 import dev.CodeWizz.engine.GameContainer;
+import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.ID;
 
@@ -26,10 +28,12 @@ public class MouseInput {
 
 	public static Slot mouseSlot;
 	public static Tile mouseTile;
+	public static Light light;	
 	
 
 	public MouseInput() {
 		mouseSlot = new Slot(0, 0);
+		light = new Light(200, 0xfffcbf23);
 	}
 
 	public void update(GameContainer gc) {
@@ -40,52 +44,52 @@ public class MouseInput {
 		mouseSlot.setX(x - gc.camera.getX() - 24);
 		mouseSlot.setY(y - gc.camera.getY() - 24);
 
-		for (Tile tile : gc.handler.tile) {
-			if (tile.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
-				mouseTile = tile;
-			}
-		}
+		// IN GAME LOGIC
 		
-		if(gc.getInput().isButtonDown(1)) {
-			if(gc.getInput().isKey(KeyEvent.VK_SHIFT)) {
-				Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
-			} else if(gc.getInput().isKey(KeyEvent.VK_CONTROL)) {
-				gc.handler.addObject(new FallingTile(x - 8, y - 8, new grassBlock(0, 0, 0, 0, null)));
-			}
-		}
-
-		if (gc.getInput().isButtonDown(1)) {
-			if (gc.getPlayer().getInv().isOpen()) {
-				invClick(x - gc.camera.getX(), y - gc.camera.getY());
-			} else {
-
-				//
-				// Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
-
-				
-				
-				if (gc.getPlayer().getCurrentItem() instanceof ITilePlacable) {
-					if (mouseTile.getId() != TileID.Solid) {
-						((ITilePlacable) gc.getPlayer().getCurrentItem()).place(mouseTile);
-
-						if (gc.getPlayer().getCurrentItem().getSize() > 1) {
-							gc.getPlayer().getCurrentItem().setSize(gc.getPlayer().getCurrentItem().getSize() - 1);
-						} else {
-							gc.getPlayer().setCurrentItem(new Air(1));
-						}
-					}
-				} else if(mouseTile instanceof ITileEntity) {
-					if(!HUD.chat.isOpen() && !gc.getPlayer().isDoingAction()) {
-						((ITileEntity) mouseTile).click(gc);
-					}
-				} else {
-					gc.getPlayer().getCurrentItem().click(gc, x, y, true, gc.getPlayer().getCurrentItem());
+		
+		if(Player._ENABLED) {
+			for (Tile tile : gc.handler.tile) {
+				if (tile.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
+					mouseTile = tile;
 				}
+			}
+			
+			if(gc.getInput().isButtonDown(1)) {
+				if(gc.getInput().isKey(KeyEvent.VK_SHIFT)) {
+					Luqara.inst.getWorld().spawnEntity(gc, new Cow(x-16, y-16), false);
+				} else if(gc.getInput().isKey(KeyEvent.VK_CONTROL)) {
+					gc.handler.addObject(new FallingTile(x - 8, y - 8, new grassBlock(0, 0, 0, 0, null)));
+				}
+			}
 
-				for (GameObject object : gc.handler.object) {
-					if (object.getId() == ID.Tree) {
-						if (object.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
-							((Tree) object).hit(gc);
+			if (gc.getInput().isButtonDown(1)) {
+				if (gc.getPlayer().getInv().isOpen()) {
+					invClick(x - gc.camera.getX(), y - gc.camera.getY());
+				} else {
+
+					if (gc.getPlayer().getCurrentItem() instanceof ITilePlacable) {
+						if (mouseTile.getId() != TileID.Solid) {
+							((ITilePlacable) gc.getPlayer().getCurrentItem()).place(mouseTile);
+
+							if (gc.getPlayer().getCurrentItem().getSize() > 1) {
+								gc.getPlayer().getCurrentItem().setSize(gc.getPlayer().getCurrentItem().getSize() - 1);
+							} else {
+								gc.getPlayer().setCurrentItem(new Air(1));
+							}
+						}
+					} else if(mouseTile instanceof ITileEntity) {
+						if(!HUD.chat.isOpen() && !gc.getPlayer().isDoingAction()) {
+							((ITileEntity) mouseTile).click(gc);
+						}
+					} else {
+						gc.getPlayer().getCurrentItem().click(gc, x, y, true, gc.getPlayer().getCurrentItem());
+					}
+
+					for (GameObject object : gc.handler.object) {
+						if (object.getId() == ID.Tree) {
+							if (object.getBounds().intersects(new Rectangle(x, y, 1, 1))) {
+								((Tree) object).hit(gc);
+							}
 						}
 					}
 				}

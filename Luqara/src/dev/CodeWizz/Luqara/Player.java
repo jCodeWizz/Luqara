@@ -41,10 +41,9 @@ public class Player {
 	private float _dccj = 0.1f;
 	private final float maxMovementSpeed = 1.5f;
 	private boolean doingAction;
-	
-	
+
 	private int slot = 0;
-	
+
 	private int actionCounter = 0;
 
 	private boolean hitting = false;
@@ -59,12 +58,13 @@ public class Player {
 	private boolean jumping, falling;
 	private final int maxVelY = 15;
 	private float gravity = 0.2f;
-	
+
 	private int hitCounter = 30;
 
+	public static boolean _ENABLED = false;
 
 	private GameContainer gc;
-	
+
 	private float health;
 
 	public Player(GameContainer gc) {
@@ -90,63 +90,65 @@ public class Player {
 		inv.addItem(new SmallRock(1));
 		inv.addItem(new TwigBasket(1));
 		inv.addItem(new CraftingStation(1));
-		
+
 		this.health = 10;
 
 	}
 
 	public void update(GameContainer gc) {
+		if (_ENABLED) {
 
-		// GRAVITY
-		if (falling || jumping) {
-			velY += gravity;
-			if (velY > maxVelY) {
-				velY = maxVelY;
+			// GRAVITY
+			if (falling || jumping) {
+				velY += gravity;
+				if (velY > maxVelY) {
+					velY = maxVelY;
+				}
 			}
-		}
 
-		walkAnim.tick();
+			walkAnim.tick();
 
-		// MOVEMENT
-		velX();
+			// MOVEMENT
+			velX();
 
-		// COLLISION
-		collisionX();
-		collisionY();
+			// COLLISION
+			collisionX();
+			collisionY();
 
-		// ITEM CHECK
-		pickupItems();
+			// ITEM CHECK
+			pickupItems();
 
-		// JUMPING
-		if (gc.getInput().isKey(KeyEvent.VK_SPACE) && !jumping) {
-			jump();
-		}
-
-		// ITEM HITTING ANIMATION
-		if (hitting && getCurrentItem() instanceof Tool) {
-			((Tool) getCurrentItem()).getAttackAnim().tick();
-		}
-
-		if(getCurrentItem() instanceof Tool) {
-			if (((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().hasCycled()) {
-				hitting = false;
+			// JUMPING
+			if (gc.getInput().isKey(KeyEvent.VK_SPACE) && !jumping) {
+				jump();
 			}
-		}
-		
-		if(hitCounter > 0)
-			hitCounter--;
-		
-		if(doingAction) {
-			if(actionCounter < ((IAction) obj).getActionTime() * 60) {
-				actionCounter++;
-			} else {
-				actionCounter = 0;
-				doingAction = false;
-				endAction();
+
+			// ITEM HITTING ANIMATION
+			if (hitting && getCurrentItem() instanceof Tool) {
+				((Tool) getCurrentItem()).getAttackAnim().tick();
 			}
+
+			if(getCurrentItem() instanceof Tool) {
+				if (((Tool) inv.getCurrentSlot().getItem()).getAttackAnim().hasCycled()) {
+					hitting = false;
+				}
+			}
+			
+			if(hitCounter > 0)
+				hitCounter--;
+			
+			if(doingAction) {
+				if(actionCounter < ((IAction) obj).getActionTime() * 60) {
+					actionCounter++;
+				} else {
+					actionCounter = 0;
+					doingAction = false;
+					endAction();
+				}
+			}
+			velX = WMath.clamb(velX, 2.5f, -2.5f);
+			velY = WMath.clamb(velY, 10f, -10f);
 		}
-		velX = WMath.clamb(velX, 2.5f, -2.5f);
-		velY = WMath.clamb(velY, 10f, -10f);
 	}
 
 	private void pickupItems() {
@@ -168,91 +170,96 @@ public class Player {
 	}
 
 	public void renderUI(GameContainer gc, Renderer r) {
-		inv.render(gc, r);
+		if(_ENABLED) {
+			inv.render(gc, r);
+		}
 	}
-	
+
 	public void damage(float damage, String cause) {
-		if(hitCounter == 0) {
-			if(health - damage > 0) {
-				health-=damage;
+		if (hitCounter == 0) {
+			if (health - damage > 0) {
+				health -= damage;
 				hitCounter = 30;
 			} else {
 				die(cause);
 			}
 		}
 	}
-	
+
 	public void die(String deathMessage) {
-		
-		for(Slot slot : inv.getSlots()) {
-			if(slot.getItem().getType() != Type.Air) {
+
+		for (Slot slot : inv.getSlots()) {
+			if (slot.getItem().getType() != Type.Air) {
 				Item.add(new Item(x, y, slot.getItem()));
 			}
 		}
-		
-		if(inv.getCurrentSlot().getItem().getType() != Type.Air) {
+
+		if (inv.getCurrentSlot().getItem().getType() != Type.Air) {
 			Item.add(new Item(x, y, inv.getCurrentSlot().getItem()));
 		}
-		
-		if(inv.getWeaponSlot().getItem().getType() != Type.Air) {
+
+		if (inv.getWeaponSlot().getItem().getType() != Type.Air) {
 			Item.add(new Item(x, y, inv.getWeaponSlot().getItem()));
 		}
-		
-		if(inv.getToolSlot().getItem().getType() != Type.Air) {
+
+		if (inv.getToolSlot().getItem().getType() != Type.Air) {
 			Item.add(new Item(x, y, inv.getToolSlot().getItem()));
 		}
-		
-		if(inv.getHelmetSlot().getItem().getType() != Type.Air) {
+
+		if (inv.getHelmetSlot().getItem().getType() != Type.Air) {
 			Item.add(new Item(x, y, inv.getHelmetSlot().getItem()));
 		}
-		
-		if(inv.getArmourSlot().getItem().getType() != Type.Air) {
+
+		if (inv.getArmourSlot().getItem().getType() != Type.Air) {
 			Item.add(new Item(x, y, inv.getArmourSlot().getItem()));
 		}
-		
+
 		inv.clear();
 		this.health = 10;
 		this.x = 0;
 		this.y = 0;
-		
+
 		HUD.chat.sendMessage(deathMessage);
 	}
 
 	public void render(GameContainer gc, Renderer r) {
-		if(doingAction && obj != null) {
-			r.fillRect((int)obj.getX() + ((IAction) obj).offsetX() - 2, (int)obj.getY() + ((IAction) obj).offsetY() - 2, 20, 8, 0x64000000, Light.NONE);
-			r.drawRect((int)obj.getX() + ((IAction) obj).offsetX(), (int)obj.getY() + ((IAction) obj).offsetY(), 16, 4, 0xffff0000, Light.NONE);
-			r.fillRect((int)obj.getX() + ((IAction) obj).offsetX(), (int)obj.getY() + ((IAction) obj).offsetY(), (int)WMath.remap(actionCounter, 0, ((IAction) obj).getActionTime()*60, 0, 16), 4, 0xff00ff00, Light.NONE);
-		}
-
-		if(hitCounter % 2 == 0 || hitCounter == 0) {
-			if (velX != 0) {
-				r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
-			} else
-				r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
-			
-
-			if (getCurrentItem() instanceof Tool && !hitting) {
-				r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
-			} else if(!hitting) {
-				r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
+		if(_ENABLED) {
+			if (doingAction && obj != null) {
+				r.fillRect((int) obj.getX() + ((IAction) obj).offsetX() - 2,
+						(int) obj.getY() + ((IAction) obj).offsetY() - 2, 20, 8, 0x64000000, Light.NONE);
+				r.drawRect((int) obj.getX() + ((IAction) obj).offsetX(), (int) obj.getY() + ((IAction) obj).offsetY(), 16,
+						4, 0xffff0000, Light.NONE);
+				r.fillRect((int) obj.getX() + ((IAction) obj).offsetX(), (int) obj.getY() + ((IAction) obj).offsetY(),
+						(int) WMath.remap(actionCounter, 0, ((IAction) obj).getActionTime() * 60, 0, 16), 4, 0xff00ff00,
+						Light.NONE);
 			}
 
-			if(getCurrentItem() instanceof Tool && hitting) {
-				r.drawImage(((Tool)getCurrentItem()).getAttackAnim().getFrame(), (int)x - 24, (int)y - 8);
+			if (hitCounter % 2 == 0 || hitCounter == 0) {
+				if (velX != 0) {
+					r.drawImage(walkAnim.getFrame(), (int) x - 8, (int) y - 8);
+				} else
+					r.drawImage(Textures.get("playerIdle"), (int) x - 8, (int) y - 8);
+
+				if (getCurrentItem() instanceof Tool && !hitting) {
+					r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 24, (int) y - 8);
+				} else if (!hitting) {
+					r.drawImage(inv.getCurrentSlot().getItem().getIdleTexture(), (int) x - 8, (int) y - 8);
+				}
+
+				if (getCurrentItem() instanceof Tool && hitting) {
+					r.drawImage(((Tool) getCurrentItem()).getAttackAnim().getFrame(), (int) x - 24, (int) y - 8);
+				}
+			}
+
+			if (GameContainer._debug) {
+				r.drawRect(getBounds(), 0xffff0000);
 			}
 		}
-
-		
-		if (GameContainer._debug) {
-			r.drawRect(getBounds(), 0xffff0000);
-		}
-
 
 	}
 
 	private void jump() {
-		if(!doingAction) {
+		if (!doingAction) {
 			velY = -3;
 			if (!GameContainer._debug)
 				jumping = true;
@@ -260,7 +267,7 @@ public class Player {
 	}
 
 	public void startAction() {
-		if(obj == null) {
+		if (obj == null) {
 			float distance = Float.MAX_VALUE;
 
 			for (GameObject object : gc.handler.object) {
@@ -273,23 +280,21 @@ public class Player {
 				}
 			}
 
-			
-
 			if (obj != null) {
 				doingAction = true;
 				((IAction) obj).startAction(gc);
 			}
 		}
 	}
-	
+
 	public void endAction() {
 		((IAction) obj).endAction(gc);
 		doingAction = false;
 		obj = null;
 	}
-	
+
 	public void stopAction() {
-		
+
 	}
 
 	public ItemStack getCurrentItem() {
@@ -318,9 +323,7 @@ public class Player {
 			velX = 0;
 		}
 
-		
-		
-		if(!HUD.chat.isOpen() && !inv.isOpen() && !doingAction) {
+		if (!HUD.chat.isOpen() && !inv.isOpen() && !doingAction) {
 			if (jumping) {
 				if (gc.getInput().isKey(KeyEvent.VK_D)) {
 					if (!gc.getInput().isKey(KeyEvent.VK_A) && velX < maxMovementSpeed) {
@@ -423,9 +426,9 @@ public class Player {
 				}
 
 				if (collided) {
-					if(velY > 5 && tile != null) {
-						if(tile.getChunkY() != 0) {
-							if(tile.getChunk().tiles[tile.getChunkX()][tile.getChunkY()-1].getId() != TileID.Water) {
+					if (velY > 5 && tile != null) {
+						if (tile.getChunkY() != 0) {
+							if (tile.getChunk().tiles[tile.getChunkX()][tile.getChunkY() - 1].getId() != TileID.Water) {
 								damage(velY / 2, "fall damage");
 							}
 						}

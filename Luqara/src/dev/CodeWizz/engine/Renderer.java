@@ -17,12 +17,12 @@ public class Renderer {
 
 	private int pW, pH;
 
-	public int ambientColor = 0xffabccff;
+	public int ambientColor = 0xff3b414a;
 	private int dayColor = 0xffabccff;
 
 	private Font font;
 
-	// 0xff407dd6
+	// Color for lights: 0xff407dd6
 
 	// both colors = 0xff3b414a : very dark
 	// both colors = 0xffabccff : day light : 171, 204, 255!

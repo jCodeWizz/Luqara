@@ -8,6 +8,7 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.input.ITextInput;
+import dev.CodeWizz.engine.util.UIID;
 
 public class Chat implements IHudComponent, ITextInput {
 
@@ -119,6 +120,11 @@ public class Chat implements IHudComponent, ITextInput {
 	public void click(GameContainer gc) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public UIID getID() {
+		return UIID.Chat;
 	}
 }
 

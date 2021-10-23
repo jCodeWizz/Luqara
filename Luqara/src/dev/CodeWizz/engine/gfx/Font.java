@@ -33,6 +33,16 @@ public class Font {
 		}
 		
 	}
+	
+	public int getWidth(String text) {
+		int o = 0;
+		for(int i = 0; i < text.length(); i++) {
+			int unicode = text.codePointAt(i) - 32;
+			o += getWidths()[unicode];
+		}
+		
+		return o;
+	}
 
 	public Image getFontImage() {
 		return fontImage;
