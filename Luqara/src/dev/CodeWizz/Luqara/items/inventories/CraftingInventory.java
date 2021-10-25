@@ -5,34 +5,38 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.Recipe;
-import dev.CodeWizz.Luqara.items.items.SharpenedStick;
-import dev.CodeWizz.Luqara.items.items.SmallRock;
 import dev.CodeWizz.Luqara.items.items.WoodLog;
+import dev.CodeWizz.Luqara.items.items.WoodenPlanks;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
+import dev.CodeWizz.engine.util.Textures;
 
 public class CraftingInventory extends Inventory {
 
-	public static List<Recipe> craftingRecipes = new CopyOnWriteArrayList<>();
+	public static List<Recipe> r = new CopyOnWriteArrayList<>();
 	
-	public CraftingInventory(int size) {
+	public CraftingInventory(GameContainer gc, int size) {
 		super(size);
 
 		
 		// add twigs to this!
-		craftingRecipes.add(new Recipe(new SharpenedStick(1), new WoodLog(4), new SmallRock(1)));
+		r.add(new Recipe(new WoodenPlanks(4), "woodenplanks", new WoodLog(1)));
 		
 		
 		
+		for(int i = 0; i < r.size(); i++) {
+			Recipe recipe = r.get(i);
+			recipe.x = ((int) (gc.getWidth()/2- Textures.get("inventoryUI").getW()*1.5f))/2 - recipe.w/2;
+			recipe.y = i*(recipe.h + 10) + 10;
+			
+		}
 	}
 	
-	
-	
 	@Override
-	public void render(GameContainer gc, Renderer r) {
-		super.render(gc, r);
-		for(Recipe recipe : craftingRecipes) {
-			recipe.render(gc, r);
+	public void render(GameContainer gc, Renderer re) {
+		super.render(gc, re);
+		for(Recipe recipe : r) {
+			recipe.render(gc, re);
 		}
 	}
 	

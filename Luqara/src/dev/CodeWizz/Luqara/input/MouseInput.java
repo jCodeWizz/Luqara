@@ -72,7 +72,7 @@ public class MouseInput {
 					invClick(x - gc.camera.getX(), y - gc.camera.getY());
 					
 					if(craftingStation.inv.isOpen()) {
-						for(Recipe recipe : CraftingInventory.craftingRecipes) {
+						for(Recipe recipe : CraftingInventory.r) {
 							if(recipe.getBounds().intersects(uiRec)) {
 								recipe.click(gc);
 								

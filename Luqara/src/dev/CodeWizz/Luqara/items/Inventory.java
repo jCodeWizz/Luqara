@@ -56,6 +56,7 @@ public abstract class Inventory {
 			allSlots.remove(slot);
 		}
 	}
+	
 
 	public ItemStack setItem(ItemStack item, int slot) {
 		for (int i = 0; i < slots.length; i++) {

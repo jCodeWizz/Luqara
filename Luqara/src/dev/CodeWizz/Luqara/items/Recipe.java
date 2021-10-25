@@ -4,21 +4,23 @@ import java.awt.Rectangle;
 
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
-import dev.CodeWizz.engine.gfx.light.Light;
+import dev.CodeWizz.engine.util.Textures;
 
 public class Recipe {
 
 	public ItemStack result;
 	public ItemStack[] costs;
+	private String texture;
 	
-	private int x, y, w, h;
+	public int x, y, w, h;
 	
-	public Recipe(ItemStack result, ItemStack... costs) {
+	public Recipe(ItemStack result, String texture, ItemStack... costs) {
 		this.result = result;
 		this.costs = costs;
+		this.texture = texture;
 		
 		this.x = 10;
-		this.w = 100;
+		this.w = 250;
 		this.h = 50;
 	}
 	
@@ -40,7 +42,7 @@ public class Recipe {
 	}
 	
 	public void render(GameContainer gc, Renderer r) {
-		r.fillRectUI(x, y, w, h, 0xff000000, Light.NONE);
+		r.drawImageUI(Textures.get("recipe_" + texture), x, y, 2);
 	}
 	
 	public Rectangle getBounds() {

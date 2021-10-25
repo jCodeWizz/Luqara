@@ -1,7 +1,5 @@
 package dev.CodeWizz.Luqara.items;
 
-import java.lang.reflect.InvocationTargetException;
-
 import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.engine.GameContainer;
@@ -38,27 +36,6 @@ public abstract class ItemStack {
 	
 	public void rightClick(float f, float g, Tile tile) {}
 	public void tick() {}
-	
-	@Override
-	public ItemStack clone() {
-		try {
-			ItemStack b = getClass().getDeclaredConstructor().newInstance();
-			return b;
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 	
 	public boolean isUnstackable() {
 		return this.maxSize == 1;
@@ -107,7 +84,7 @@ public abstract class ItemStack {
 	public int getSize() {
 		return size;
 	}
-
+	
 	public void setSize(int size) {
 		if(size > 0) {
 			this.size = size;
