@@ -1,5 +1,6 @@
 package dev.CodeWizz.Luqara.util;
 
+import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.hud.Button;
@@ -33,6 +34,9 @@ public class HUD {
 	
 	public void render(GameContainer gc, Renderer r) {
 		if(_debug) {
+			r.drawText("World Name: " + Luqara.inst.getWorld().name + " - Date Created: " + Luqara.inst.getWorld().date, 1, 0);
+			
+			
 			
 		}
 	}

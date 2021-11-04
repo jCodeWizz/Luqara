@@ -41,7 +41,7 @@ public class Luqara extends AbstractGame {
 		hud.addButton(new Button(gc.getWidth()/2-75, gc.getHeight()/2-75, 150, 50, "Singleplayer") {
 			@Override
 			public void click(GameContainer gc) {
-				world = new World(gc, WorldType.Normal);
+				world = new World(gc, WorldType.Normal, "New World");
 				Player._ENABLED = true;
 				hud.clear(HUD.BUTTON);
 			}

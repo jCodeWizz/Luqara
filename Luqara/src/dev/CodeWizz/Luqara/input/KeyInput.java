@@ -69,6 +69,15 @@ public class KeyInput {
 				}
 			}
 			
+			// OPEN DEBUG SCREEN
+			
+			if(gc.getInput().isKeyDown(KeyEvent.VK_F3)) {
+				if(HUD._debug)
+					HUD._debug = false;
+				else
+					HUD._debug = true;
+			}
+			
 			// STARTING ACTION
 			
 			if(gc.getInput().isKeyDown(KeyEvent.VK_F)) {

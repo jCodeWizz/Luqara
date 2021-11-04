@@ -22,6 +22,12 @@ public class WDebug {
 		date = dateFormat.format(d);
 	}
 	
+	public static String getDate(String format) {
+		Date d = Calendar.getInstance().getTime();  
+        DateFormat da = new SimpleDateFormat(format);  
+        return da.format(d);
+	}
+	
 	
 	
 	

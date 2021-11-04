@@ -13,6 +13,7 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.IRandomTickable;
+import dev.CodeWizz.engine.util.WDebug;
 import dev.CodeWizz.engine.util.WNoise;
 
 public class World{
@@ -21,8 +22,10 @@ public class World{
 	public List<GameObject> passiveMobs = new CopyOnWriteArrayList<>();
 	public List<GameObject> agressiveMobs = new CopyOnWriteArrayList<>();
 	
+	private int passiveMobCap = 20;
+	private int agressiveMobCap = 10;
+	
 	public List<ChunkRequest> rs = new CopyOnWriteArrayList<>();
-
 	private static Thread chunkGenerationThread;
 	
 	
@@ -31,18 +34,20 @@ public class World{
 	private WorldType type;
 	private World world;
 	private int counter = 0;
-	
-	
 	public boolean isOpen;
 	
-	private int passiveMobCap = 20;
-	private int agressiveMobCap = 10;
+	public String name;
+	public String date;
+	
 
-	public World(GameContainer gc, WorldType type) {
+	public World(GameContainer gc, WorldType type, String name) {
 		this.type = type;
 		seed = new Random().nextGaussian();
 		noise = new WNoise(seed);
+		this.name = name;
 		world = this;
+		
+		this.date = WDebug.getDate("MM/dd/yyyy");
 
 		chunks.add(new Chunk(gc, this, noise, type, -16 * 16, 0, false));
 		chunks.add(new Chunk(gc, this, noise, type, 0, 0, false));
