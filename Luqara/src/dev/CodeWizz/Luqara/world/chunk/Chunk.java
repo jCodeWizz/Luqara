@@ -47,7 +47,7 @@ public class Chunk {
 	private WNoise noise;
 	private WorldType type;
 
-	public Chunk(GameContainer gc, World world, WNoise noise, WorldType type, int x, int y) {
+	public Chunk(GameContainer gc, World world, WNoise noise, WorldType type, int x, int y, boolean load) {
 		this.x = x;
 		this.y = y;
 		this.world = world;
@@ -63,6 +63,9 @@ public class Chunk {
 		}
 
 		updateChunk(gc);
+		
+		if(load)
+			load(gc);
 	}
 
 	public void render(GameContainer gc, Renderer r) {

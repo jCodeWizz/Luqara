@@ -8,24 +8,32 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
+import dev.CodeWizz.Luqara.world.chunk.ChunkRequest;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.IRandomTickable;
 import dev.CodeWizz.engine.util.WNoise;
 
-public class World {
+public class World{
 
 	public List<Chunk> chunks = new CopyOnWriteArrayList<>();
 	public List<GameObject> passiveMobs = new CopyOnWriteArrayList<>();
 	public List<GameObject> agressiveMobs = new CopyOnWriteArrayList<>();
+	
+	public List<ChunkRequest> rs = new CopyOnWriteArrayList<>();
 
-
+	private static Thread chunkGenerationThread;
+	
+	
 	public double seed = 0;
 	private WNoise noise;
 	private WorldType type;
 	private World world;
 	private int counter = 0;
+	
+	
+	public boolean isOpen;
 	
 	private int passiveMobCap = 20;
 	private int agressiveMobCap = 10;
@@ -36,11 +44,32 @@ public class World {
 		noise = new WNoise(seed);
 		world = this;
 
-		chunks.add(new Chunk(gc, this, noise, type, -16 * 16, 0));
-		chunks.add(new Chunk(gc, this, noise, type, 0, 0));
-		chunks.add(new Chunk(gc, this, noise, type, 16 * 16, 0));
+		chunks.add(new Chunk(gc, this, noise, type, -16 * 16, 0, false));
+		chunks.add(new Chunk(gc, this, noise, type, 0, 0, false));
+		chunks.add(new Chunk(gc, this, noise, type, 16 * 16, 0, false));
 		
+		isOpen = true;
 		
+		chunkGenerationThread = new Thread(new Runnable() {
+			public void run() {
+				while(isOpen) {
+					if(!rs.isEmpty()) {
+						for(ChunkRequest r : rs) {
+							chunks.add(new Chunk(r.gc, world, noise, type, r.x, r.y, true));
+							rs.remove(r);
+						}
+					}
+					
+					try {
+						Thread.sleep(1500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}, "chunk-gen-thread");
+		
+		chunkGenerationThread.start();
 	}
 
 	public void update(GameContainer gc) {
@@ -127,15 +156,7 @@ public class World {
 
 	public void addChunk(GameContainer gc, int x, int y) {
 
-        Thread thread = new Thread("Chunk-gen-x" + x + "y" + y) {
-        	@Override
-        	public void run() {
-        		chunks.add(new Chunk(gc, world, noise, type, x, y));
-        	}
-        };
-
-        thread.start();
-
+		rs.add(new ChunkRequest(gc, x, y));
 	}
 
 	public List<Chunk> getChunks() {
@@ -161,5 +182,4 @@ public class World {
 	public void setType(WorldType type) {
 		this.type = type;
 	}
-
 }

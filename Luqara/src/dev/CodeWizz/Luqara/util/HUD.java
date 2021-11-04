@@ -1,6 +1,7 @@
 package dev.CodeWizz.Luqara.util;
 
 import dev.CodeWizz.engine.GameContainer;
+import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.hud.Button;
 import dev.CodeWizz.engine.hud.Chat;
 import dev.CodeWizz.engine.util.UIID;
@@ -10,6 +11,7 @@ public class HUD {
 	public static final int ALL = 0;
 	public static final int BUTTON = 1;
 	
+	public static boolean debug;
 	public static Chat chat;
 	public static ActionRenderer ar;
 	private GameContainer gc;
@@ -23,6 +25,12 @@ public class HUD {
 		
 		gc.gethMan().addComponent(ar);
 		gc.gethMan().addComponent(chat);
+	}
+	
+	public void render(GameContainer gc, Renderer r) {
+		if(debug) {
+			
+		}
 	}
 	
 	public void addButton(Button button) {

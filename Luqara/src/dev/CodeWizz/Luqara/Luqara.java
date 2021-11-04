@@ -73,6 +73,7 @@ public class Luqara extends AbstractGame {
 		}
 		
 		player.renderUI(gc, r);
+		hud.render(gc, r);
 	}
 	
 	
