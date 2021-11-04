@@ -27,7 +27,6 @@ public class Textures {
 		
 		list.put("recipe_woodenplanks", new Image("/assets/textures/items/recipes/recipe_woodenplanks.png"));
 		
-		
 		list.put("berrybush0", new Image("/assets/textures/objects/berrybush/berrybush0.png"));
 		list.put("berrybush1", new Image("/assets/textures/objects/berrybush/berrybush1.png"));
 		list.put("berrybush2", new Image("/assets/textures/objects/berrybush/berrybush2.png"));

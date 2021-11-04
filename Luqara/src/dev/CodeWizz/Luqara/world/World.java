@@ -59,7 +59,6 @@ public class World{
 							rs.remove(r);
 						}
 					}
-					
 					try {
 						Thread.sleep(1500);
 					} catch (InterruptedException e) {
