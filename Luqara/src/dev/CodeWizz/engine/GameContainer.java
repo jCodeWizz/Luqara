@@ -15,6 +15,7 @@ import dev.CodeWizz.engine.object.Handler;
 import dev.CodeWizz.engine.util.NormalMaps;
 import dev.CodeWizz.engine.util.Sounds;
 import dev.CodeWizz.engine.util.Textures;
+import dev.CodeWizz.engine.util.WDebug;
 
 public class GameContainer implements Runnable {
 
@@ -27,6 +28,7 @@ public class GameContainer implements Runnable {
 	private Renderer renderer;
 	public AbstractGame game;
 	private HudManager hMan;
+	private WDebug d;
 	
 	public static GameContainer inst;
 
@@ -57,6 +59,7 @@ public class GameContainer implements Runnable {
 	}
 
 	public void start() {
+		d = new WDebug();
 		window = new Window(this);
 		loaderTime = 10;
 		renderer = new Renderer(this);
