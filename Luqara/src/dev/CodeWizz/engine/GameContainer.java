@@ -4,7 +4,6 @@ import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 
 import dev.CodeWizz.Luqara.Player;
 import dev.CodeWizz.engine.gfx.Camera;
@@ -19,16 +18,12 @@ import dev.CodeWizz.engine.util.WDebug;
 
 public class GameContainer implements Runnable {
 
-	public static boolean _debug = false;
-	public static boolean _hitboxes = false;
-
 	private Thread thread;
 	private Input input;
 	private Window window;
 	private Renderer renderer;
 	public AbstractGame game;
 	private HudManager hMan;
-	private WDebug d;
 	
 	public static GameContainer inst;
 
@@ -50,6 +45,7 @@ public class GameContainer implements Runnable {
 	private final String title = "Luqara Engine v0.0.0.0.1";
 
 	public GameContainer(AbstractGame game) {
+		
 		this.game = game;
 		inst = this;
 		
@@ -59,7 +55,7 @@ public class GameContainer implements Runnable {
 	}
 
 	public void start() {
-		d = new WDebug();
+		
 		window = new Window(this);
 		loaderTime = 10;
 		renderer = new Renderer(this);
@@ -96,12 +92,7 @@ public class GameContainer implements Runnable {
 	}
 	
 	public void update() {
-		if(input.isKeyDown(KeyEvent.VK_F3)) {
-			if(_debug) 
-				_debug = false;
-			else
-				_debug = true;
-		}
+
 	}
 
 	public void run() {
@@ -143,7 +134,7 @@ public class GameContainer implements Runnable {
 					frameTime = 0;
 					fps = frames;
 					frames = 0;
-					System.out.println("[ FPS ]: " + fps);
+					WDebug.log("[FPS]: " + fps);
 				}
 			}
 
@@ -176,29 +167,30 @@ public class GameContainer implements Runnable {
 	}
 	
 	public static void showInfo() {
+		WDebug.setupDate();
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		GraphicsDevice[] gs = ge.getScreenDevices();
 
-		System.out.println();
-		System.out.println("------------------------------------------------");
-		System.out.println();
+		WDebug.log("");
+		WDebug.log("------------------------------------------------");
+		WDebug.log("");
 		
 		for (int i = 0; i < gs.length; i++) {
 			DisplayMode dm = gs[i].getDisplayMode();
 			if(gs.length == 1) {
-				System.out.println("[System]: Screen Refreshrate = " + dm.getRefreshRate() + "Hz || Screen Resolution = " + dm.getWidth() + "x" + dm.getHeight());
+				WDebug.log("[System]: Screen Refreshrate = " + dm.getRefreshRate() + "Hz || Screen Resolution = " + dm.getWidth() + "x" + dm.getHeight());
 			} else {
-				System.out.println("[System]: Screen [" + (i+1) + "] Refreshrate = " + dm.getRefreshRate() + "Hz || Screen Resolution = " + dm.getWidth() + "x" + dm.getHeight());
+				WDebug.log("[System]: Screen [" + (i+1) + "] Refreshrate = " + dm.getRefreshRate() + "Hz || Screen Resolution = " + dm.getWidth() + "x" + dm.getHeight());
 			}
 		}
 		
-		System.out.println("[System]: Operating System: " + System.getProperty("os.name"));
-	 	System.out.println("[System]: Java Version: " + System.getProperty("java.version"));
-		System.out.println("[System]: Main Path = " + System.getProperty("sun.java.command") + ".java");
+		WDebug.log("[System]: Operating System: " + System.getProperty("os.name"));
+	 	WDebug.log("[System]: Java Version: " + System.getProperty("java.version"));
+		WDebug.log("[System]: Main Path = " + System.getProperty("sun.java.command") + ".java");
 		
-		System.out.println();
-		System.out.println("------------------------------------------------");
-		System.out.println();
+		WDebug.log("");
+		WDebug.log("------------------------------------------------");
+		WDebug.log("");
 	}
 	
 	public Renderer getRenderer() {

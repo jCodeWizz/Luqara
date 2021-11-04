@@ -61,6 +61,7 @@ public class Player {
 
 	private int hitCounter = 30;
 
+	public static boolean _flying = false;
 	public static boolean _ENABLED = false;
 
 	private GameContainer gc;
@@ -99,10 +100,12 @@ public class Player {
 		if (_ENABLED) {
 
 			// GRAVITY
-			if (falling || jumping) {
-				velY += gravity;
-				if (velY > maxVelY) {
-					velY = maxVelY;
+			if(!_flying) {
+				if (falling || jumping) {
+					velY += gravity;
+					if (velY > maxVelY) {
+						velY = maxVelY;
+					}
 				}
 			}
 
@@ -119,7 +122,7 @@ public class Player {
 			pickupItems();
 
 			// JUMPING
-			if (gc.getInput().isKey(KeyEvent.VK_SPACE) && !jumping) {
+			if (gc.getInput().isKey(KeyEvent.VK_SPACE) && (!jumping || _flying)) {
 				jump();
 			}
 
@@ -146,7 +149,7 @@ public class Player {
 					endAction();
 				}
 			}
-			velX = WMath.clamb(velX, 2.5f, -2.5f);
+			velX = WMath.clamb(velX, 15f, -15f);
 			velY = WMath.clamb(velY, 10f, -10f);
 		}
 	}
@@ -251,7 +254,7 @@ public class Player {
 				}
 			}
 
-			if (GameContainer._debug) {
+			if (HUD._hitboxes) {
 				r.drawRect(getBounds(), 0xffff0000);
 			}
 		}
@@ -260,9 +263,12 @@ public class Player {
 
 	private void jump() {
 		if (!doingAction) {
-			velY = -3;
-			if (!GameContainer._debug)
+			if(!_flying) {
+				velY = -3;
 				jumping = true;
+			} else {
+				
+			}
 		}
 	}
 

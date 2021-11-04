@@ -8,6 +8,7 @@ import java.util.Random;
 import dev.CodeWizz.Luqara.Luqara;
 import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.items.items.WoodLog;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.Image;
@@ -132,7 +133,7 @@ public class Tree extends GameObject {
 		r.drawImage(image1, (int) (x - 64 + shake), (int) y - (int) h + 16);
 		r.drawImage(image2, (int) (x - 64 + shake), (int) y - (int) h + 16);
 
-		if (GameContainer._debug)
+		if (HUD._hitboxes)
 			r.drawRect(getBounds(), 0xffff0000);
 	}
 

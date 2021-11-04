@@ -3,6 +3,7 @@ package dev.CodeWizz.Luqara.objects;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.engine.GameContainer;
@@ -113,7 +114,7 @@ public class Cow extends GameObject implements IRandomTickable{
 			}
 		}
 		
-		if(GameContainer._hitboxes) {
+		if(HUD._hitboxes) {
 			r.drawRect(getBounds(), 0xffff0000);
 		}
 	}

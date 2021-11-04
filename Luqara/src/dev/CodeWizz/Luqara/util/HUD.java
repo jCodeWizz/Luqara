@@ -11,10 +11,14 @@ public class HUD {
 	public static final int ALL = 0;
 	public static final int BUTTON = 1;
 	
-	public static boolean debug;
 	public static Chat chat;
 	public static ActionRenderer ar;
 	private GameContainer gc;
+	
+	public static boolean _hitboxes;
+	public static boolean _chunks;
+	public static boolean _debug;
+
 	
 	
 	public HUD(GameContainer gc) {
@@ -28,7 +32,7 @@ public class HUD {
 	}
 	
 	public void render(GameContainer gc, Renderer r) {
-		if(debug) {
+		if(_debug) {
 			
 		}
 	}

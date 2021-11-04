@@ -9,28 +9,27 @@ public class Sounds {
 	private static HashMap<String, SoundClip> list = new HashMap<>();
 
 	public void load() {
-		System.out.println("[System]: Loading sounds...");
+		WDebug.log("[System]: Loading sounds...");
 		
 		list.put("balrupsHit", new SoundClip("/assets/sounds/objects/balrups/hit.wav"));
 		list.put("treeHit", new SoundClip("/assets/sounds/objects/tree/hit.wav"));
 		list.put("itemPickup", new SoundClip("/assets/sounds/player/pickup.wav"));
 		
-		System.out.println("[System]: Loaded in " + list.size() + " sounds!");
-		System.out.println("[System]: Setting up volumes now!");
+		WDebug.log("[System]: Loaded in " + list.size() + " sounds!");
 		setupVolumes();
 	}
 	
 	public void setupVolumes() {
+		WDebug.log("[System]: Setting up volumes now!");
 		
-		
-		System.out.println("[System]: Set up volumes succesfully!");
+		WDebug.log("[System]: Set up volumes succesfully!");
 	}
 	
 	public static SoundClip get(String name) {
 		if(list.containsKey(name))
 			return list.get(name);
 		else {
-			System.out.println("[ERROR]: Sound requested for name: " + name + " but wasn't found!");
+			WDebug.log("[ERROR]: Sound requested for name: " + name + " but wasn't found!");
 			return null;
 		}
 	}

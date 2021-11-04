@@ -2,6 +2,7 @@ package dev.CodeWizz.Luqara.objects;
 
 import java.awt.Rectangle;
 
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.Luqara.world.tiles.TileID;
 import dev.CodeWizz.engine.GameContainer;
@@ -130,7 +131,8 @@ public class Balrups extends GameObject {
 			r.drawImage(flyAnim.getFrame(), (int)x, (int)y);
 		}
 		
-		if(GameContainer._debug) {
+		if(HUD._hitboxes) {
+			r.drawRect(getBounds(), 0xffff0000);
 			r.drawRect(new Rectangle((int) x + 8, (int) y, 1, 16 * 5), 0xffff0000);
 		}
 	}

@@ -18,7 +18,7 @@ public class Textures {
 	public static BufferedImage nest;
 	
 	public void load() {
-		System.out.println("[System]: Loading textures...");
+		WDebug.log("[System]: Loading textures...");
 		
 		leaves = getImage("/assets/textures/objects/tree/leaves.png");
 		log = getImage("/assets/textures/objects/tree/log.png");
@@ -106,14 +106,14 @@ public class Textures {
 		list.put("playerRun6", new Image("/assets/textures/player/romp6.png"));
 		
 		
-		System.out.println("[System]: Loaded in " + list.size() + " textures!");
+		WDebug.log("[System]: Loaded in " + list.size() + " textures!");
 	}
 	
 	public static Image get(String name) {
 		if(list.containsKey(name))
 			return list.get(name);
 		else {
-			System.out.println("[ERROR]: Texture requested for name: " + name + " but wasn't found!");
+			WDebug.log("[ERROR]: Texture requested for name: " + name + " but wasn't found!");
 			return null;
 		}
 	}

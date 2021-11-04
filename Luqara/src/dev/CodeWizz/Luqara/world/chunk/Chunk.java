@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.Luqara.objects.Rock;
 import dev.CodeWizz.Luqara.objects.Tree;
+import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.World;
 import dev.CodeWizz.Luqara.world.WorldType;
 import dev.CodeWizz.Luqara.world.tiles.ITileTickable;
@@ -71,10 +72,11 @@ public class Chunk {
 	public void render(GameContainer gc, Renderer r) {
 		r.drawImage(texture, x, y);
 
-		if (GameContainer._debug)
+		if (HUD._chunks) {
 			r.drawRect((int) x, y, tileW * 16, tileH * 16, 0xfffcec03, Light.NONE);
+		}
 	}
-
+	
 	public void load(GameContainer gc) {
 		loaded = true;
 		if (generated) {

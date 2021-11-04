@@ -8,15 +8,59 @@ import dev.CodeWizz.engine.GameContainer;
 
 public class KeyInput {
 
-	
 	public void update(GameContainer gc) {
 		Player p = gc.getPlayer();
 		
 		
-		// IN GAME LOGIC
+		// IN GAME 
 		
 		
 		if(Player._ENABLED) {
+		
+			// FLYING 
+			
+			if(Player._flying) {
+				
+				// KEY DOWN
+				
+				if(gc.getInput().isKeyDown(KeyEvent.VK_A)) {
+					gc.getPlayer().setVelX(-10);
+				}
+				
+				if(gc.getInput().isKeyDown(KeyEvent.VK_D)) {
+					gc.getPlayer().setVelX(10);
+				}
+				
+				if(gc.getInput().isKeyDown(KeyEvent.VK_W)) {
+					gc.getPlayer().setVelY(-5);
+				}
+				
+				if(gc.getInput().isKeyDown(KeyEvent.VK_S)) {
+					gc.getPlayer().setVelY(5);
+				}
+				
+				// KEY UP
+				
+				if(gc.getInput().isKeyUp(KeyEvent.VK_A)) {
+					gc.getPlayer().setVelX(0);
+				}
+				
+				if(gc.getInput().isKeyUp(KeyEvent.VK_D)) {
+					gc.getPlayer().setVelX(0);
+				}
+				
+				if(gc.getInput().isKeyUp(KeyEvent.VK_W)) {
+					gc.getPlayer().setVelY(0);
+				}
+				
+				if(gc.getInput().isKeyUp(KeyEvent.VK_S)) {
+					gc.getPlayer().setVelY(0);
+
+				}
+			}
+			
+			// OPEN INVENTORY 
+			
 			if(gc.getInput().isKeyDown(KeyEvent.VK_E) && !HUD.chat.isOpen() && !gc.getPlayer().isDoingAction()) {
 				if(p.getInv().isOpen()) {
 					p.getInv().close();
@@ -25,11 +69,15 @@ public class KeyInput {
 				}
 			}
 			
+			// STARTING ACTION
+			
 			if(gc.getInput().isKeyDown(KeyEvent.VK_F)) {
-				if(!p.getInv().isOpen()) {
+				if(!p.getInv().isOpen() && !HUD.chat.isOpen()) {
 					p.startAction();
 				}
 			}
+			
+			// OPEN CHAT
 			
 			if(gc.getInput().isKeyDown(KeyEvent.VK_T)) {
 				if(!p.getInv().isOpen() && !HUD.chat.isOpen()) {
@@ -38,12 +86,16 @@ public class KeyInput {
 				}
 			}
 			
+			// OPEN CHAT WITH COMMAND 
+			
 			if(gc.getInput().isKeyDown(KeyEvent.VK_SLASH)) {
 				if(!p.getInv().isOpen() && !HUD.chat.isOpen()) {
 					HUD.chat.setOpen(true);
 					HUD.chat.currentText = "/";
 				}
 			}
+			
+			// CLOSE INV/CHAT 
 			
 			if(gc.getInput().isKey(KeyEvent.VK_ESCAPE)) {
 				if(!p.getInv().isOpen()) {

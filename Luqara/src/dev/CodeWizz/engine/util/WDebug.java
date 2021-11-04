@@ -8,32 +8,41 @@ import java.util.Date;
 public class WDebug {
 
 	public static String date;
+	private static DateFormat dateFormat;
 	
 	
+	public static void setupDate() {
+		Date d = Calendar.getInstance().getTime();  
+        dateFormat = new SimpleDateFormat("hh:mm:ss");  
+        date = dateFormat.format(d);
+	}
 	
-	public WDebug() {
-		Date date = Calendar.getInstance().getTime();  
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm:ss");  
-        WDebug.date = dateFormat.format(date);
-        
-        System.out.println(WDebug.date);
+	public static void refreshDate() {
+		Date d = Calendar.getInstance().getTime();  
+		date = dateFormat.format(d);
 	}
 	
 	
+	
+	
 	public static void log(String text) {
+		refreshDate();
 		System.out.println("[" + date + "] " + text);
 	}
 
 	public static void log(int val) {
-
+		refreshDate();
+		System.out.println("[" + date + "] Value is: " + val);
 	}
 
 	public static void log(float val) {
-
+		refreshDate();
+		System.out.println("[" + date + "] Value is: " + val);
 	}
 
 	public static void log(boolean bool) {
-
+		refreshDate();
+		System.out.println("[" + date + "] Boolean is: " + bool);
 	}
 
 }
