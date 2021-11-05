@@ -12,7 +12,6 @@ import dev.CodeWizz.engine.gfx.ImageRequest;
 import dev.CodeWizz.engine.gfx.ImageTile;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.gfx.light.LightRequest;
-import dev.CodeWizz.engine.util.WDebug;
 
 public class Renderer {
 
@@ -424,8 +423,6 @@ public class Renderer {
 					| (int) ((p[i] & 0xff) * b));
 		}
 
-		WDebug.log(lightRequests.size());
-		
 		imageRequests.clear();
 		lightRequests.clear();
 		processing = false;

@@ -5,6 +5,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import dev.CodeWizz.Luqara.items.Inventory;
 import dev.CodeWizz.Luqara.items.Recipe;
+import dev.CodeWizz.Luqara.items.items.SharpenedStick;
+import dev.CodeWizz.Luqara.items.items.SmallRock;
 import dev.CodeWizz.Luqara.items.items.WoodLog;
 import dev.CodeWizz.Luqara.items.items.WoodenPlanks;
 import dev.CodeWizz.engine.GameContainer;
@@ -28,6 +30,7 @@ public class CraftingInventory extends Inventory {
 		
 		// add twigs to this!
 		r.add(new Recipe(new WoodenPlanks(4), "woodenplanks", new WoodLog(1)));
+		r.add(new Recipe(new SharpenedStick(1), "sharpenedstick", new WoodLog(4), new SmallRock(2)));
 
 		for (int i = 0; i < r.size(); i++) {
 			Recipe recipe = r.get(i);

@@ -26,6 +26,7 @@ public class Textures {
 		stump = getImage("/assets/textures/objects/tree/stump.png");
 		
 		list.put("recipe_woodenplanks", new Image("/assets/textures/items/recipes/recipe_woodenplanks.png"));
+		list.put("recipe_sharpenedstick", new Image("/assets/textures/items/recipes/recipe_sharpenedstick.png"));
 		
 		list.put("berrybush0", new Image("/assets/textures/objects/berrybush/berrybush0.png"));
 		list.put("berrybush1", new Image("/assets/textures/objects/berrybush/berrybush1.png"));
