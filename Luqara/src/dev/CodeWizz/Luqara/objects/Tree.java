@@ -69,7 +69,7 @@ public class Tree extends GameObject {
 	public void die(GameContainer gc) {
 
 		// spawn items
-		for (int i = 0; i < height; i++) {
+		for (int i = 0; i < height/2; i++) {
 			Item.add(new Item(x - 24 + r.nextInt(32) - 16, y - height * 16 - length * 4, new WoodLog(2)));
 		}
 

@@ -66,52 +66,40 @@ public abstract class Inventory {
 		return slots[slot].getItem();
 	}
 
-	public boolean addItem(ItemStack item) {
-
-		boolean invHasItem = false;
-
-		for (int i = 0; i < slots.length; i++) {
-			if (slots[i].getItem().getType() == item.getType()) {
-				if (slots[i].getItem().size < slots[i].getItem().maxSize) {
-					invHasItem = true;
+	public int addItem(ItemStack item) {
+		int leftover = item.size;
+		
+			boolean invHasItem = hasSpaceForItem(item.type);
+			
+			if (!invHasItem || item.isUnstackable() && !isFull()) {
+				for (Slot slot : slots) {
+					if (slot.getItem().getType() == Type.Air) {
+						slot.setItem(item);
+						return 0;
+					}
 				}
 			}
-		}
-
-		if (!invHasItem || item.isUnstackable()) {
-			for (int i = 0; i < slots.length; i++) {
-				if (slots[i].getItem().getType() == Type.Air) {
-
-					slots[i].setItem(item);
-					return true;
+			
+			for(Slot slot : slots) {
+				if(slot.getItem().getType() == item.type) {
+					if(slot.getItem().size + item.size <= item.maxSize) {
+						slot.getItem().setSize(slot.getItem().getSize() + item.size);
+						return 0;
+					}
 				}
 			}
-		}
-
-		for (int i = 0; i < slots.length; i++) {
-			if (slots[i].getItem().getType() == item.getType()) {
-				if (slots[i].getItem().getSize() + item.getSize() <= slots[i].getItem().getMaxSize()) {
-					slots[i].getItem().setSize(slots[i].getItem().getSize() + item.getSize());
-					return true;
+			
+			for(Slot slot : slots) {
+				if(slot.getItem().getType() == item.type && slot.getItem().getSize() < slot.getItem().getMaxSize()) {
+					int a = item.maxSize - slot.getItem().getSize();
+					slot.getItem().setSize(item.maxSize);
+					item.setSize(a);
+					return addItem(item);
+					
 				}
 			}
-		}
-
-		for (int i = 0; i < slots.length; i++) {
-
-			for (int j = 0; j < slots.length; j++) {
-				if (slots[j].getItem().getType() == Type.Air) {
-					slots[j].setItem(item);
-					int d = item.maxSize - slots[i].getItem().size;
-					slots[j].getItem().size = item.size - d;
-					slots[i].getItem().setSize(slots[i].getItem().getMaxSize());
-
-					return true;
-				}
-			}
-		}
-
-		return false;
+		
+		return leftover;
 	}
 
 	public boolean removeItem(Type type, int amount) {
@@ -157,6 +145,28 @@ public abstract class Inventory {
 		}
 
 		return (a >= amount);
+	}
+	
+	public boolean isFull() {
+		for (Slot slot : slots) {
+			if (slot.getItem().getType() == Type.Air) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+	
+	public boolean hasSpaceForItem(Type type) {
+		for (Slot slot : slots) {
+			if (slot.getItem().getType() == type) {
+				if(slot.getItem().size < slot.getItem().maxSize) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	public boolean isOpen() {

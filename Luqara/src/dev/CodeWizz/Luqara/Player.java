@@ -81,15 +81,7 @@ public class Player {
 
 		inv = new PlayerInventory(gc, 16);
 
-		inv.addItem(new WoodLog(1));
-		inv.addItem(new BasicAxe(1));
-		inv.addItem(new BasicPickaxe(1));
-		inv.addItem(new CrateItem(1));
-		inv.addItem(new CutWood(1));
-		inv.addItem(new SharpenedStick(1));
-		inv.addItem(new SharpRock(1));
-		inv.addItem(new SmallRock(1));
-		inv.addItem(new TwigBasket(1));
+		inv.addItem(new WoodLog(4));
 		inv.addItem(new CraftingStation(1));
 
 		this.health = 10;
@@ -157,7 +149,7 @@ public class Player {
 	private void pickupItems() {
 		for (Item item : Item.items) {
 			if (this.getBounds().intersects(item.getBounds()) && !item.onCooldown()) {
-				if (inv.addItem(item.getItems())) {
+				if (inv.addItem(item.getItems()) == 0) {
 					Item.remove(item);
 					Sounds.get("itemPickup").play();
 					return;
