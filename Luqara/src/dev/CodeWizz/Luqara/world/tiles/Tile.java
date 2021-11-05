@@ -5,12 +5,13 @@ import java.lang.reflect.InvocationTargetException;
 
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
 import dev.CodeWizz.engine.gfx.Image;
+import dev.CodeWizz.engine.gfx.light.Light;
 
 public abstract class Tile {
 
 	
 	protected boolean plantSpawnable;
-	protected int x, y, chunkX, chunkY;
+	protected int x, y, chunkX, chunkY, lightLevel;
 	protected TileID id;
 	protected Chunk chunk;
 	protected String name;
@@ -42,6 +43,10 @@ public abstract class Tile {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public Light getLight() {
 		return null;
 	}
 	
@@ -113,5 +118,13 @@ public abstract class Tile {
 
 	public void setChunkY(int chunkY) {
 		this.chunkY = chunkY;
+	}
+
+	public int getLightLevel() {
+		return lightLevel;
+	}
+
+	public void setLightLevel(int lightLevel) {
+		this.lightLevel = lightLevel;
 	}
 }

@@ -96,6 +96,7 @@ public class Textures {
 		list.put("water", new Image("/assets/textures/tiles/water.png"));
 		list.put("grass", new Image("/assets/textures/tiles/grass1.png"));
 		list.put("woodenplanks", new Image("/assets/textures/tiles/woodenplanks.png"));
+		list.put("ironbrazier", new Image("/assets/textures/tiles/ironbrazier.png"));
 		
 		list.put("playerIdle", new Image("/assets/textures/player/rompIdle.png"));
 		list.put("playerRun1", new Image("/assets/textures/player/romp1.png"));

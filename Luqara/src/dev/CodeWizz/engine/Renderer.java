@@ -12,6 +12,7 @@ import dev.CodeWizz.engine.gfx.ImageRequest;
 import dev.CodeWizz.engine.gfx.ImageTile;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.gfx.light.LightRequest;
+import dev.CodeWizz.engine.util.WDebug;
 
 public class Renderer {
 
@@ -291,9 +292,6 @@ public class Renderer {
 	}
 
 	public void drawLight(Light l, int x, int y, boolean force) {
-		x -= camX;
-		y -= camY;
-
 		if (force) {
 			lightRequests.add(new LightRequest(l, x, y));
 		} else if (lightRequests.size() < 10) {
@@ -301,7 +299,9 @@ public class Renderer {
 		}
 	}
 
-	private void drawLightRequest(Light l, int offX, int offY) {
+	public void drawLightRequest(Light l, int offX, int offY) {
+		offX -= camX;
+		offY -= camY;
 
 		for (int i = 0; i < l.getDiameter(); i++) {
 			drawLightLine(l, l.getRadius(), l.getRadius(), i, 0, offX, offY);
@@ -424,6 +424,8 @@ public class Renderer {
 					| (int) ((p[i] & 0xff) * b));
 		}
 
+		WDebug.log(lightRequests.size());
+		
 		imageRequests.clear();
 		lightRequests.clear();
 		processing = false;

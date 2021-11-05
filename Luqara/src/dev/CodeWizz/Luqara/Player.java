@@ -8,16 +8,9 @@ import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.inventories.PlayerInventory;
-import dev.CodeWizz.Luqara.items.items.BasicAxe;
-import dev.CodeWizz.Luqara.items.items.BasicPickaxe;
 import dev.CodeWizz.Luqara.items.items.CraftingStation;
-import dev.CodeWizz.Luqara.items.items.CrateItem;
-import dev.CodeWizz.Luqara.items.items.CutWood;
-import dev.CodeWizz.Luqara.items.items.SharpRock;
-import dev.CodeWizz.Luqara.items.items.SharpenedStick;
-import dev.CodeWizz.Luqara.items.items.SmallRock;
+import dev.CodeWizz.Luqara.items.items.IronBrazier;
 import dev.CodeWizz.Luqara.items.items.Tool;
-import dev.CodeWizz.Luqara.items.items.TwigBasket;
 import dev.CodeWizz.Luqara.items.items.WoodLog;
 import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.util.IAction;
@@ -67,6 +60,8 @@ public class Player {
 	private GameContainer gc;
 
 	private float health;
+	
+	private Light light;
 
 	public Player(GameContainer gc) {
 		this.gc = gc;
@@ -83,9 +78,11 @@ public class Player {
 
 		inv.addItem(new WoodLog(4));
 		inv.addItem(new CraftingStation(1));
+		inv.addItem(new IronBrazier(5));
 
 		this.health = 10;
 
+		light = new Light(50, 0xfffcbf23);
 	}
 
 	public void update(GameContainer gc) {
@@ -249,8 +246,10 @@ public class Player {
 			if (HUD._hitboxes) {
 				r.drawRect(getBounds(), 0xffff0000);
 			}
+			
+			r.drawLight(light, (int)x, (int)y,  false);
 		}
-
+		
 	}
 
 	private void jump() {

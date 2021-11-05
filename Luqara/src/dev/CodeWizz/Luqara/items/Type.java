@@ -13,6 +13,7 @@ public enum Type {
 	CraftingStation(),
 	BasicAxe(),
 	SharpRock(),
+	IronBrazier(),
 	Crate(),
 	SmallRock(),
 	SharpenedStick();

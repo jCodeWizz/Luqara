@@ -9,8 +9,10 @@ import dev.CodeWizz.Luqara.items.Item;
 import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.world.chunk.Chunk;
 import dev.CodeWizz.Luqara.world.chunk.ChunkRequest;
+import dev.CodeWizz.Luqara.world.tiles.Tile;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
+import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.object.GameObject;
 import dev.CodeWizz.engine.object.IRandomTickable;
 import dev.CodeWizz.engine.util.WDebug;
@@ -123,6 +125,12 @@ public class World{
 		for (Chunk chunk : chunks) {
 			if (chunk.isLoaded()) {
 				chunk.render(gc, r);
+			}
+		}
+		
+		for(Tile tile : gc.handler.tile) {
+			if(tile.getLightLevel() > 0) {
+				r.drawLightRequest(new Light(10 * tile.getLightLevel(), 0xfffcbf23), tile.getX()+8, tile.getY()+8);
 			}
 		}
 

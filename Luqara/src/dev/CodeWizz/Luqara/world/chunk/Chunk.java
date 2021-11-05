@@ -75,6 +75,7 @@ public class Chunk {
 		if (HUD._chunks) {
 			r.drawRect((int) x, y, tileW * 16, tileH * 16, 0xfffcec03, Light.NONE);
 		}
+		
 	}
 	
 	public void load(GameContainer gc) {

@@ -1,10 +1,7 @@
 package dev.CodeWizz.engine.util;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
-
-import javax.imageio.ImageIO;
 
 import dev.CodeWizz.engine.gfx.Image;
 
@@ -32,15 +29,4 @@ public class Textures {
 		}
 	}
 	
-	private BufferedImage getImage(String path) {
-		BufferedImage image = null;
-		
-		try {
-			image = ImageIO.read(getClass().getResource(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return image;
-	}
 }
