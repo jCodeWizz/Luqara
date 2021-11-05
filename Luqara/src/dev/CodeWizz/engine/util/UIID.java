@@ -4,5 +4,6 @@ public enum UIID {
 
 	Button(),
 	Chat(),
+	Slider(),
 	ToolTip();
 }

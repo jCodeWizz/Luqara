@@ -126,6 +126,12 @@ public class Chat implements IHudComponent, ITextInput {
 	public UIID getID() {
 		return UIID.Chat;
 	}
+
+	@Override
+	public void declick(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 class Line {

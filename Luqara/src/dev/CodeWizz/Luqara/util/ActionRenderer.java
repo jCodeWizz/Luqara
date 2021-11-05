@@ -58,4 +58,10 @@ public class ActionRenderer implements IHudComponent {
 	public UIID getID() {
 		return UIID.ToolTip;
 	}
+
+	@Override
+	public void declick(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -11,6 +11,9 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.hud.Button;
+import dev.CodeWizz.engine.hud.ISliderListener;
+import dev.CodeWizz.engine.hud.Slider;
+import dev.CodeWizz.engine.util.WDebug;
 
 public class Luqara extends AbstractGame {
 
@@ -36,8 +39,7 @@ public class Luqara extends AbstractGame {
 		hud = new HUD(gc);
 		
 		HUD.chat.listeners.add(new CommandInput(gc));
-		
-		
+
 		hud.addButton(new Button(gc.getWidth()/2-75, gc.getHeight()/2-75, 150, 50, "Singleplayer") {
 			@Override
 			public void click(GameContainer gc) {
@@ -70,6 +72,10 @@ public class Luqara extends AbstractGame {
 	public void renderUI(GameContainer gc, Renderer r) {
 		if(MouseInput.mouseTile != null) {
 			r.fillRect(MouseInput.mouseTile.getX(), MouseInput.mouseTile.getY(), 15, 15, 0x64000000, Light.NONE);
+		}
+		
+		if(!Player._ENABLED) {
+			r.fillRectUI(0, 0, gc.getWidth(), gc.getHeight(), 0xff61e8ae, Light.NONE);
 		}
 		
 		player.renderUI(gc, r);

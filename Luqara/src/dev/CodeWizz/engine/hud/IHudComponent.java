@@ -13,5 +13,6 @@ public interface IHudComponent {
 	public void render(GameContainer gc, Renderer r);
 	public Rectangle getBounds();
 	public void click(GameContainer gc);
+	public void declick(GameContainer gc);
 	
 }

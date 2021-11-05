@@ -5,6 +5,7 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.hud.Button;
 import dev.CodeWizz.engine.hud.Chat;
+import dev.CodeWizz.engine.hud.IHudComponent;
 import dev.CodeWizz.engine.util.UIID;
 
 public class HUD {
@@ -35,9 +36,6 @@ public class HUD {
 	public void render(GameContainer gc, Renderer r) {
 		if(_debug) {
 			r.drawText("World Name: " + Luqara.inst.getWorld().name + " - Date Created: " + Luqara.inst.getWorld().date, 1, 0);
-			
-			
-			
 		}
 	}
 	
@@ -46,6 +44,14 @@ public class HUD {
 	}
 	
 	public void removeButton(Button button) {
+		gc.gethMan().removeComponent(button);
+	}
+	
+	public void addComp(IHudComponent button) {
+		gc.gethMan().addComponent(button);
+	}
+	
+	public void removeComp(IHudComponent button) {
 		gc.gethMan().removeComponent(button);
 	}
 	

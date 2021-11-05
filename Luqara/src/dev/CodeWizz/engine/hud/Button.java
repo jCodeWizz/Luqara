@@ -48,4 +48,10 @@ public class Button implements IHudComponent {
 	public UIID getID() {
 		return UIID.Button;
 	}
+
+	@Override
+	public void declick(GameContainer gc) {
+		// TODO Auto-generated method stub
+		
+	}
 }

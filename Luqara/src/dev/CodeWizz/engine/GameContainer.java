@@ -145,8 +145,9 @@ public class GameContainer implements Runnable {
 				
 				renderer.process();
 				
-				hMan.render(this, renderer);
+				
 				game.renderUI(this, renderer);
+				hMan.render(this, renderer);
 
 				if(loaderTime < 100) {
 					renderer.fillRect(0, 0, width, height, 0xffccffff, Light.NONE);
