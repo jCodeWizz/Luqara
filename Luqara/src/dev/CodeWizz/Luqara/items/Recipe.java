@@ -2,6 +2,7 @@ package dev.CodeWizz.Luqara.items;
 
 import java.awt.Rectangle;
 
+import dev.CodeWizz.Luqara.items.inventories.CraftingInventory;
 import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.util.Textures;
@@ -37,6 +38,8 @@ public class Recipe {
 		}
 		
 		gc.getPlayer().getInv().addItem(result);
+		
+		CraftingInventory.setupRecipes(gc);
 		
 		return;
 	}

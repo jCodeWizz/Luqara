@@ -80,7 +80,6 @@ public class Luqara extends AbstractGame {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-		 
 		if(world != null) {
 			world.render(gc, r);
 		}
