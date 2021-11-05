@@ -61,8 +61,6 @@ public class Player {
 
 	private float health;
 	
-	private Light light;
-
 	public Player(GameContainer gc) {
 		this.gc = gc;
 
@@ -82,7 +80,6 @@ public class Player {
 
 		this.health = 10;
 
-		light = new Light(50, 0xfffcbf23);
 	}
 
 	public void update(GameContainer gc) {
@@ -246,10 +243,7 @@ public class Player {
 			if (HUD._hitboxes) {
 				r.drawRect(getBounds(), 0xffff0000);
 			}
-			
-			r.drawLight(light, (int)x, (int)y,  false);
 		}
-		
 	}
 
 	private void jump() {

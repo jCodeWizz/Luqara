@@ -11,9 +11,6 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.hud.Button;
-import dev.CodeWizz.engine.hud.ISliderListener;
-import dev.CodeWizz.engine.hud.Slider;
-import dev.CodeWizz.engine.util.WDebug;
 
 public class Luqara extends AbstractGame {
 
