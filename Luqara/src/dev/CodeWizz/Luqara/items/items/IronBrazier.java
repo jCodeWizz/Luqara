@@ -44,7 +44,7 @@ public class IronBrazier extends ItemStack implements ITilePlacable {
 		
 		
 		tile.getChunk().placeTile(this.tile);
-		
+		this.tile = new ironBrazier(0, 0, 0, 0, null);
 		
 		return true;
 	}

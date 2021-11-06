@@ -35,7 +35,7 @@ public class HUD {
 	
 	public void render(GameContainer gc, Renderer r) {
 		if(_debug) {
-			r.drawText("World Name: " + Luqara.inst.getWorld().name + " - Date Created: " + Luqara.inst.getWorld().date, 1, 0);
+			r.drawText("World Name: " + Luqara.inst.getWorld().name + " - Date Created: " + Luqara.inst.getWorld().date + " - Seed: " + Luqara.inst.getWorld().getSeed(), 1, 0);
 		}
 	}
 	

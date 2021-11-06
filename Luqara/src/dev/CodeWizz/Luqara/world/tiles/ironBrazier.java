@@ -12,7 +12,7 @@ public class ironBrazier extends Tile {
 	public ironBrazier(int x, int y, int cx, int cy, Chunk chunk) {
 		super(x, y, cx, cy, chunk);
 		
-		id = TileID.Solid;
+		id = TileID.Background;
 		this.name = "ironbrazier";
 		this.lightLevel = 5;
 		light = new Light(50, 0xfffcbf23);

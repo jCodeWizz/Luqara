@@ -44,7 +44,7 @@ public class CraftingStation extends ItemStack implements ITilePlacable {
 		
 		
 		tile.getChunk().placeTile(this.tile);
-		
+		this.tile = new craftingStation(0, 0, 0, 0, null);
 		
 		return true;
 	}

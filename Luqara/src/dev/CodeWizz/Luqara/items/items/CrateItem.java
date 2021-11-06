@@ -44,7 +44,7 @@ public class CrateItem extends ItemStack implements ITilePlacable {
 		
 		
 		tile.getChunk().placeTile(this.tile);
-		
+		this.tile = new crate(0, 0, 0, 0, null);
 		
 		return true;
 	}

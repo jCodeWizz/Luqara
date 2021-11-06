@@ -31,7 +31,6 @@ public class WoodenPlanks extends ItemStack implements ITilePlacable {
 		this.tile = new woodenPlanks(0, 0, 0, 0, null);
 		
 		this.serialData = "004";
-		
 	}
 
 	@Override
@@ -44,7 +43,7 @@ public class WoodenPlanks extends ItemStack implements ITilePlacable {
 		
 		
 		tile.getChunk().placeTile(this.tile);
-		
+		this.tile = new woodenPlanks(0, 0, 0, 0, null);
 		
 		return true;
 	}
