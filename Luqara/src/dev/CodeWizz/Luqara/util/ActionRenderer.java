@@ -37,7 +37,7 @@ public class ActionRenderer implements IHudComponent {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-		if(target != null && !gc.getPlayer().isDoingAction()) {
+		if(target != null && !gc.getPlayer().isDoingAction() && !gc.getPlayer().getInv().isOpen()) {
 			r.setFont(Font.STANDARD);
 			r.drawText(((IAction) target).getActionString(), (int)target.getX() + ((IAction) target).offsetX(), (int)target.getY() + ((IAction) target).offsetY(), 0xffffffff, true);
 			r.setFont(Font.DETAILED);
