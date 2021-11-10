@@ -87,8 +87,10 @@ public class Luqara extends AbstractGame {
 			world.render(gc, r);
 		}
 		player.render(gc, r);
-		r.drawLight(MouseInput.light, gc.getInput().getMouseX(), gc.getInput().getMouseY(), true);
 		
+		if(gc.getInput().isButton(1)) {
+			r.drawLight(MouseInput.light, gc.getInput().getMouseX(), gc.getInput().getMouseY(), true);
+		}
 	}
 	
 	public static void main(String[] args) {
