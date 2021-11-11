@@ -21,7 +21,7 @@ public class DropDown implements IHudComponent {
 		options = new String[ao];
 		this.listener = listener;
 		
-		fw = 16 + options.length*10;
+		fw = 16 + options.length*16;
 	}
 	
 	
@@ -37,12 +37,16 @@ public class DropDown implements IHudComponent {
 
 	@Override
 	public void render(GameContainer gc, Renderer r) {
-			r.fillRectUI(x, y, w, 16, 0xff005f55, Light.NONE);
 		if(open) {
+			r.fillRectUI(x, y, w, 16, 0xff868f8d, Light.NONE);
+			r.drawRectUI(x, y, w, 16, 0xff000000, Light.NONE);
 			for(int i = 0; i < options.length; i++) {
-				r.fillRectUI(x, y + i*10 + 16, w, 10, 0xffff0000, Light.NONE);
-				r.drawRectUI(x, y + i*10 + 16, w, 10, 0xff000000, Light.NONE);
+				r.fillRectUI(x, y + i*16 + 16, w, 16, 0xffffffff, Light.NONE);
+				r.drawRectUI(x, y + i*16 + 16, w, 16, 0xff000000, Light.NONE);
 			}
+		} else {
+			r.fillRectUI(x, y, w, 16, 0xffffffff, Light.NONE);
+			r.drawRectUI(x, y, w, 16, 0xff000000, Light.NONE);
 		}
 	}
 
@@ -62,7 +66,7 @@ public class DropDown implements IHudComponent {
 			justOpened = true;
 		} else {
 			for(int i = 0; i < options.length; i++) {
-				if(new Rectangle(gc.getInput().getMouseX() - gc.camera.getX(), gc.getInput().getMouseY() - gc.camera.getY(), 1, 1).intersects(new Rectangle(x, y + i*10 + 16, w, 10))) {
+				if(new Rectangle(gc.getInput().getMouseX() - gc.camera.getX(), gc.getInput().getMouseY() - gc.camera.getY(), 1, 1).intersects(new Rectangle(x, y + i*16 + 16, w, 10))) {
 					selectedOption = i;
 					listener.onDropDownSet(selectedOption, options[selectedOption]);
 					continue;

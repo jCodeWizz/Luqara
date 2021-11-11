@@ -117,21 +117,17 @@ public class Chunk {
 	}
 	
 	private void generateRock(GameContainer gc, int[] y) {
-		boolean placed = false;
+		int justPlaced = 0;
 		for(int i = 0; i < y.length; i++) {
-			double data = noise.noise((i*16 + x) * 10);
-			
-			
-			if(data > 0.15 && y[i] < waterLevel && !placed && tiles[i][y[i]].isPlantSpawnable() && i < 14) {
-				placed = true;
+			double data = noise.noise((i*16 + x) * 50);
+
+			if(data > 0.1 && y[i] < waterLevel && tiles[i][y[i]].isPlantSpawnable() && i < 14) {
 				
-				if(tiles[i+1][y[i+1]].isPlantSpawnable() && tiles[i+2][y[i+2]].isPlantSpawnable()) {
+				if(tiles[i+1][y[i]].isPlantSpawnable() && tiles[i+2][y[i]].isPlantSpawnable() && justPlaced < i) {
 					gc.handler.addObject(new Rock(i*16 + x, y[i]*16 - 16 + this.y));
+					justPlaced = i;
 				}
-			} else if(data <= 0.15f) {
-				placed = false;
 			}
-			
 		}
 	}
 

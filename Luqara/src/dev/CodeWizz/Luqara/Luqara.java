@@ -11,8 +11,12 @@ import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.Renderer;
 import dev.CodeWizz.engine.gfx.light.Light;
 import dev.CodeWizz.engine.hud.Button;
+import dev.CodeWizz.engine.hud.DropDown;
+import dev.CodeWizz.engine.hud.IDropDownListener;
+import dev.CodeWizz.engine.hud.ISliderListener;
+import dev.CodeWizz.engine.hud.Slider;
 
-public class Luqara extends AbstractGame {
+public class Luqara extends AbstractGame implements IDropDownListener, ISliderListener{
 
 	
 	public static Luqara inst;
@@ -42,7 +46,7 @@ public class Luqara extends AbstractGame {
 			public void click(GameContainer gc) {
 				world = new World(gc, WorldType.Normal, "New World");
 				Player._ENABLED = true;
-				hud.clear(HUD.BUTTON);
+				hud.clear(HUD.ALL);
 			}
 		});
 		
@@ -52,7 +56,9 @@ public class Luqara extends AbstractGame {
 				System.exit(0);
 			}
 		});
-
+		
+		hud.addComp(new DropDown(10, 10, 96, 5, this));
+		hud.addComp(new Slider(10, 100, 100, this));
 	}
 	
 	@Override
@@ -114,5 +120,20 @@ public class Luqara extends AbstractGame {
 
 	public void setMinput(MouseInput minput) {
 		this.minput = minput;
+	}
+
+	@Override
+	public void onDropDownSet(int i, String string) {
+		
+	}
+
+	@Override
+	public void onSliderSet(float value) {
+		
+	}
+
+	@Override
+	public void onSliderMove(float value) {
+		
 	}
 }

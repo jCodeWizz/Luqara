@@ -46,6 +46,7 @@ public class Slider implements IHudComponent {
 	@Override
 	public void render(GameContainer gc, Renderer r) {
 		r.fillRectUI(x, y, w, 5, 0xffffffff, Light.NONE);
+		r.fillRectUI(x, y, (int)value-9, 5, 0xff868f8d, Light.NONE);
 		r.drawRectUI(x, y, w, 5, 0xff000000, Light.NONE);
 		r.fillRectUI((int) (value-1), y-1, 3, 7, 0xff000000, Light.NONE);
 	}
