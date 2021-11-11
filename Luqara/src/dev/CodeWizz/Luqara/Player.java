@@ -8,10 +8,9 @@ import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Slot;
 import dev.CodeWizz.Luqara.items.Type;
 import dev.CodeWizz.Luqara.items.inventories.PlayerInventory;
+import dev.CodeWizz.Luqara.items.items.BasicAxe;
 import dev.CodeWizz.Luqara.items.items.CraftingStation;
-import dev.CodeWizz.Luqara.items.items.IronBrazier;
 import dev.CodeWizz.Luqara.items.items.Tool;
-import dev.CodeWizz.Luqara.items.items.WoodLog;
 import dev.CodeWizz.Luqara.util.HUD;
 import dev.CodeWizz.Luqara.util.IAction;
 import dev.CodeWizz.Luqara.world.tiles.Tile;
@@ -74,9 +73,8 @@ public class Player {
 
 		inv = new PlayerInventory(gc, 16);
 
-		inv.addItem(new WoodLog(4));
 		inv.addItem(new CraftingStation(1));
-		inv.addItem(new IronBrazier(5));
+		inv.addItem(new BasicAxe(1));
 
 		this.health = 10;
 

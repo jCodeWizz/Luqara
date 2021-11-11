@@ -1,13 +1,13 @@
 package dev.CodeWizz.Luqara.items.items;
 
+import dev.CodeWizz.Luqara.items.ItemStack;
 import dev.CodeWizz.Luqara.items.Type;
+import dev.CodeWizz.engine.GameContainer;
 import dev.CodeWizz.engine.gfx.Animation;
 import dev.CodeWizz.engine.util.Textures;
 
 public class BasicAxe extends Tool {
 
-	private int counter = 0;
-	
 	public BasicAxe(int size) {
 		super(size);
 
@@ -31,16 +31,9 @@ public class BasicAxe extends Tool {
 	}
 	
 	@Override
-	public void tick() {
-		if(attacking) {
-			if(counter < 4*9)
-				counter++;
-			else {
-				counter = 0;
-				attacking = false;
-			}
-		}
-		super.tick();
+	public void click(GameContainer gc, int x, int y, boolean wasLeftClick, ItemStack item) {
+		if(wasLeftClick && !gc.getPlayer().isHitting())
+			attack(gc, x, y);
 	}
 	
 }
