@@ -5,5 +5,6 @@ public enum UIID {
 	Button(),
 	Chat(),
 	Slider(),
+	DropDown(),
 	ToolTip();
 }

@@ -52,6 +52,7 @@ public class Luqara extends AbstractGame {
 				System.exit(0);
 			}
 		});
+
 	}
 	
 	@Override
