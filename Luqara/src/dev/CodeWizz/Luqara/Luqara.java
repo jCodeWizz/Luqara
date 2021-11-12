@@ -57,7 +57,7 @@ public class Luqara extends AbstractGame implements IDropDownListener, ISliderLi
 			}
 		});
 		
-		hud.addComp(new DropDown(10, 10, 96, 5, this));
+		hud.addComp(new DropDown(10, 10, 96, 4, this, "Oh ", "This ", "Doesn't ", "Work "));
 		hud.addComp(new Slider(10, 100, 100, this));
 	}
 	

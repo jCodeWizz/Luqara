@@ -57,7 +57,9 @@ public class HUD {
 	
 	public void clear(int type) {
 		if(type == HUD.ALL) {
-			gc.gethMan().clear();
+			gc.gethMan().clear(UIID.Button);
+			gc.gethMan().clear(UIID.DropDown);
+			gc.gethMan().clear(UIID.Slider);
 		} else if(type == HUD.BUTTON) {
 			gc.gethMan().clear(UIID.Button);
 		}
